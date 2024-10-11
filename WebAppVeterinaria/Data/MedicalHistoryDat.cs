@@ -56,7 +56,7 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spInsertHistoriaClinicaPorFecha"; //nombre del proce dimiento almacenado 
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_fecha", MySqlDbTy.Int32).Value = _date;
+            objSelectCmd.Parameters.Add("p_fecha", MySqlDbTy.Date).Value = _date;
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();

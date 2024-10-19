@@ -17,7 +17,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spSelectDiagnosticos"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spSelectDiagnosis"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objAdapter.SelectCommand = objSelectCmd;
             objAdapter.Fill(objData);
@@ -33,11 +33,11 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertarDiagnostico"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spInsertDiagnosis"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_clasificacion", MySqlDbType.VarString).Value = _clasificacion;
-            objSelectCmd.Parameters.Add("p_cod", MySqlDbType.VarString).Value = _codigo;
-            objSelectCmd.Parameters.Add("p_anam_id", MySqlDbType.Int32).Value = _anamnesisId;
+            objSelectCmd.Parameters.Add("p_diag_clasificacion", MySqlDbType.VarString).Value = _clasificacion;
+            objSelectCmd.Parameters.Add("p_diag_cod", MySqlDbType.VarString).Value = _codigo;
+            objSelectCmd.Parameters.Add("p_tbl_anamnesis_anam_id", MySqlDbType.Int32).Value = _anamnesisId;
 
             try
             {
@@ -63,12 +63,12 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateDiagnostico"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spUpdateDiagnosis"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_diag_id", MySqlDbType.Int32).Value = _id;
-            objSelectCmd.Parameters.Add("p_clasificacion", MySqlDbType.VarString).Value = _clasificacion;
-            objSelectCmd.Parameters.Add("p_cod", MySqlDbType.VarString).Value = _codigo;
-            objSelectCmd.Parameters.Add("p_anam_id", MySqlDbType.Int32).Value = _anamnesisId;
+            objSelectCmd.Parameters.Add("p_diag_clasificacion", MySqlDbType.VarString).Value = _clasificacion;
+            objSelectCmd.Parameters.Add("p_diag_cod", MySqlDbType.VarString).Value = _codigo;
+            objSelectCmd.Parameters.Add("p_tbl_anamnesis_anam_id", MySqlDbType.Int32).Value = _anamnesisId;
 
             try
             {
@@ -94,7 +94,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteDiagnostico"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spDeleteDiagnosis"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_diag_id", MySqlDbType.Int32).Value = _id;
 
@@ -113,6 +113,36 @@ namespace Data
             objPer.closeConnection();
             return executed;
         }
-    }
+
+        public DataSet showDatesFilterbyAnimalAndRangeDate(int _idDiagnoses)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectDiagnosisId";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("p_diag_id", MySqlDbType.Int32).Value = _idDiagnoses;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public DataSet showDiagnosesDLL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectDiagnosisDLL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+      
     }
 }

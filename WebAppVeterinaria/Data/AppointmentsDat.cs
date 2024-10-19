@@ -8,57 +8,6 @@ namespace Data
     public class AppointmentsDat
     {
         Persistence objPer = new Persistence();
-        public DataSet showDatesFilterbyAnimal(int _idAnimal, DateTime _startDate,
-            DateTime _finalDate)
-        {
-            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
-            DataSet objData = new DataSet();
-            MySqlCommand objSelectCmd = new MySqlCommand();
-            objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spSelectHistoriaClinicaAnimal";
-            objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objAdapter.SelectCommand = objSelectCmd;
-            objSelectCmd.Parameters.Add("p_anim_id", MySqlDbType.Int32).Value = _idAnimal;
-            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
-            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
-            objAdapter.Fill(objData);
-            objPer.closeConnection();
-            return objData;
-        }
-
-        public DataSet showDatesFilterbyVeterinarian(string _documentNumber, DateTime _startDate,
-            DateTime _finalDate)
-        {
-            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
-            DataSet objData = new DataSet();
-            MySqlCommand objSelectCmd = new MySqlCommand();
-            objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spSelectCitasVeterinarioRangoFechas";
-            objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objAdapter.SelectCommand = objSelectCmd;
-            objSelectCmd.Parameters.Add("p_veterinario_documento", MySqlDbType.VarString).Value = _documentNumber;
-            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
-            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
-            objAdapter.Fill(objData);
-            objPer.closeConnection();
-            return objData;
-        }
-
-        public DataSet showDatesFilterbyDate(DateTime _startDate, DateTime _finalDate)
-        {
-            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
-            DataSet objData = new DataSet();
-            MySqlCommand objSelectCmd = new MySqlCommand();
-            objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spSelectCitasRangoFechas";
-            objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objAdapter.SelectCommand = objSelectCmd;
-            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
-            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
-            objAdapter.Fill(objData);
-            objPer.closeConnection();
-            return objData;
-        }
 
         public bool saveDate(int _animalId, string _documentNumberVeterinarian,
             DateTime _date, DateTime _startHour, DateTime _finalHour)
@@ -119,6 +68,102 @@ namespace Data
             }
             objPer.closeConnection();
             return executed;
-        }        
+        }
+
+        public DataSet showDatesFilterbyDate(DateTime _startDate, DateTime _finalDate)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCitasRangoFechas";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
+            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public DataSet showDatesFilterbyVeterinarian(string _documentNumber, DateTime _startDate,
+            DateTime _finalDate)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCitasVeterinarioRangoFechas";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("p_veterinario_documento", MySqlDbType.VarString).Value = _documentNumber;
+            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
+            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public DataSet showDatesFilterbyAnimalAndRangeDate(int _idAnimal, DateTime _startDate,
+            DateTime _finalDate)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCitasAnimalRangoFechas";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("p_animal_id", MySqlDbType.Int32).Value = _idAnimal;
+            objSelectCmd.Parameters.Add("p_fecha_inicio", MySqlDbType.Date).Value = _startDate;
+            objSelectCmd.Parameters.Add("p_fecha_fin", MySqlDbType.Date).Value = _finalDate;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public DataSet showCitasAll()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCitasAll";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public bool deleteDate(int _id)
+        {
+            bool executed = false;
+            int row;
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spDeleteCita"; //nombre del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objSelectCmd.Parameters.Add("p_cit_id", MySqlDbType.Int32).Value = _id;
+
+            try
+            {
+                row = objSelectCmd.ExecuteNonQuery();
+                if (row == 1)
+                {
+                    executed = true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error " + e.ToString());
+            }
+            objPer.closeConnection();
+            return executed;
+
+        }
+
     }
 }

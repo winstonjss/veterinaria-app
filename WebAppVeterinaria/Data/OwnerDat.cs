@@ -46,6 +46,23 @@ namespace Data
         }
 
 
+        //METODO PARA MOSTRAR UNICAMENTE EL ID Y LA DESCRIPCION
+        public DataSet showOwnerDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectOwnerDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+
         //METODO PARA GUARDAR UN NUEVO PROPIETARIO
         public bool saveOwner(string _name, string _phone, int _fkUsers)
         {

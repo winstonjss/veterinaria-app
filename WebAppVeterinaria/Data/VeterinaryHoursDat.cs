@@ -47,7 +47,7 @@ namespace Data
 
 
         //METODO PARA GUARDAR UN NUEVO HORARIO DEL VETERINARIO
-        public bool saveVeterinaryHours(DateTime _date, TimeSpan _start_time, TimeSpan _final_time, int _fkVeterinarian)
+        public bool saveVeterinaryHours(DateTime _start_date, DateTime _end_date, TimeSpan _start_time, TimeSpan _final_time, int _fkVeterinarian)
         {
             // Se inicializa una variable para indicar si la operación se ejecutó correctamente.
             bool executed = false;
@@ -60,7 +60,8 @@ namespace Data
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
             // Se agregan parámetros al comando para pasar los valores de los horarios del veterinario.
-            objSelectCmd.Parameters.Add("p_date", MySqlDbType.Date).Value = _date;
+            objSelectCmd.Parameters.Add("p_start_date", MySqlDbType.Date).Value = _start_date;
+            objSelectCmd.Parameters.Add("p_end_date", MySqlDbType.Date).Value = _end_date;
             objSelectCmd.Parameters.Add("p_start_time", MySqlDbType.Time).Value = _start_time;
             objSelectCmd.Parameters.Add("p_final_time", MySqlDbType.Time).Value = _final_time;
             objSelectCmd.Parameters.Add("p_fkveterinarian", MySqlDbType.Int32).Value = _fkVeterinarian;
@@ -88,7 +89,7 @@ namespace Data
 
 
         //METODO PARA ACTUALIZAR UN HORARIO DEL VETERINARIO
-        public bool updateVeterinaryHours(int _hor_vet_id, DateTime _date, TimeSpan _start_time, TimeSpan _final_time, int _fkVeterinarian)
+        public bool updateVeterinaryHours(int _hor_vet_id, DateTime _start_date, DateTime _end_date, TimeSpan _start_time, TimeSpan _final_time, int _fkVeterinarian)
         {
             bool executed = false;
             int row;
@@ -100,7 +101,8 @@ namespace Data
 
             // Se agregan parámetros al comando para pasar los valores de los horarios del veterinario.
             objSelectCmd.Parameters.Add("p_hor_vet_id", MySqlDbType.Int32).Value = _hor_vet_id;
-            objSelectCmd.Parameters.Add("p_date", MySqlDbType.Date).Value = _date;
+            objSelectCmd.Parameters.Add("p_start_date", MySqlDbType.Date).Value = _start_date;
+            objSelectCmd.Parameters.Add("p_end_date", MySqlDbType.Date).Value = _end_date;
             objSelectCmd.Parameters.Add("p_start_time", MySqlDbType.Time).Value = _start_time;
             objSelectCmd.Parameters.Add("p_final_time", MySqlDbType.Time).Value = _final_time;
             objSelectCmd.Parameters.Add("p_fkveterinarian", MySqlDbType.Int32).Value = _fkVeterinarian;

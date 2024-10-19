@@ -26,6 +26,22 @@ namespace Data
             return objData;
         }
 
+        //Metodo para mostrar todos los Consultorios
+        public DataSet showOfficeDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectOfficeDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         //Metodo para guardar un consultorio
         public bool saveOffice(string _num_consultorio)
         {

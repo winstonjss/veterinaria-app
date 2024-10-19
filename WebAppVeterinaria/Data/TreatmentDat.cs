@@ -17,7 +17,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spSelectTratamiento"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spSelectTreatmentId"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objAdapter.SelectCommand = objSelectCmd;
             objSelectCmd.Parameters.Add("p_trat_id", MySqlDbType.Int32).Value = _idTreatment;
@@ -34,7 +34,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertTratamiento"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spInsertTreatment"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_trat_nombre", MySqlDbType.VarString).Value = _nombre;
             objSelectCmd.Parameters.Add("p_trat_descripcion", MySqlDbType.Text).Value = _descripcion;
@@ -66,9 +66,9 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateTratamiento"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spUpdateTreatment"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = _id;
+            objSelectCmd.Parameters.Add("p_trat_id", MySqlDbType.Int32).Value = _id;
             objSelectCmd.Parameters.Add("p_trat_nombre", MySqlDbType.VarString).Value = _nombre;
             objSelectCmd.Parameters.Add("p_trat_descripcion", MySqlDbType.Text).Value = _descripcion;
             objSelectCmd.Parameters.Add("p_trat_fecha_inicio", MySqlDbType.Date).Value = _fechaInicio;
@@ -99,7 +99,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteTratamiento"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spDeleteTreatment"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_trat_id", MySqlDbType.Int32).Value = _id;
 
@@ -118,5 +118,20 @@ namespace Data
             objPer.closeConnection();
             return executed;
         }
+        public DataSet showTreatmentALL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectTreatment";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
     }
 }

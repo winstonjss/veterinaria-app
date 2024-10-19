@@ -33,7 +33,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertVacuna"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spInsertVaccine"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_vac_nombre", MySqlDbType.VarString).Value = _nombre;
             objSelectCmd.Parameters.Add("p_vac_tipo", MySqlDbType.VarString).Value = _tipo;
@@ -64,7 +64,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateVacuna"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spUpdateVaccine"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_vac_id", MySqlDbType.Int32).Value = _id;
             objSelectCmd.Parameters.Add("p_vac_nombre", MySqlDbType.VarString).Value = _nombre;
@@ -96,7 +96,7 @@ namespace Data
 
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteVacuna"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandText = "spDeleteVaccine"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_vac_id", MySqlDbType.Int32).Value = _id;
 
@@ -114,6 +114,36 @@ namespace Data
             }
             objPer.closeConnection();
             return executed;
+        }
+
+        public DataSet showVaccinesById(int _idVacciness)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectVaccineId";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("p_vac_id", MySqlDbType.Int32).Value = _idVacciness;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+        public DataSet showVaccinessALL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectVaccine";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
         }
     }
 }

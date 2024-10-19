@@ -46,8 +46,25 @@ namespace Data
         }
 
 
+        //METODO PARA MOSTRAR UNICAMENTE EL ID Y LA DESCRIPCION  -  (ES NECESARIO EL DDL PORQUE LA TABLA TIENE LLAVE FORANEA)
+        public DataSet showAnimalsDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectAnimalsDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+
         //METODO PARA GUARDAR UN NUEVO ANIMAL
-        public bool saveAnimals(string _name, string _species, string _race, DateTime _date_birth, string _sex, double _weight, string _color, int _fkOwner)
+        public bool saveAnimals(string _name, string _species, string _race, DateTime _date_birth, string _sex, float _weight, string _color, int _fkOwner)
         {
             // Se inicializa una variable para indicar si la operación se ejecutó correctamente.
             bool executed = false;
@@ -65,7 +82,7 @@ namespace Data
             objSelectCmd.Parameters.Add("p_race", MySqlDbType.VarString).Value = _race;
             objSelectCmd.Parameters.Add("p_date_birth", MySqlDbType.Date).Value = _date_birth;
             objSelectCmd.Parameters.Add("p_sex", MySqlDbType.VarString).Value = _sex;
-            objSelectCmd.Parameters.Add("p_weight", MySqlDbType.Double).Value = _weight;
+            objSelectCmd.Parameters.Add("p_weight", MySqlDbType.Float).Value = _weight;
             objSelectCmd.Parameters.Add("p_color", MySqlDbType.VarString).Value = _color;
             objSelectCmd.Parameters.Add("p_fkowner", MySqlDbType.Int32).Value = _fkOwner;
 
@@ -92,7 +109,7 @@ namespace Data
 
 
         //METODO PARA ACTUALIZAR UN ANIMAL
-        public bool updateAnimals(int _anim_id, string _name, string _species, string _race, DateTime _date_birth, string _sex, double _weight, string _color, int _fkOwner)
+        public bool updateAnimals(int _anim_id, string _name, string _species, string _race, DateTime _date_birth, string _sex, float _weight, string _color, int _fkOwner)
         {
             bool executed = false;
             int row;
@@ -109,7 +126,7 @@ namespace Data
             objSelectCmd.Parameters.Add("p_race", MySqlDbType.VarString).Value = _race;
             objSelectCmd.Parameters.Add("p_date_birth", MySqlDbType.Date).Value = _date_birth;
             objSelectCmd.Parameters.Add("p_sex", MySqlDbType.VarString).Value = _sex;
-            objSelectCmd.Parameters.Add("p_weight", MySqlDbType.Double).Value = _weight;
+            objSelectCmd.Parameters.Add("p_weight", MySqlDbType.Float).Value = _weight;
             objSelectCmd.Parameters.Add("p_color", MySqlDbType.VarString).Value = _color;
             objSelectCmd.Parameters.Add("p_fkowner", MySqlDbType.Int32).Value = _fkOwner;
 

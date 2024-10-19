@@ -26,6 +26,22 @@ namespace Data
             return objData;
         }
 
+        //Metodo para mostrar unicamente el ID y el documento del usuario
+        public DataSet showUsersDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectUserDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         //Metodo para guardar un Usuario
         public bool saveUser(string _documento, string _correo, string _contrasena, string _salt,
             string _estado, DateTime _fecha_creación, int _rol_id, int _tipo_documento_id)

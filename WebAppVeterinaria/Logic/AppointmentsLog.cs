@@ -53,5 +53,10 @@ namespace Logic
         {
             return objAppointments.deleteDate(_id);
         }
+
+        public DataSet showCitasDDl()
+        {
+            return objAppointments.showCitasDDl();
+        }
     }
 }

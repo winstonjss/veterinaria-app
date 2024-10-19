@@ -46,6 +46,23 @@ namespace Data
         }
 
 
+        //METODO PARA MOSTRAR UNICAMENTE EL ID Y LA DESCRIPCION
+        public DataSet showVeterinarianDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectVeterinarianDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
+
         //METODO PARA GUARDAR UN NUEVO VETERINARIO
         public bool saveVeterinarian(string _name, string _phone, int _fkUsers, int _fkOffice)
         {

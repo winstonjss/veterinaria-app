@@ -26,6 +26,22 @@ namespace Data
             return objData;
         }
 
+        //Metodo para mostrar Unicamente el ID y el nombre del rol 
+        public DataSet showRolesDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectRolesDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         //Metodo para guardar un Rol
         public bool saveRoles(string _nombre, string _descripcion)
         {

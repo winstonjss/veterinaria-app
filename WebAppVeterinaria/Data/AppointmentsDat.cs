@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -11,20 +10,20 @@ namespace Data
     {
         Persistence objPer = new Persistence();
 
-        public bool saveDate(int _animalId, string _documentNumberVeterinarian,
+        public bool saveDate(int _animalId, int _veterinarianId,
             DateTime _date, DateTime _startHour, DateTime _finalHour)
         {
             bool executed = false;
             int row;
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertCita"; //nombre del proce dimiento almacenado 
+            objSelectCmd.CommandText = "spInsertCita";
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_animal_id", MySqlDbTy.Int32).Value = _animalId;
-            objSelectCmd.Parameters.Add("p_veterinario_documento", MySqlDbType.VarString).Value = _documentNumberVeterinarian;
-            objSelectCmd.Parameters.Add("p_fecha", MySqlDbTy.Date).Value = _date;
-            objSelectCmd.Parameters.Add("p_hora_inicio", MySqlDbTy.Time).Value = _startHour;
-            objSelectCmd.Parameters.Add("p_hora_fin", MySqlDbTy.Time).Value = _finalHour;
+            objSelectCmd.Parameters.Add("p_animal_id", MySqlDbType.Int32).Value = _animalId;
+            objSelectCmd.Parameters.Add("p_veterinario_id", MySqlDbType.Int32).Value = _veterinarianId;
+            objSelectCmd.Parameters.Add("p_cit_fecha", MySqlDbType.Date).Value = _date;
+            objSelectCmd.Parameters.Add("p_cit_hora_inicio", MySqlDbType.Time).Value = _startHour;
+            objSelectCmd.Parameters.Add("p_cit_hora_fin", MySqlDbType.Time).Value = _finalHour;
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();
@@ -41,7 +40,7 @@ namespace Data
             return executed;
         }
 
-        public bool updateDate(int _dateId, int _animalId, string _documentNumberVeterinarian,
+        public bool updateDate(int _dateId, int _animalId, int _veterinarianId,
             DateTime _date, DateTime _startHour, DateTime _finalHour)
         {
             bool executed = false;
@@ -50,12 +49,12 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spUpdateCita"; //nombre del proce dimiento almacenado 
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_cita_id", MySqlDbType.Int32).Value = _dateId;
-            objSelectCmd.Parameters.Add("p_animal_id", MySqlDbTy.Int32).Value = _animalId;
-            objSelectCmd.Parameters.Add("p_veterinario_documento", MySqlDbType.VarString).Value = _documentNumberVeterinarian;
-            objSelectCmd.Parameters.Add("p_fecha", MySqlDbTy.Date).Value = _date;
-            objSelectCmd.Parameters.Add("p_hora_inicio", MySqlDbTy.Time).Value = _startHour;
-            objSelectCmd.Parameters.Add("p_hora_fin", MySqlDbTy.Time).Value = _finalHour;
+            objSelectCmd.Parameters.Add("p_cit_id", MySqlDbType.Int32).Value = _dateId;
+            objSelectCmd.Parameters.Add("p_animal_id", MySqlDbType.Int32).Value = _animalId;
+            objSelectCmd.Parameters.Add("p_veterinario_id", MySqlDbType.VarString).Value = _veterinarianId;
+            objSelectCmd.Parameters.Add("p_cit_fecha", MySqlDbType.Date).Value = _date;
+            objSelectCmd.Parameters.Add("p_cit_hora_inicio", MySqlDbType.Time).Value = _startHour;
+            objSelectCmd.Parameters.Add("p_cit_hora_fin", MySqlDbType.Time).Value = _finalHour;
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();

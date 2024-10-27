@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Data;
 
 namespace Data
 {
@@ -17,7 +16,7 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spInsertHistoriaClinicaByCita"; //nombre del proce dimiento almacenado 
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_cit_id", MySqlDbTy.Int32).Value = _dateId;
+            objSelectCmd.Parameters.Add("p_cit_id", MySqlDbType.Int32).Value = _dateId;
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();
@@ -88,7 +87,7 @@ namespace Data
             objSelectCmd.CommandText = "spUpdateHistoriaClinica"; //nombre del proce dimiento almacenado 
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_histo_cli_id", MySqlDbType.Int32).Value = _medicalHistoryId;
-            objSelectCmd.Parameters.Add("p_histo_cli_fecha", MySqlDbTy.Date).Value = _medicalHistoryDate;
+            objSelectCmd.Parameters.Add("p_histo_cli_fecha", MySqlDbType.Date).Value = _medicalHistoryDate;
             objSelectCmd.Parameters.Add("p_cit_id", MySqlDbType.Int32).Value = _dateId;            
             try
             {

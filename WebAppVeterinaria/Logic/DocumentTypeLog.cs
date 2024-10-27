@@ -38,9 +38,9 @@ namespace Logic
         }
 
         //Metodo para borrar un Tipo de documento
-        public bool deleteCategory(int _id)
+        public bool deleteDocumentType(int _id)
         {
-         return objDoc.deleteCategory(_id);
+         return objDoc.deleteDocumentType(_id);
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Data;
 using System.Data;
 
@@ -12,17 +9,17 @@ namespace Logic
     {
         AppointmentsDat objAppointments = new AppointmentsDat();
 
-        public bool saveDate(int _animalId, string _documentNumberVeterinarian,
+        public bool saveDate(int _animalId, int _veterinarianId,
             DateTime _date, DateTime _startHour, DateTime _finalHour)
         {
-            return objAppointments.saveDate(_animalId, _documentNumberVeterinarian,
+            return objAppointments.saveDate(_animalId, _veterinarianId,
                 _date, _startHour, _finalHour);
         }
 
-        public bool updateDate(int _dateId, int _animalId, string _documentNumberVeterinarian,
+        public bool updateDate(int _dateId, int _animalId, int _veterinarianId,
             DateTime _date, DateTime _startHour, DateTime _finalHour)
         {
-            return objAppointments.updateDate(_animalId, _documentNumberVeterinarian,
+            return objAppointments.updateDate(_dateId, _animalId, _veterinarianId,
                 _date, _startHour, _finalHour);
         }
 
@@ -34,7 +31,7 @@ namespace Logic
         public DataSet showDatesFilterbyVeterinarian(string _documentNumber, DateTime _startDate,
             DateTime _finalDate)
         {            
-            return objData.showDatesFilterbyVeterinarian(_documentNumber, _startDate, _finalDate);
+            return objAppointments.showDatesFilterbyVeterinarian(_documentNumber, _startDate, _finalDate);
         }
 
         public DataSet showDatesFilterbyAnimalAndRangeDate(int _idAnimal, DateTime _startDate,

@@ -105,7 +105,7 @@ namespace Data
         }
 
         //Metodo para borrar un Rol
-        public bool deletePermision(int _id)
+        public bool deleteRol(int _id)
         {
             bool executed = false;
             int row;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Data;
 
+
 namespace Logic
 {
     public class RolesLog
@@ -14,7 +15,7 @@ namespace Logic
         //Metodo para mostrar todos los Roles
         public DataSet showRoles()
         {
-             return objRol.showRoles();
+            return objRol.showRoles();
         }
 
         //Metodo para mostrar Unicamente el ID y el nombre del rol 
@@ -33,12 +34,13 @@ namespace Logic
         //Metodo para actualizar un Rol
         public bool updateRol(int _id, string _nombre, string _descripcion)
         {
-            return objRol.updateRol(_id, _nombre, _descripcion)
+            return objRol.updateRol(_id, _nombre, _descripcion);
         }
 
         //Metodo para eliminar un Rol
-        public bool deletePermision(int _id)
+        public bool deleteRol(int _id)
         {
-            return objRol.deletePermision(_id);
+            return objRol.deleteRol(_id);
         }
     }
+}

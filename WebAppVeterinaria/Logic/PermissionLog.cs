@@ -18,6 +18,11 @@ namespace Logic
             return objPer.showPermission();
         }
 
+        public DataSet showPermissionDDl()
+        {
+            return objPer.showPermissionDDl();
+        }
+
         //Metodo para guardar un Permiso
         public bool savePermission(string _nombre, string _descripcion)
         {

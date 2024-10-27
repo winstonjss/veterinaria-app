@@ -103,7 +103,7 @@ namespace Data
         }
 
         //Metodo para borrar un Tipo de documento
-        public bool deleteCategory(int _id)
+        public bool deleteDocumentType(int _id)
         {
             bool executed = false;
             int row;

@@ -123,6 +123,7 @@
     <Compile Include="Persistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VeterinarianDat.cs" />
+    <Compile Include="VeterinaryHoursDat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

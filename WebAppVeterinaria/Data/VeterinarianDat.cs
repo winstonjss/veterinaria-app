@@ -9,7 +9,7 @@ namespace Data
 {
     public class VeterinarianDat
     {
-        // Se crea una instancia de la clase Persistence para manejar la conexión a la base de datos.
+        // Se crea una instancia de la clase Persistence para manejar la conexión a la base de
         Persistence objPer = new Persistence();
 
 

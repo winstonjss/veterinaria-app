@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Presentation.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <a href="#">inicio</a>
+            <a href="#">anamnesis</a>
+            <a href="#">Animales</a>
+            <a href="#">citas</a>
+            <a href="#">diagnostico</a>
+            <a href="#">tipo Documento</a>
+            <a href="#">Historia clinica</a>
+            <a href="#">consultorio</a>
+            <a href="#">propietario</a>
+            <a href="#">permisos</a>
+            <a href="#">Roles y permisos</a>
+            <a href="#">roles</a>
+            <a href="#">tratamientos</a>
+            <a href="#">usuarios</a>
+            <a href="#">vacunas</a>
+            <a href="#">veterinario</a>
+            <a href="#">horario veterinario</a>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

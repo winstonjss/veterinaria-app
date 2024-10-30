@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 
+
 namespace Logic
 {
     public class AnamnesisLog

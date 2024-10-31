@@ -11,7 +11,38 @@ namespace Data
     {
         Persistence objPer = new Persistence();
 
+        //Metodo para mostrar Todos los roles y permisos
+        public DataSet showRolesPermisos()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
 
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectRoles_Permission"; // Nombre del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+
+
+            // Asignar el comando al adaptador
+            objAdapter.SelectCommand = objSelectCmd;
+
+            try
+            {
+                // Rellenar el DataSet con los resultados de la consulta
+                objAdapter.Fill(objData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.ToString());
+            }
+            finally
+            {
+                // Asegurarse de cerrar la conexión
+                objPer.closeConnection();
+            }
+
+            return objData;
+        }
         //Metodo para mostrar Permisos por Rol
         public DataSet showPermissionByRol(int _rol_id)
         {

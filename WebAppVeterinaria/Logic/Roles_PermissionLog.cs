@@ -12,6 +12,10 @@ namespace Logic
     public class Roles_PermissionLog
     {
         Roles_PermissionDat objRolPer = new Roles_PermissionDat();
+        public DataSet showRolesPermisos()
+        {
+            return objRolPer.showRolesPermisos();
+        }
 
         //Metodo para mostrar Permisos por Rol
         public DataSet showPermissionByRol(int _rol_id)

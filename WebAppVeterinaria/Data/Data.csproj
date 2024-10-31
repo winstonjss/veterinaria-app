@@ -119,9 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalsDat.cs" />
+    <Compile Include="DocumentTypeDat.cs" />
     <Compile Include="OwnerDat.cs" />
+    <Compile Include="PermissionDat.cs" />
     <Compile Include="Persistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles_PermissionDat.cs" />
     <Compile Include="VeterinarianDat.cs" />
     <Compile Include="VeterinaryHoursDat.cs" />
   </ItemGroup>

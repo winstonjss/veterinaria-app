@@ -54,7 +54,7 @@ namespace Data
             objSelectCmd.CommandText = "spInsertPermission"; //nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = _nombre;
-            objSelectCmd.Parameters.Add("p_description", MySqlDbType.VarString).Value = _descripcion;
+            objSelectCmd.Parameters.Add("p_descripcion", MySqlDbType.VarString).Value = _descripcion;
 
 
             try
@@ -86,7 +86,7 @@ namespace Data
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = _id;
             objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = _nombre;
-            objSelectCmd.Parameters.Add("p_description", MySqlDbType.VarString).Value = _descripcion;
+            objSelectCmd.Parameters.Add("p_descripcion", MySqlDbType.VarString).Value = _descripcion;
 
             try
             {

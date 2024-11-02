@@ -21,8 +21,8 @@
             <a href="#">Historia clinica</a>
             <a href="#">Consultorio</a>
             <a href="#">propietario</a>
+            <a href="WFRoles_Permission.aspx">Roles y permisos</a>
             <a href="#">Permisos</a>
-            <a href="#">Roles y Permisos</a>
             <a href="#">Roles</a>
             <a href="#">tratamientos</a>
             <a href="WFUsers.aspx">Usuarios</a>

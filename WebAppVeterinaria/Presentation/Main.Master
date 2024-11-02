@@ -13,10 +13,10 @@
     <form id="form1" runat="server">
         <div>
             <a href="#">inicio</a>
-            <a href="WFAppointments.aspx">anamnesis</a>
+            <a href="WFAnamnensis.aspx">anamnesis</a>
             <a href="#">Animales</a>
-            <a href="#">citas</a>
-            <a href="WFDiagnoses.aspx">diagnostico</a>
+            <a href="WFAppointments.aspx">citas</a>
+            <a href="#">diagnostico</a>
             <a href="#">Tipo Documento</a>
             <a href="WFMedicalHistory.aspx">Historia clinica</a>
             <a href="#">Consultorio</a>

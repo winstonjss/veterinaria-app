@@ -24,7 +24,7 @@
             <a href="WFRoles_Permission.aspx">Roles y permisos</a>
             <a href="#">Permisos</a>
             <a href="#">Roles</a>
-            <a href="#">tratamientos</a>
+            <a href="WFTreatment.aspx">tratamientos</a>
             <a href="WFUsers.aspx">Usuarios</a>
             <a href="#">vacunas</a>
             <a href="#">veterinario</a>

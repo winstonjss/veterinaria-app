@@ -26,7 +26,7 @@
             <a href="#">Roles</a>
             <a href="WFTreatment.aspx">tratamientos</a>
             <a href="WFUsers.aspx">Usuarios</a>
-            <a href="#">vacunas</a>
+            <a href="WFVaccines.aspx">vacunas</a>
             <a href="#">veterinario</a>
             <a href="#">horario veterinario</a>
 

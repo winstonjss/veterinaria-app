@@ -10,14 +10,14 @@ namespace Logic
         AppointmentsDat objAppointments = new AppointmentsDat();
 
         public bool saveDate(int _animalId, int _veterinarianId,
-            DateTime _date, DateTime _startHour, DateTime _finalHour)
+            DateTime _date, TimeSpan _startHour, TimeSpan _finalHour)
         {
             return objAppointments.saveDate(_animalId, _veterinarianId,
                 _date, _startHour, _finalHour);
         }
 
         public bool updateDate(int _dateId, int _animalId, int _veterinarianId,
-            DateTime _date, DateTime _startHour, DateTime _finalHour)
+            DateTime _date, TimeSpan _startHour, TimeSpan _finalHour)
         {
             return objAppointments.updateDate(_dateId, _animalId, _veterinarianId,
                 _date, _startHour, _finalHour);

@@ -13,7 +13,7 @@
     <form id="form1" runat="server">
         <div>
             <a href="#">inicio</a>
-            <a href="#">anamnesis</a>
+            <a href="WFAppointments.aspx">anamnesis</a>
             <a href="#">Animales</a>
             <a href="#">citas</a>
             <a href="#">diagnostico</a>

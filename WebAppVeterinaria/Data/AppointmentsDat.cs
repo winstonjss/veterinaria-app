@@ -11,7 +11,7 @@ namespace Data
         Persistence objPer = new Persistence();
 
         public bool saveDate(int _animalId, int _veterinarianId,
-            DateTime _date, DateTime _startHour, DateTime _finalHour)
+            DateTime _date, TimeSpan _startHour, TimeSpan _finalHour)
         {
             bool executed = false;
             int row;
@@ -41,7 +41,7 @@ namespace Data
         }
 
         public bool updateDate(int _dateId, int _animalId, int _veterinarianId,
-            DateTime _date, DateTime _startHour, DateTime _finalHour)
+            DateTime _date, TimeSpan _startHour, TimeSpan _finalHour)
         {
             bool executed = false;
             int row;

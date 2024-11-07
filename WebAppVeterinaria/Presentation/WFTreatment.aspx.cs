@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -26,7 +27,7 @@ namespace Presentation
         {
             if (!IsPostBack)
             {
-                showTreamentALL();
+               
                 showDiagnosesDDL();
 
 
@@ -34,13 +35,37 @@ namespace Presentation
             }
         }
 
-        private void showTreamentALL()
-        {
-            DataSet dataSet = new DataSet();
-            dataSet = objTrea.showTreatmentALL();
-            GVTreatment.DataSource = dataSet;
-            GVTreatment.DataBind();
+        [WebMethod]
+        public static object ListTreatment() {
+            TreatmentLog objTrea = new TreatmentLog();
+            // Se obtiene un DataSet que contiene la lista de productos desde la base de datos.
+            var dataSet = objTrea.showTreatmentALL();
+
+            // Se crea una lista para almacenar los productos que se van a devolver.
+            var treatmentList = new List<object>();
+
+            // Se itera sobre cada fila del DataSet (que representa un producto).
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                treatmentList.Add(new
+                {
+                    TreatmentId = row["trat_id"],
+                    TreatmentName = row["trat_nombre"],
+                    TreatmentDescription = row["trat_descripcion"],
+                    TreatmentDateStart = row["trat_fecha_inicio"],
+                    TreatmentDateEnd = row["trat_fecha_fin"],
+                    FkDiagonoses = row["tbl_diagnosticos_diag_id"],
+                    DiagonosesCode = row["diag_cod"]
+
+
+                });
+            }
+
+            // Devuelve un objeto en formato JSON que contiene la lista de productos.
+            return new { data = treatmentList };
         }
+
+
         private void showDiagnosesDDL()
         {
             DDLDiagonoses.DataSource = objDiag.showDiagnosesDLL();
@@ -61,7 +86,7 @@ namespace Presentation
             if (executed)
             {
                 lblMsg.Text = "se guardo el tratamiento";
-                showTreamentALL();
+                
             }
             else
             {
@@ -72,6 +97,28 @@ namespace Presentation
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
 
+        }
+        [WebMethod]
+        public static bool DeleteTreatment(int id)
+        {
+            // Crear una instancia de la clase de lógica de productos
+            TreatmentLog objTrea = new TreatmentLog();
+
+            // Invocar al método para eliminar el producto y devolver el resultado
+            return objTrea.deleteTratamiento(id);
+        }
+
+        //Metodo para limpiar los TextBox y los DDL
+        private void clear()
+        {
+            HFTreatmentID.Value = "";
+            TBName.Text = "";
+            TBDescription.Text = "";
+            TBStartDate.Text = "";
+            TBEndDate.Text = "";
+            DDLDiagonoses.SelectedIndex = 0;
+        
+        
         }
     }
 }

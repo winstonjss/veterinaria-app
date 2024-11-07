@@ -15,7 +15,7 @@ namespace Presentation
         TreatmentLog objTrea = new TreatmentLog();
         DiagnosesLog objDiag = new DiagnosesLog();
 
-        private int _fkDiagnoses;
+        private int _fkDiagnoses, _id ;
         private string _description, _name;
         private DateTime _startDate, _endDate;
         private bool executed = false;
@@ -52,8 +52,8 @@ namespace Presentation
                     TreatmentId = row["trat_id"],
                     TreatmentName = row["trat_nombre"],
                     TreatmentDescription = row["trat_descripcion"],
-                    TreatmentDateStart = row["trat_fecha_inicio"],
-                    TreatmentDateEnd = row["trat_fecha_fin"],
+                    TreatmentDateStart = Convert.ToDateTime(row["trat_fecha_inicio"]).ToString("yyyy-MM-dd"),
+                    TreatmentDateEnd = Convert.ToDateTime(row["trat_fecha_fin"]).ToString("yyyy-MM-dd"),
                     FkDiagonoses = row["tbl_diagnosticos_diag_id"],
                     DiagonosesCode = row["diag_cod"]
 
@@ -90,13 +90,34 @@ namespace Presentation
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                lblMsg.Text = "error al guardar";
             }
         }
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(HFTreatmentID.Value))
+            {
+                lblMsg.Text = "No se ha seleccionado un Tratamiento para actualizar.";
+                return;
+            }
+            _id = Convert.ToInt32(HFTreatmentID.Value);
+            _fkDiagnoses = Convert.ToInt32(DDLDiagonoses.SelectedValue);
 
+            _name = TBName.Text;
+            _description = TBDescription.Text;
+            _startDate = Convert.ToDateTime(TBStartDate.Text);
+            _endDate = Convert.ToDateTime(TBEndDate.Text);
+            executed = objTrea.updateTratamiento(_id, _name, _description, _startDate, _endDate, _fkDiagnoses);
+            if (executed)
+            {
+                lblMsg.Text = "se guardo el tratamiento";
+
+            }
+            else
+            {
+                lblMsg.Text = "error al guardar";
+            }
         }
         [WebMethod]
         public static bool DeleteTreatment(int id)

@@ -41,6 +41,7 @@
                 <th>FechaInicio</th>
                 <th>FechaFin</th>
                 <th>FkDiagnosticos</th>
+                <th>Diagnosticos</th>
                 
             </tr>
         </thead>

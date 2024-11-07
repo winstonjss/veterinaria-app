@@ -8,9 +8,9 @@ namespace Logic
     {
         MedicalHistory objMedicalHistory = new MedicalHistory();
 
-        public bool saveMedicalHistoryByDateId(int _dateId)
+        public bool saveMedicalHistoryByDateId(int _dateId, DateTime _medicalHistoryDate)
         {
-            return objMedicalHistory.saveMedicalHistoryByDateId(_dateId);
+            return objMedicalHistory.saveMedicalHistoryByDateId(_dateId, _medicalHistoryDate);
         }
 
         public DataSet showMedicalHistoryByAnimal(int _idAnimal)

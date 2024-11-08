@@ -56,7 +56,7 @@ namespace Presentation
         {
             DDLAppoitment.DataSource = objApp.showCitasDDl();
             DDLAppoitment.DataValueField = "cit_id";
-            DDLAppoitment.DataTextField = "cit_fecha";
+            DDLAppoitment.DataTextField = "detalle_cita";
             DDLAppoitment.DataBind();
             DDLAppoitment.Items.Insert(0, "seleccione");
 

@@ -20,6 +20,7 @@ namespace Presentation
         {
             if (!IsPostBack)
             {
+                TBDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 showAppoitmentsDDL();
             }
         }
@@ -41,7 +42,7 @@ namespace Presentation
                 medicalsHistoryList.Add(new
                 {
                     MedicalHistoryID = row["histo_cli_id"],
-                    Date = Convert.ToDateTime(row["histo_cli_fecha"]).ToString("yyyy-MM-dd"),                    
+                    Date = Convert.ToDateTime(row["histo_cli_fecha"]).ToString("yyyy-MM-dd"),
                     Description = row["histo_cli_descripcion"],
                     FKAppoitment = row["tbl_citas_cit_id"]
                 });
@@ -65,11 +66,11 @@ namespace Presentation
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             _fkAppoitment = Convert.ToInt32(DDLAppoitment.SelectedValue);
-            _medicalHistoryDate = CALMedicalHistory.SelectedDate;
+            _medicalHistoryDate = DateTime.Parse(TBDate.Text);
             executed = objMed.saveMedicalHistoryByDateId(_fkAppoitment, _medicalHistoryDate);
             if (executed)
             {
-                lblMsg.Text = "se guardo la historia clinica";                
+                lblMsg.Text = "se guardo la historia clinica";
             }
             else
             {
@@ -87,7 +88,7 @@ namespace Presentation
 
             _id = Convert.ToInt32(HFMedicalHistoryID.Value);
             _fkAppoitment = Convert.ToInt32(DDLAppoitment.SelectedValue);
-            _medicalHistoryDate = CALMedicalHistory.SelectedDate;
+            _medicalHistoryDate = DateTime.Parse(TBDate.Text);
 
             executed = objMed.updateMedicalHistory(_fkAppoitment, _medicalHistoryDate,
                 _fkAppoitment);
@@ -113,8 +114,10 @@ namespace Presentation
 
         private void clear()
         {
-            HFMedicalHistoryID.Value = "";            
+            HFMedicalHistoryID.Value = "";
             DDLAppoitment.SelectedIndex = 0;
+            TBDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
         }
     }
 }

@@ -7,7 +7,7 @@
     <asp:HiddenField ID="HFMedicalHistoryID" runat="server" />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Ingrese la Fecha de la cita"></asp:Label>
-    <asp:Calendar ID="CALMedicalHistory" runat="server"></asp:Calendar>
+        <asp:TextBox ID="TBDate" runat="server" TextMode="Date"></asp:TextBox>
     <br />
     <%--Citas--%>
     <asp:Label ID="Label1" runat="server" Text="Selecciones la cita"></asp:Label>

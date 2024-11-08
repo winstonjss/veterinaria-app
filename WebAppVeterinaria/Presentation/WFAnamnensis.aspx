@@ -25,11 +25,10 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Código</th>
                 <th>Descripción</th>
                 <th>ID Cita</th>            
-                <th>Fecha Cita</th>
-                <th>Acciones</th>
+                
+                
             </tr>
         </thead>
         <tbody>
@@ -55,10 +54,8 @@
                 },
                 "columns": [
                     { "data": "AnamnesisID" },
-                    { "data": "Code" },
                     { "data": "Description" },
                     { "data": "FkAppointment" },
-                    { "data": "NameAppointment" },
                     {
                         "data": null,
                         "render": function (data, type, row) {

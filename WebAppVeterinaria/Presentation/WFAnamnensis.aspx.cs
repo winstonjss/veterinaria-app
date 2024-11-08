@@ -22,7 +22,7 @@ namespace Presentation
         {
             if (!IsPostBack)
             {
-                showAnamnesisAll();
+
                 showAppointmentsDDL();
             }
         }
@@ -30,61 +30,27 @@ namespace Presentation
         [WebMethod]
         public static object ListAnamnesis()
         {
-            AnamnesisLog objAnam = new AnamnesisLog();
+            AnamnesisLog objAnan = new AnamnesisLog();
+
+            // Se obtiene un DataSet que contiene la lista de anamnesis desde la base de datos.
+            var dataSet = objAnan.showAnamnesisAll();
+
+            // Se crea una lista para almacenar los anamnesis que se van a devolver.
             var AnamnesisList = new List<object>();
 
-            try
+            // Se itera sobre cada fila del DataSet (que representa un producto).
+            foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                var dataSet = objAnam.showAnamnesisALL();
-
-                if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
+                AnamnesisList.Add(new
                 {
-                    foreach (DataRow row in dataSet.Tables[0].Rows)
-                    {
-                        try
-                        {
-                            AnamnesisList.Add(new
-                            {
-                                AnamnesisID = Convert.ToInt32(row["AnamnesisID"]),
-                                Code = row["Anam_codigo"].ToString(),
-                                Description = row["Anam_descripcion"].ToString(),
-                                FkAppointment = Convert.ToInt32(row["tbl_citas_cit_id"]),
-                                NameAppointment = row["cit_fecha"].ToString(),
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log the error for the specific row
-                            System.Diagnostics.Debug.WriteLine($"Error processing row: {ex.Message}");
+                    AnamnesisID = row["anam_id"],
+                    Description = row["anam_descripcion"],
+                    FkAppointment = row["tbl_citas_cit_id"],
 
-                            // Add an error object to the list instead of skipping the row
-                            AnamnesisList.Add(new
-                            {
-                                AnamnesisID = -1,
-                                Code = "Error",
-                                Description = "Error processing this record",
-                                FkAppointment = -1,
-                                NameAppointment = "Error",
-                                ErrorMessage = ex.Message
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    // Log that no data was returned
-                    System.Diagnostics.Debug.WriteLine("No data returned from showAnamnesis()");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the general error
-                System.Diagnostics.Debug.WriteLine($"Error in ListAnamnesis: {ex.Message}");
-
-                // Return an error object
-                return new { error = true, message = "An error occurred while retrieving the anamnesis list." };
+                });
             }
 
+            // Devuelve un objeto en formato JSON que contiene la lista de anamnesis.
             return new { data = AnamnesisList };
         }
 
@@ -99,52 +65,47 @@ namespace Presentation
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            if (DDLAppointments.SelectedIndex > 0 && !string.IsNullOrEmpty(TBDescription.Text))
-            {
+            
+            
                 _fkAppointment = Convert.ToInt32(DDLAppointments.SelectedValue);
                 _description = TBDescription.Text;
                 executed = objAnam.saveAnamnesis(_description, _fkAppointment);
                 if (executed)
                 {
                     lblMsg.Text = "Se guardó la historia clínica correctamente.";
-                    showAnamnesisAll();
                     ClearForm();
                 }
                 else
                 {
                     lblMsg.Text = "Error al guardar la historia clínica.";
                 }
-            }
-            else
-            {
-                lblMsg.Text = "Por favor, complete todos los campos.";
-            }
+            
+            
         }
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (DDLAppointments.SelectedIndex > 0 && !string.IsNullOrEmpty(TBDescription.Text) && !string.IsNullOrEmpty(HFAnamnesisID.Value))
+            if (string.IsNullOrEmpty(HFAnamnesisID.Value))
             {
-                int anamnesisId = Convert.ToInt32(HFAnamnesisID.Value);
-                _fkAppointment = Convert.ToInt32(DDLAppointments.SelectedValue);
-                _description = TBDescription.Text;
-                executed = objAnam.updateAnamnesis(anamnesisId, _description, _fkAppointment);
-                if (executed)
-                {
-                    lblMsg.Text = "Se actualizó la historia clínica correctamente.";
-                    showAnamnesisAll();
-                    ClearForm();
-                }
-                else
-                {
-                    lblMsg.Text = "Error al actualizar la historia clínica.";
-                }
+                lblMsg.Text = "No se ha seleccionado un producto para actualizar.";
+                return;
+            }
+            int anamnesisId = Convert.ToInt32(HFAnamnesisID.Value);
+            _fkAppointment = Convert.ToInt32(DDLAppointments.SelectedValue);
+            _description = TBDescription.Text;
+            executed = objAnam.updateAnamnesis(anamnesisId, _description, _fkAppointment);
+            if (executed)
+            {
+                lblMsg.Text = "Se actualizó la historia clínica correctamente.";
+
+                ClearForm();
             }
             else
             {
-                lblMsg.Text = "Por favor, complete todos los campos y seleccione un registro para actualizar.";
+                lblMsg.Text = "Error al actualizar la historia clínica.";
             }
         }
+
 
         private void ClearForm()
         {
@@ -160,12 +121,6 @@ namespace Presentation
             return objAnam.deleteAnamnesis(id);
         }
 
-        private void showAnamnesisAll()
-        {
-            var anamnesisList = ListAnamnesis();
-            var serializer = new JavaScriptSerializer();
-            var serializedData = serializer.Serialize(anamnesisList);
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "updateDataTable", $"updateDataTable({serializedData});", true);
-        }
+
     }
 }

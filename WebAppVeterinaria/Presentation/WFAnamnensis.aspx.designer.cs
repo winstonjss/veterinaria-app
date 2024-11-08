@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control HFAnamnesisID.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HFAnamnesisID;
+
+        /// <summary>
         /// Control Label2.
         /// </summary>
         /// <remarks>
@@ -42,13 +51,13 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.Label Label5;
 
         /// <summary>
-        /// Control DDLAppoiments.
+        /// Control DDLAppointments.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLAppoiments;
+        protected global::System.Web.UI.WebControls.DropDownList DDLAppointments;
 
         /// <summary>
         /// Control BtnSave.
@@ -76,14 +85,5 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsg;
-
-        /// <summary>
-        /// Control GVAnamnesis.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVAnamnesis;
     }
 }

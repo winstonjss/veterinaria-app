@@ -9,7 +9,7 @@
     <asp:HiddenField ID="HFAppoitmentID" runat="server" />
 
     <asp:Label ID="Label1" runat="server" Text="Ingrese la Fecha de la cita"></asp:Label>
-    <asp:Calendar ID="CALCita" runat="server"></asp:Calendar>
+    <asp:TextBox ID="TBDate" runat="server" TextMode="Date"></asp:TextBox>
     <br />
     <asp:Label ID="Label2" runat="server" Text="Ingrese la hora de inicio de la cita"></asp:Label>
     <asp:TextBox ID="TBHoraInicio" runat="server"></asp:TextBox>
@@ -120,7 +120,7 @@
         // Cargar los datos en los TextBox y DDL para actualizar
         function loadAppoitmentData(rowData) {
             $('#<%= HFAppoitmentID.ClientID %>').val(rowData.AppoitmentId);
-            $('#<%= CALCita.ClientID %>').val(rowData.AppoitmentDate);
+            $('#<%= TBDate.ClientID %>').val(rowData.AppoitmentDate);
             $('#<%= TBHoraInicio.ClientID %>').val(rowData.AppoitmentHourStart);
             $('#<%= TBHoraFin.ClientID %>').val(rowData.AppoitmentHourEnd);
             $('#<%= DDLAnimals.ClientID %>').val(rowData.FkAnimal);

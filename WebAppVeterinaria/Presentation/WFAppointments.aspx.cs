@@ -23,7 +23,8 @@ namespace Presentation
         {
             if (!IsPostBack)
             {
-                //Aqui se invocan todos los metodos                
+                //Aqui se invocan todos los metodos
+                TBDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 showAnimalsDDL();
                 showVeterinariansDDL();
             }
@@ -79,7 +80,7 @@ namespace Presentation
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {            
-            _appoDate = CALCita.SelectedDate;
+            _appoDate = DateTime.Parse(TBDate.Text);
             _appoStartHour = TimeSpan.Parse(TBHoraInicio.Text);
             _appoFinalHour = TimeSpan.Parse(TBHoraFin.Text);
             _fkAnimal = Convert.ToInt32(DDLAnimals.SelectedValue);
@@ -88,7 +89,8 @@ namespace Presentation
                 _appoStartHour, _appoFinalHour);
             if (executed)
             {
-                lblMsg.Text = "se agendo exitosamente la cita";                
+                lblMsg.Text = "se agendo exitosamente la cita";
+                clear();
             }
             else
             {
@@ -104,7 +106,7 @@ namespace Presentation
                 return;
             }
             _id = Convert.ToInt32(HFAppoitmentID.Value);
-            _appoDate = CALCita.SelectedDate;
+            _appoDate = DateTime.Parse(TBDate.Text);
             _appoStartHour = TimeSpan.Parse(TBHoraInicio.Text);
             _appoFinalHour = TimeSpan.Parse(TBHoraFin.Text);
             _fkAnimal = Convert.ToInt32(DDLAnimals.SelectedValue);
@@ -114,6 +116,7 @@ namespace Presentation
             if (executed)
             {
                 lblMsg.Text = "se agendo exitosamente la cita";
+                clear();
             }
             else
             {
@@ -135,6 +138,7 @@ namespace Presentation
         private void clear()
         {
             HFAppoitmentID.Value = "";
+            TBDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
             TBHoraInicio.Text = "";
             TBHoraFin.Text = "";
             DDLAnimals.SelectedIndex = 0;

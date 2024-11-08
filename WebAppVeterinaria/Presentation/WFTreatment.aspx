@@ -4,8 +4,7 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
+    <br />
     <asp:HiddenField ID="HFTreatmentID" runat="server" />
      <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre"></asp:Label>
  <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
@@ -15,10 +14,10 @@
     <asp:TextBox ID="TBDescription" runat="server"></asp:TextBox>
     <br />
       <asp:Label ID="Label1" runat="server" Text="Ingrese la fecha inicio"></asp:Label>
-  <asp:TextBox ID="TBStartDate" runat="server"></asp:TextBox>
+  <asp:TextBox ID="TBStartDate" TextMode="Date" runat="server"></asp:TextBox>
   <br />
     <asp:Label ID="Label3" runat="server" Text="Ingrese fecha fin"></asp:Label>
-    <asp:TextBox ID="TBEndDate" runat="server"></asp:TextBox>
+    <asp:TextBox ID="TBEndDate" TextMode="Date" runat="server"></asp:TextBox>
     <br />
      <asp:Label ID="Label5" runat="server" Text="Seleccione Diadiagnostico"></asp:Label>
      <asp:DropDownList ID="DDLDiagonoses" runat="server"></asp:DropDownList>

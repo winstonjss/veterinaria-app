@@ -29,7 +29,8 @@ namespace Presentation
             {
                
                 showDiagnosesDDL();
-
+                TBStartDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                TBEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
 
             }
@@ -80,8 +81,8 @@ namespace Presentation
 
             _name = TBName.Text;
             _description = TBDescription.Text;
-            _startDate = Convert.ToDateTime(TBStartDate.Text);
-            _endDate = Convert.ToDateTime(TBEndDate.Text);
+            _startDate = DateTime.Parse(TBStartDate.Text);
+            _endDate = DateTime.Parse(TBEndDate.Text);
             executed = objTrea.saveTratamiento(_name, _description, _startDate, _endDate, _fkDiagnoses);
             if (executed)
             {
@@ -106,8 +107,8 @@ namespace Presentation
 
             _name = TBName.Text;
             _description = TBDescription.Text;
-            _startDate = Convert.ToDateTime(TBStartDate.Text);
-            _endDate = Convert.ToDateTime(TBEndDate.Text);
+            _startDate = DateTime.Parse(TBStartDate.Text);
+            _endDate = DateTime.Parse(TBEndDate.Text);
             executed = objTrea.updateTratamiento(_id, _name, _description, _startDate, _endDate, _fkDiagnoses);
             if (executed)
             {

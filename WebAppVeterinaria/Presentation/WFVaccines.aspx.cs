@@ -42,10 +42,10 @@ namespace Presentation
         public static object ListVaccines()
         {
             VaccinesLog objVacc = new VaccinesLog();
-            // Se obtiene un DataSet que contiene la lista de productos desde la base de datos.
+            // Se obtiene un DataSet que contiene la lista de anamnesis desde la base de datos.
             var dataSet = objVacc.showVaccinessALL();
 
-            // Se crea una lista para almacenar los productos que se van a devolver.
+            // Se crea una lista para almacenar los anamnesis que se van a devolver.
             var VaccinesList = new List<object>();
 
             // Se itera sobre cada fila del DataSet (que representa un producto).
@@ -64,7 +64,7 @@ namespace Presentation
                 });
             }
 
-            // Devuelve un objeto en formato JSON que contiene la lista de productos.
+            // Devuelve un objeto en formato JSON que contiene la lista de anamnesis.
             return new { data = VaccinesList };
         }
 
@@ -127,7 +127,7 @@ namespace Presentation
         [WebMethod]
         public static bool deleteVaccines(int id)
         {
-            // Crear una instancia de la clase de lógica de productos
+            // Crear una instancia de la clase de lógica de anamnesis
             VaccinesLog objVacc = new VaccinesLog();
 
             // Invocar al método para eliminar el producto y devolver el resultado

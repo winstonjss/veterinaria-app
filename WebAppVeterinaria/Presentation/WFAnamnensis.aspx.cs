@@ -38,7 +38,7 @@ namespace Presentation
             // Se crea una lista para almacenar los anamnesis que se van a devolver.
             var AnamnesisList = new List<object>();
 
-            // Se itera sobre cada fila del DataSet (que representa un producto).
+            // Se itera sobre cada fila del DataSet (que representa anamnesis).
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 AnamnesisList.Add(new
@@ -58,7 +58,7 @@ namespace Presentation
         {
             DDLAppointments.DataSource = objAppo.showCitasDDl();
             DDLAppointments.DataValueField = "cit_id";
-            DDLAppointments.DataTextField = "cit_fecha";
+            DDLAppointments.DataTextField = "detalle_cita";
             DDLAppointments.DataBind();
             DDLAppointments.Items.Insert(0, new ListItem("Seleccione", ""));
         }
@@ -72,12 +72,12 @@ namespace Presentation
                 executed = objAnam.saveAnamnesis(_description, _fkAppointment);
                 if (executed)
                 {
-                    lblMsg.Text = "Se guardó la historia clínica correctamente.";
+                    lblMsg.Text = "Se guardó anamnesis correctamente.";
                     ClearForm();
                 }
                 else
                 {
-                    lblMsg.Text = "Error al guardar la historia clínica.";
+                    lblMsg.Text = "Error al guardar anamnesis.";
                 }
             
             
@@ -87,7 +87,7 @@ namespace Presentation
         {
             if (string.IsNullOrEmpty(HFAnamnesisID.Value))
             {
-                lblMsg.Text = "No se ha seleccionado un producto para actualizar.";
+                lblMsg.Text = "No se ha seleccionado anamnesis para actualizar.";
                 return;
             }
             int anamnesisId = Convert.ToInt32(HFAnamnesisID.Value);
@@ -96,13 +96,13 @@ namespace Presentation
             executed = objAnam.updateAnamnesis(anamnesisId, _description, _fkAppointment);
             if (executed)
             {
-                lblMsg.Text = "Se actualizó la historia clínica correctamente.";
+                lblMsg.Text = "Se actualizó anamnesis correctamente.";
 
                 ClearForm();
             }
             else
             {
-                lblMsg.Text = "Error al actualizar la historia clínica.";
+                lblMsg.Text = "Error al actualizar anamnesis.";
             }
         }
 

@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control HFTreatmentID.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HFTreatmentID;
+
+        /// <summary>
         /// Control Label4.
         /// </summary>
         /// <remarks>
@@ -130,14 +139,5 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsg;
-
-        /// <summary>
-        /// Control GVTreatment.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVTreatment;
     }
 }

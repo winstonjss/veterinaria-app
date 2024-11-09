@@ -77,7 +77,7 @@ namespace Presentation
             executed = objDiag.saveDiagnostico(_clasification,_code,_fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo anamnesis";
+                lblMsg.Text = "se guardo diagnostico";
                 showAnamnesisDDL();
             }
             else
@@ -102,7 +102,7 @@ namespace Presentation
             executed = objDiag.updateDiagnostico(_id, _clasification, _code, _fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo anamnesis";
+                lblMsg.Text = "se guardo diagnostico";
                 showAnamnesisDDL();
             }
             else
@@ -113,10 +113,10 @@ namespace Presentation
         [WebMethod]
         public static bool deleteDiagnostico(int id)
         {
-            // Crear una instancia de la clase de lógica de anamnesis
+            // Crear una instancia de la clase de lógica de diagnostico
             DiagnosesLog objDiag = new DiagnosesLog();
 
-            // Invocar al método para eliminar el anamnesis y devolver el resultado
+            // Invocar al método para eliminar el diagnostico y devolver el resultado
             return objDiag.deleteDiagnostico(id);
         }
 

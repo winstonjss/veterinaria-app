@@ -3,6 +3,7 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form runat="server">
     <%--Id --%>
     <asp:HiddenField ID="HFMedicalHistoryID" runat="server" />
     <br />
@@ -20,7 +21,7 @@
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
     </div>
     <br />
-
+    </form>
      <%--Lista de Historias clinicas--%>
 <h2>Lista de Historias clinicas</h2>
 <table id="medicalHistoryTable" class="display" style="width: 100%">

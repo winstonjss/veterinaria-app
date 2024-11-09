@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <form runat="server">
     <%--Id --%>
     <asp:HiddenField ID="HFAppoitmentID" runat="server" />
 
@@ -30,6 +31,8 @@
     <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
     </div>
     <br />
+    </form>
+
     <%-- Lista De Citas--%>
     <h2>Lista de Citas</h2>
     <table id="appoitmentsTable" class="display" style="width: 100%">

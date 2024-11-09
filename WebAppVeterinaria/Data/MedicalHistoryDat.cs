@@ -8,7 +8,7 @@ namespace Data
     {
         Persistence objPer = new Persistence();
 
-        public bool saveMedicalHistoryByDateId(int _dateId)
+        public bool saveMedicalHistoryByDateId(int _dateId, DateTime _medicalHistoryDate)
         {
             bool executed = false;
             int row;
@@ -17,6 +17,7 @@ namespace Data
             objSelectCmd.CommandText = "spInsertHistoriaClinicaByCita"; //nombre del proce dimiento almacenado 
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_cit_id", MySqlDbType.Int32).Value = _dateId;
+            objSelectCmd.Parameters.Add("p_histo_cli_fecha", MySqlDbType.Date).Value = _medicalHistoryDate;
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();

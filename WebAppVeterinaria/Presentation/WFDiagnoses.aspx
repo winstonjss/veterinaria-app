@@ -7,6 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <%--Id --%>
+    <form runat="server">
     <asp:HiddenField ID="HFDiagnosesID" runat="server" />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Ingrese la clasificacion"></asp:Label>
@@ -24,6 +25,7 @@
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
     </div>
     <br />
+        </form>
     <%--Lista de Diagnosticos--%>
     <h2>Lista de Diagnosticos</h2>
     <table id="DiagnosesTable" class="display" style="width: 100%">

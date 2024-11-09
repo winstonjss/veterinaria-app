@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
+    <form runat="server">
     <asp:HiddenField ID="HFTreatmentID" runat="server" />
      <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre"></asp:Label>
  <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
@@ -28,6 +29,7 @@
     <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
     </div>
     <br />
+        </form>
     <%-- Lista De Treatment--%>
 
     <h2>Lista de Tratamientos</h2>

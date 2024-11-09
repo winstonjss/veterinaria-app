@@ -39,13 +39,13 @@ namespace Presentation
         [WebMethod]
         public static object ListTreatment() {
             TreatmentLog objTrea = new TreatmentLog();
-            // Se obtiene un DataSet que contiene la lista de productos desde la base de datos.
+            // Se obtiene un DataSet que contiene la lista de anamnesis desde la base de datos.
             var dataSet = objTrea.showTreatmentALL();
 
-            // Se crea una lista para almacenar los productos que se van a devolver.
+            // Se crea una lista para almacenar los anamnesis que se van a devolver.
             var treatmentList = new List<object>();
 
-            // Se itera sobre cada fila del DataSet (que representa un producto).
+            // Se itera sobre cada fila del DataSet (que representa un anamnesis).
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 treatmentList.Add(new
@@ -62,7 +62,7 @@ namespace Presentation
                 });
             }
 
-            // Devuelve un objeto en formato JSON que contiene la lista de productos.
+            // Devuelve un objeto en formato JSON que contiene la lista de anamnesis.
             return new { data = treatmentList };
         }
 
@@ -123,10 +123,10 @@ namespace Presentation
         [WebMethod]
         public static bool DeleteTreatment(int id)
         {
-            // Crear una instancia de la clase de lógica de productos
+            // Crear una instancia de la clase de lógica de anamnesis
             TreatmentLog objTrea = new TreatmentLog();
 
-            // Invocar al método para eliminar el producto y devolver el resultado
+            // Invocar al método para eliminar el anamnesis y devolver el resultado
             return objTrea.deleteTratamiento(id);
         }
 

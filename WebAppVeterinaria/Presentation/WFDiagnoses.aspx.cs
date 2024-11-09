@@ -77,7 +77,7 @@ namespace Presentation
             executed = objDiag.saveDiagnostico(_clasification,_code,_fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo la historia clinica";
+                lblMsg.Text = "se guardo anamnesis";
                 showAnamnesisDDL();
             }
             else
@@ -91,7 +91,7 @@ namespace Presentation
 
             if (string.IsNullOrEmpty(HFDiagnosesID.Value))
             {
-                lblMsg.Text = "No se ha seleccionado un producto para actualizar.";
+                lblMsg.Text = "No se ha seleccionado un anamnesis para actualizar.";
                 return;
             }
             _id = Convert.ToInt32(HFDiagnosesID.Value);
@@ -102,7 +102,7 @@ namespace Presentation
             executed = objDiag.updateDiagnostico(_id, _clasification, _code, _fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo la historia clinica";
+                lblMsg.Text = "se guardo anamnesis";
                 showAnamnesisDDL();
             }
             else
@@ -113,10 +113,10 @@ namespace Presentation
         [WebMethod]
         public static bool deleteDiagnostico(int id)
         {
-            // Crear una instancia de la clase de lógica de productos
+            // Crear una instancia de la clase de lógica de anamnesis
             DiagnosesLog objDiag = new DiagnosesLog();
 
-            // Invocar al método para eliminar el producto y devolver el resultado
+            // Invocar al método para eliminar el anamnesis y devolver el resultado
             return objDiag.deleteDiagnostico(id);
         }
 

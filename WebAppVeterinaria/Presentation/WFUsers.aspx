@@ -22,9 +22,9 @@
         <asp:TextBox ID="TBUsu_contrasena" runat="server" TextMode="Password"></asp:TextBox>
         <br />
 
-      <%--  <%-- Salt --%>
-    <%-- <asp:Label ID="Label4" runat="server" Text="Ingrese el salt"></asp:Label>
-        <asp:TextBox ID="TBUsu_salt" runat="server"></asp:TextBox>--%>
+      <%-- Salt --%>
+        <asp:Label ID="Label9" runat="server" Text="Ingrese el salt"></asp:Label>
+        <asp:TextBox ID="TBUsu_salt" runat="server"></asp:TextBox>
        
 
 
@@ -68,8 +68,8 @@
                <th>ID</th>
                <th>Documento</th>
                <th>Correo</th>
-              <%-- <th>Contraseña</th>
-               <th>Salt</th>   --%>   
+               <th>Contraseña</th>
+               <th>Salt</th>     
                <th>Estado</th>
                <th>Fecha_creación</th>
                <th>Rol</th>
@@ -85,103 +85,103 @@
 
   <%--  Usuarios--%>
      <script type="text/javascript">
-     $(document).ready(function () {
-         $('#usersTable').DataTable({
-             "processing": true,
-             "serverSide": false,
-             "ajax": {
-                 "url": "WFUsers.aspx/ListUsers",// Se invoca el WebMethod Listar Usuarios 
-                 "type": "POST",
-                 "contentType": "application/json",
-                 "data": function (d) {
-                     return JSON.stringify(d);// Convierte los datos a JSON
+         $(document).ready(function () {
+             $('#usersTable').DataTable({
+                 "processing": true,
+                 "serverSide": false,
+                 "ajax": {
+                     "url": "WFUsers.aspx/ListUsers",// Se invoca el WebMethod Listar Usuarios 
+                     "type": "POST",
+                     "contentType": "application/json",
+                     "data": function (d) {
+                         return JSON.stringify(d);// Convierte los datos a JSON
+                     },
+                     "dataSrc": function (json) {
+                         return json.d.data;// Obtiene la lista de productos del resultado
+                     }
                  },
-                 "dataSrc": function (json) {
-                     return json.d.data;// Obtiene la lista de productos del resultado
-                 }
-             },
-             "columns": [
-                 { "data": "UserID" },
-                 { "data": "Document" },
-                 { "data": "Email" },
-                 //{ "data": "Password" },
-                 //{"data":  "Salt" },
-                 { "data": "State" },
-                 { "data": "Date" },
-                 { "data": "FkRol", "visible": false },
-                 { "data": "FKDocumentType","visible": false },
-                 {
-                     "data": null,
-                     "render": function (data, type, row) {
-                         return `<button class="edit-btn" data-id="${row.UserID}">Editar</button>
+                 "columns": [
+                     { "data": "UserID" },
+                     { "data": "Document" },
+                     { "data": "Email" },
+                     { "data": "Password" },
+                     { "data": "Salt" },
+                     { "data": "State" },
+                     { "data": "Date" },
+                     { "data": "FkRol" },
+                     { "data": "FKDocumentType" },
+                     {
+                         "data": null,
+                         "render": function (data, type, row) {
+                             return `<button class="edit-btn" data-id="${row.UserID}">Editar</button>
                               <button class="delete-btn" data-id="${row.UserID}">Eliminar</button>`;
+                         }
+                     }
+                 ],
+                 "language": {
+                     "lengthMenu": "Mostrar _MENU_ registros por página",
+                     "zeroRecords": "No se encontraron resultados",
+                     "info": "Mostrando página _PAGE_ de _PAGES_",
+                     "infoEmpty": "No hay registros disponibles",
+                     "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                     "search": "Buscar:",
+                     "paginate": {
+                         "first": "Primero",
+                         "last": "Último",
+                         "next": "Siguiente",
+                         "previous": "Anterior"
                      }
                  }
-             ],
-             "language": {
-                 "lengthMenu": "Mostrar _MENU_ registros por página",
-                 "zeroRecords": "No se encontraron resultados",
-                 "info": "Mostrando página _PAGE_ de _PAGES_",
-                 "infoEmpty": "No hay registros disponibles",
-                 "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                 "search": "Buscar:",
-                 "paginate": {
-                     "first": "Primero",
-                     "last": "Último",
-                     "next": "Siguiente",
-                     "previous": "Anterior"
+
+             });
+
+             // Editar un usuario
+             $('#usersTable').on('click', '.edit-btn', function () {
+                 //const id = $(this).data('id');
+                 const rowData = $('#usersTable').DataTable().row($(this).parents('tr')).data();
+                 //alert(JSON.stringify(rowData, null, 2));
+                 loadProductData(rowData);
+             });
+
+             // Eliminar un Usuario
+             $('#usersTable').on('click', '.delete-btn', function () {
+                 const id = $(this).data('id');// Obtener el ID del usuario
+                 if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+                     deleteUser(id);// Invoca a la función para eliminar el usuario
                  }
-             }
-
+             });
          });
 
-         // Editar un usuario
-         $('#usersTable').on('click', '.edit-btn', function () {
-             //const id = $(this).data('id');
-             const rowData = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-             //alert(JSON.stringify(rowData, null, 2));
-             loadProductData(rowData);
-         });
-
-         // Eliminar un Usuario
-         $('#usersTable').on('click', '.delete-btn', function () {
-             const id = $(this).data('id');// Obtener el ID del usuario
-             if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-                 deleteUser(id);// Invoca a la función para eliminar el usuario
-             }
-         });
-     });
-
-     // Cargar los datos en los TextBox y DDL para actualizar
+         // Cargar los datos en los TextBox y DDL para actualizar
 
          function loadProductData(rowData) {
              $('#<%= HDUserID.ClientID %>').val(rowData.UserID);
              $('#<%= TBUsu_documento.ClientID %>').val(rowData.Document);
              $('#<%= TBUsu_correo.ClientID %>').val(rowData.Email);
-             //$('#<%= TBUsu_contrasena.ClientID %>').val(rowData.Password);
-             <%-- $('#<%= TBUsu_salt.ClientID %>').val(rowData.Salt);--%>
+            <%-- $('#<%= TBUsu_contrasena.ClientID %>').val(rowData.Password);
+             $('#<%= TBUsu_salt.ClientID %>').val(rowData.Salt);--%>
              $('#<%= DDLState.ClientID %>').val(rowData.State);
              $('#<%= TBUsu_fecha_creación.ClientID %>').val(rowData.Date);
              $('#<%= DDLRol.ClientID %>').val(rowData.FkRol);
              $('#<%= DDLTipo_documento.ClientID %>').val(rowData.FKDocumentType);
          }
-     
 
-     // Función para eliminar un producto
-     function deleteUser(id) {
-         $.ajax({
-             type: "POST",
-             url: "WFUsers.aspx/DeleteUser",// Se invoca el WebMethod Eliminar un Producto
-             contentType: "application/json; charset=utf-8",
-             data: JSON.stringify({ id: id }),
-             success: function (response) {
-                 $('#usersTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                 alert("Usuario eliminado exitosamente.");
-             },
-             error: function () {
-                 alert("Error al eliminar el Usuario.");
-             }
-         });
-     }
+
+         // Función para eliminar un producto
+         function deleteUser(id) {
+             $.ajax({
+                 type: "POST",
+                 url: "WFUsers.aspx/DeleteUser",// Se invoca el WebMethod Eliminar un Producto
+                 contentType: "application/json; charset=utf-8",
+                 data: JSON.stringify({ id: id }),
+                 success: function (response) {
+                     $('#usersTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
+                     alert("Usuario eliminado exitosamente.");
+                 },
+                 error: function () {
+                     alert("Error al eliminar el Usuario.");
+                 }
+             });
+         }
  </script>
 </asp:Content>

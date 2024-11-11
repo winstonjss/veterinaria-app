@@ -16,14 +16,16 @@ namespace Presentation
         Roles_PermissionLog objRolPer = new Roles_PermissionLog();
         RolesLog objRol = new RolesLog();
         PermissionLog objPer = new PermissionLog();
-        private int _rol_id, _permiso_id, _old_rol_id, _old_permiso_id, _new_rol_id, _new_permiso_id;
+        private int _rol_id, _permiso_id, _id_rol_permiso;
         private bool executed = false;
+        private DateTime _fecha_asignacion;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //aqui se invocan todos los métodos 
-
+                //aqui se invocan todos los métodos 
+                TBper_rol_fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 showRolesDDL();
                 showPermissionDDl();
             }
@@ -46,10 +48,13 @@ namespace Presentation
             {
                 rolespermisosList.Add(new
                 {
-                    ID_rol = row["rol_id"],
-                    Nombre_Rol = row["rol_nombre"],
-                    ID_Permiso = row["per_id"],
-                    Nombre_Permiso = row["per_nombre"],
+                    ID = row["rol_permiso"],
+                    Rol_ID = row["tbl_rol_rol_id"],
+                    NombreRol = row["rol_nombre"],
+                    Per_ID = row["per_id"],
+                    NombrePermiso = row["per_nombre"],
+                    Date = Convert.ToDateTime(row["per_rol_fecha_asignacion"]).ToString("yyyy-MM-dd"), // Formato de fecha específico.
+
                 });
             }
             // Devuelve un objeto en formato JSON que contiene la lista de productos.
@@ -62,6 +67,7 @@ namespace Presentation
         //Metodo para mostrar los roles DDL
         private void showRolesDDL()
         {
+
             DDLRol.DataSource = objRol.showRolesDDL();
             DDLRol.DataValueField = "rol_id";
             DDLRol.DataTextField = "rol_nombre";
@@ -71,6 +77,7 @@ namespace Presentation
 
         private void showPermissionDDl()
         {
+
             DDLPermiso.DataSource = objPer.showPermissionDDl();
             DDLPermiso.DataValueField = "per_id";
             DDLPermiso.DataTextField = "per_nombre";
@@ -79,40 +86,30 @@ namespace Presentation
         }
 
         [WebMethod]
-        public static bool deleteRolesPermision(int _rol_id, int _permiso_id)
-        {
-            try
-            {
-                Roles_PermissionLog objRolPer = new Roles_PermissionLog();
-                return objRolPer.deleteRolesPermision(_rol_id, _permiso_id);
-            }
-            catch (Exception)
-            {
-                // Aquí puedes loguear el error si es necesario
-                return false;
-            }
-        }
-        ////Método para eliminar un Permiso
-        //public static bool deleteRolesPermision(int _rol_id, int _permiso_id)
-        //{
-        //    // Crear una instancia de la clase de lógica de rol
-        //    Roles_PermissionLog objRolPer = new Roles_PermissionLog();
 
-        //    // Invocar al método para eliminar el Rol y devolver el resultado
-        //    return objRolPer.deleteRolesPermision(_rol_id, _permiso_id);
-        //}
+        //Método para eliminar un Permiso
+        public static bool deleteRolesPermision(int id)
+        {
+            // Crear una instancia de la clase de lógica de rol
+            Roles_PermissionLog objRolPer = new Roles_PermissionLog();
+
+            // Invocar al método para eliminar el Rol y devolver el resultado
+            return objRolPer.deleteRolesPermision(id);
+        }
         private void clear()
         {
             DDLRol.SelectedIndex = 0;
             DDLPermiso.SelectedIndex = 0;
+            TBper_rol_fecha.Text = "";
 
         }
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             _rol_id = Convert.ToInt32(DDLRol.SelectedValue);
             _permiso_id = Convert.ToInt32(DDLPermiso.SelectedValue);
+            _fecha_asignacion = DateTime.Parse(TBper_rol_fecha.Text);
 
-            executed = objRolPer.saveRolesPermisos(_rol_id, _permiso_id);
+            executed = objRolPer.saveRolesPermisos(_rol_id, _permiso_id, _fecha_asignacion);
 
             if (executed)
             {
@@ -130,24 +127,18 @@ namespace Presentation
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
             // Verifica si se ha seleccionado un Rol  para actualizar
-            if (string.IsNullOrEmpty(DDLRol.SelectedValue))
+            if (string.IsNullOrEmpty(HFRol_Permiso.Value))
             {
-                LblMsg.Text = "No se ha seleccionado un Rol para actualizar.";
+                LblMsg.Text = "No se ha seleccionado un Rol Permiso para actualizar.";
                 return;
             }
-            // Verifica si se ha seleccionado un Permiso  para actualizar
-            if (string.IsNullOrEmpty(DDLPermiso.SelectedValue))
-            {
-                LblMsg.Text = "No se ha seleccionado un Permiso para actualizar.";
-                return;
-            }
+            _id_rol_permiso = Convert.ToInt32(HFRol_Permiso.Value);
+            _rol_id = Convert.ToInt32(DDLRol.SelectedValue);
+            _permiso_id = Convert.ToInt32(DDLPermiso.SelectedValue);
+            _fecha_asignacion = DateTime.Parse(TBper_rol_fecha.Text);
 
-            int _old_rol_id = Convert.ToInt32(oldRolId.Value); // Valor antiguo de rol
-            int _old_permiso_id = Convert.ToInt32(oldPermisoId.Value); // Valor antiguo de permiso
-            int _new_rol_id = Convert.ToInt32(DDLRol.SelectedValue); // Nuevo valor de rol
-            int _new_permiso_id = Convert.ToInt32(DDLPermiso.SelectedValue); // Nuevo valor de permiso
+            executed = objRolPer.updateRolesPermisos(_id_rol_permiso, _rol_id, _permiso_id, _fecha_asignacion);
 
-            executed = objRolPer.updateRolesPermisos(_old_rol_id, _old_permiso_id, _new_rol_id, _new_permiso_id);
 
             if (executed)
             {

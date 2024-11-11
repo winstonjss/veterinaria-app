@@ -114,23 +114,8 @@ namespace Data
         }
 
 
-        //public DataSet showPermissionById()
-        //{
-        //    MySqlDataAdapter objAdapter = new MySqlDataAdapter();
-        //    DataSet objData = new DataSet();
-
-        //    MySqlCommand objSelectCmd = new MySqlCommand();
-        //    objSelectCmd.Connection = objPer.openConnection();
-        //    objSelectCmd.CommandText = "spSelectPermissionById";
-        //    objSelectCmd.CommandType = CommandType.StoredProcedure;
-        //    objAdapter.SelectCommand = objSelectCmd;
-        //    objAdapter.Fill(objData);
-        //    objPer.closeConnection();
-        //    return objData;
-        //}
-
-        //Metodo para guardar rol y permiso
-        public bool saveRolesPermisos(int _rol_id, int _permiso_id)
+              //Metodo para guardar rol y permiso
+        public bool saveRolesPermisos(int _rol_id, int _permiso_id, DateTime _p_date)
         {
             bool executed = false;
             int row;
@@ -141,6 +126,7 @@ namespace Data
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_rol_id", MySqlDbType.Int32).Value = _rol_id;
             objSelectCmd.Parameters.Add("p_permiso_id", MySqlDbType.Int32).Value = _permiso_id;
+            objSelectCmd.Parameters.Add("p_date", MySqlDbType.DateTime).Value = _p_date;
 
 
             try
@@ -161,8 +147,7 @@ namespace Data
         }
 
         //Metodo para actualizar rol y permiso
-        public bool updateRolesPermisos(int _old_rol_id, int _old_permiso_id, int _new_rol_id,
-            int _new_permiso_id)
+        public bool updateRolesPermisos(int _p_rol_permiso, int _p_fkrol, int _p_fkpermiso, DateTime  _p_date )
         {
             bool executed = false;
             int row;
@@ -171,10 +156,10 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spUpdateRoles_Permission"; //nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("old_rol_id", MySqlDbType.Int32).Value = _old_rol_id;
-            objSelectCmd.Parameters.Add("old_permiso_id", MySqlDbType.Int32).Value = _old_permiso_id;
-            objSelectCmd.Parameters.Add("new_rol_id", MySqlDbType.Int32).Value = _new_rol_id;
-            objSelectCmd.Parameters.Add("new_permiso_id", MySqlDbType.Int32).Value = _new_permiso_id;
+            objSelectCmd.Parameters.Add("p_rol_permiso", MySqlDbType.Int32).Value = _p_rol_permiso;
+            objSelectCmd.Parameters.Add("p_fkrol", MySqlDbType.Int32).Value = _p_fkrol;
+            objSelectCmd.Parameters.Add("p_fkpermiso", MySqlDbType.Int32).Value = _p_fkpermiso;
+            objSelectCmd.Parameters.Add("p_date", MySqlDbType.DateTime).Value = _p_date;
 
             try
             {
@@ -194,7 +179,7 @@ namespace Data
         }
 
         //Metodo para borrar un Rol-Permiso
-        public bool deleteRolesPermision(int _rol_id, int _permiso_id)
+        public bool deleteRolesPermision(int _id)
         {
             bool executed = false;
             int row;
@@ -203,8 +188,8 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spDeleteRole_Permission"; //nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("p_rol_id", MySqlDbType.Int32).Value = _rol_id;
-            objSelectCmd.Parameters.Add("p_permiso_id", MySqlDbType.Int32).Value = _permiso_id;
+            objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = _id;
+            
 
             try
             {

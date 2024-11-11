@@ -1,17 +1,27 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFRoles_Permission.aspx.cs" Inherits="Presentation.WFRoles_Permisos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="resources/css/datatables.min.css" rel="stylesheet" />
+     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
     <form runat="server">
-        <asp:Label ID="Label6" runat="server" Text="Seleccione el Rol"></asp:Label>
-        <asp:DropDownList ID="DDLRol" runat="server"></asp:DropDownList>
+        <%--ID--%>
+        <asp:HiddenField ID="HFRol_Permiso" runat="server" />
         <br />
+    
         
+        <br />
+<asp:Label ID="Label3" runat="server" Text="Seleccione el Rol"></asp:Label>
+<asp:DropDownList ID="DDLRol" runat="server"></asp:DropDownList>
+<br />
         <asp:Label ID="Label1" runat="server" Text="Seleccione el permiso"></asp:Label>
         <asp:DropDownList ID="DDLPermiso" runat="server"></asp:DropDownList>
+        <br />
+
+         <%-- Fecha de asignación --%>
+        <asp:Label ID="Label2" runat="server" Text="Fecha de asignación "></asp:Label>
+        <asp:TextBox ID="TBper_rol_fecha" runat="server"  TextMode="Date"></asp:TextBox>
         <br />
 
          <!-- Campos ocultos para almacenar valores antiguos -->
@@ -30,10 +40,12 @@
     <table id="RolPermisoTable" class="display" style="width: 100%">
         <thead>
             <tr>
-                <th>rol ID</th>
-                <th>Nombre Rol</th>
-                <th>permiso ID</th>
+                <th>ID Rol_Permiso</th>
+                <th>Rol_ID</th>
+                <th>Nombre Rol </th>
+                <th>Permiso ID </th>
                 <th>Nombre Permiso</th>
+                <th>Fecha asignación</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -58,17 +70,17 @@
                     }
                 },
                 "columns": [
-                    { "data": "ID_rol" },
-                    { "data": "Nombre_Rol" },
-                    { "data": "ID_Permiso" },
-                    { "data": "Nombre_Permiso" },
+                    { "data": "ID" },
+                    { "data": "Rol_ID" },
+                    { "data": "NombreRol" },
+                    { "data": "Per_ID" },
+                    { "data": "NombrePermiso" },
+                    { "data": "Date" },
                     {
                         "data": null,
                         "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-rol-id="${row.ID_rol}" 
-                            data-permiso-id="${row.ID_Permiso}">Editar</button> 
-                            <button class="delete-btn" data-rol-id="${row.ID_rol}" 
-                            data-permiso-id="${row.ID_Permiso}">Eliminar</button>`;
+                            return `<button class="edit-btn" data-id="${row.ID}">Editar</button>
+                              <button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
                         }
                     }
                 ],
@@ -88,60 +100,39 @@
                 }
             });
 
+            // Editar un Rol y Permiso
             $('#RolPermisoTable').on('click', '.edit-btn', function () {
+                //const id = $(this).data('id');
                 const rowData = $('#RolPermisoTable').DataTable().row($(this).parents('tr')).data();
+                //alert(JSON.stringify(rowData, null, 2));
                 loadRolesPermisosData(rowData);
             });
 
             $('#RolPermisoTable').on('click', '.delete-btn', function () {
-                const rol_id = $(this).data('rol-id');
-                const permiso_id = $(this).data('permiso-id');
+                const id = $(this).data('id');// Obtener el ID del Rol Permiso
                 if (confirm("¿Estás seguro de que deseas eliminar este Permiso?")) {
-                    deleteRolesPermision(rol_id, permiso_id);
+                    deleteRolesPermision(id);// Invoca a la función para eliminar el Rol Permiso
                 }
             });
         });
 
-
-        // Función para cargar los datos del permiso en el formulario y pasar los valores antiguos
+        // Función para cargar los datos del permiso en el formulario 
         function loadRolesPermisosData(rowData) {
-            // Carga los valores seleccionados en los DropDownList
-            $('#<%= DDLRol.ClientID %>').val(rowData.ID_rol);
-            $('#<%= DDLPermiso.ClientID %>').val(rowData.ID_Permiso);
+            // Cargar ID del rol_permiso en el campo oculto
+            $('#<%= HFRol_Permiso.ClientID %>').val(rowData.ID);
+            $('#<%= DDLRol.ClientID %>').val(rowData.Rol_ID);
+            $('#<%= DDLPermiso.ClientID %>').val(rowData.Per_ID);
+            $('#<%= TBper_rol_fecha.ClientID %>').val(rowData.Date);
+        }
 
-          // Guarda los valores anteriores en los campos ocultos
-             $('#<%= oldRolId.ClientID %>').val(rowData.ID_rol);
-             $('#<%= oldPermisoId.ClientID %>').val(rowData.ID_Permiso);
-        }
-      
-        function updateRolesPermisos(_old_rol_id, old_permiso_id, new_rol_id, new_permiso_id) {
-            $.ajax({
-                type: "POST",
-                url: "WFRoles_Permission.aspx/updateRolesPermisos",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    oldRolId: _old_rol_id,
-                    oldPermisoId: old_permiso_id,
-                    newRolId: new_rol_id,
-                    newPermisoId: new_permiso_id
-                }),
-                success: function (response) {
-                    $('#RolPermisoTable').DataTable().ajax.reload();
-                    alert("Permiso Actualizado exitosamente.");
-                },
-                error: function (xhr, status, error) {
-                    alert("Error al Actualizar el Permiso: " + error);
-                }
-            });
-        }
 
         // Función para eliminar un Rol y Permiso
-        function deleteRolesPermision(rol_id,permiso_id) {
+        function deleteRolesPermision(id) {
             $.ajax({
                 type: "POST",
                 url: "WFRoles_Permission.aspx/deleteRolesPermision",// Se invoca el WebMethod Eliminar un Permiso
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ _rol_id:rol_id, _permiso_id: permiso_id }),
+                data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#RolPermisoTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
                     alert("Rol y Permiso eliminado exitosamente.");
@@ -152,5 +143,5 @@
             });
         }
 
-</script>
+    </script>
 </asp:Content>

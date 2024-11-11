@@ -62,8 +62,8 @@ namespace Presentation
                     UserID = row["usu_id"],
                     Document = row["usu_documento"],
                     Email = row["usu_correo"],
-                    //Password = row["usu_contrasena"],
-                    //Salt = row["usu_salt"],
+                    Password = row["usu_contrasena"],
+                    Salt = row["usu_salt"],
                     // No incluir Password ni Salt
                     State = row["usu_estado"],
                     Date = Convert.ToDateTime(row["usu_fecha_creacion"]).ToString("yyyy-MM-dd"), // Formato de fecha específico.

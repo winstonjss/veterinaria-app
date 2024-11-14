@@ -12,24 +12,23 @@
 <body>
      
         <div>
-            <a href="WFinicio.aspx">Inicio</a>
-            <a href="WFAnamnensis.aspx">Anamnesis</a>
-            <a href="WFAnimals.aspx">Animales</a>
-            <a href="WFAppointments.aspx">Citas</a>
-            <a href="WFDiagnoses.aspx">Diagnostico</a>
-            <a href="WFDocumentType.aspx">Tipo Documento</a>
-            <a href="WFMedicalHistory.aspx">Historia clinica</a>
-            <a href="WFOffice.aspx">Consultorio</a>
-            <a href="WFOwner.aspx">propietario</a>
-            <a href="WFRoles_Permission.aspx">Roles y permisos</a>
-            <a href="WFPermission.aspx">Permisos</a>
-            <a href="WFRol.aspx">Roles</a>
-            <a href="WFTreatment.aspx">tratamientos</a>
-            <a href="WFUsers.aspx">Usuarios</a>
-            <a href="WFVaccines.aspx">vacunas</a>
-            <a href="WFVeterinarian.aspx">veterinario</a>
-            <a href="WFVeterinaryHours.aspx">horario veterinario</a>
-
+            <a id="linkInicio" runat="server" href ="WFinicio.aspx">Inicio</a>
+            <a id="linkAnamnesis" runat="server" href="WFAnamnensis.aspx">Anamnesis</a>
+            <a id="linkAnimals" runat="server" href="WFAnimals.aspx">Animales</a>
+            <a id="linkAppointments" runat="server" href="WFAppointments.aspx">Citas</a>
+            <a id="linkDiagnoses" runat="server" href="WFDiagnoses.aspx">Diagnostico</a>
+            <a id="linkDocumentType" runat="server" href="WFDocumentType.aspx">Tipo Documento</a>
+            <a id="linkMedicalHistory" runat="server" href="WFMedicalHistory.aspx">Historia clinica</a>
+            <a id="linkOffice" runat="server" href="WFOffice.aspx">Consultorio</a>
+            <a id="linkOwner" runat="server" href="WFOwner.aspx">Propietario</a>
+            <a id="linkRolesPermission" runat="server" href="WFRoles_Permission.aspx">Roles y Permisos</a>
+            <a id="linkPermission" runat="server" href="WFPermission.aspx">Permisos</a>
+            <a id="linkRol" runat="server" href="WFRol.aspx">Roles</a>
+            <a id="linkTreatment" runat="server" href="WFTreatment.aspx">Tratamientos</a>
+            <a id="linkUsers" runat="server" href="WFUsers.aspx">Usuarios</a>
+            <a id="linkVaccines" runat="server" href="WFVaccines.aspx">Vacunas</a>
+            <a id="linkVeterinarian" runat="server" href="WFVeterinarian.aspx">Veterinario</a>
+            <a id="linkVeterinaryHours" runat="server" href="WFVeterinaryHours.aspx">Horario Veterinario</a>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>

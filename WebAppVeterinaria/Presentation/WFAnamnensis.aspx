@@ -3,7 +3,7 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
+    <form id="FrmAnamnesis" runat="server">
     <h2>Gestión de Anamnesis</h2>
     <asp:HiddenField ID="HFAnamnesisID" runat="server" />
     <div class="form-group">
@@ -21,20 +21,20 @@
     </div>
     <br />
     </form>
+    <asp:Panel ID="PanelAdmin" runat="server">
     <h2>Lista de Anamnesis</h2>
     <table id="AnamnesisTable" class="display" style="width: 100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Descripción</th>
-                <th>ID Cita</th>            
-                
-                
+                <th>ID Cita</th>                                            
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
+    </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <script type="text/javascript">

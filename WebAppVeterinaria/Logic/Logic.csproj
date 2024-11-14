@@ -70,9 +70,23 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnamnesisLog.cs" />
+    <Compile Include="AnimalsLog.cs" />
+    <Compile Include="AppointmentsLog.cs" />
+    <Compile Include="DiagnosesLog.cs" />
     <Compile Include="DocumentTypeLog.cs" />
+    <Compile Include="MedicalHistoryLog.cs" />
+    <Compile Include="OfficeLog.cs" />
+    <Compile Include="OwnerLog.cs" />
+    <Compile Include="PermissionLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesLog.cs" />
     <Compile Include="Roles_PermissionLog.cs" />
+    <Compile Include="TreatmentLog.cs" />
+    <Compile Include="UsersLog.cs" />
+    <Compile Include="VaccinesLog.cs" />
+    <Compile Include="VeterinarianLog.cs" />
+    <Compile Include="VeterinaryHoursLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -84,6 +98,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\C#\veterinaria-app\WebAppVeterinaria\Model\Model.csproj">
+      <Project>{ce8ee344-07e0-4a5f-90a0-6d1dc16ea8d3}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{3fa8dc56-5d24-4df0-bee8-b6722b330ed0}</Project>
       <Name>Data</Name>

@@ -25,6 +25,9 @@ namespace Presentation
         }
         protected void BtnIniciar_Click(object sender, EventArgs e)
         {
+            // Muestra la imagen de cargando antes de procesar la encriptación
+            ScriptManager.RegisterStartupScript(this, GetType(), "showLoading", "showLoading();", true);
+
             ICryptoService cryptoService = new PBKDF2();
             _correo = TBCorreo.Text;
             _contrasena = TBContrasena.Text;
@@ -60,6 +63,8 @@ namespace Presentation
             {
                 LblMsg.Text = "Correo o Contraseña Incorrectos!";
             }
+            // Oculta la imagen de cargando al terminar el procesamiento
+            ScriptManager.RegisterStartupScript(this, GetType(), "hideLoading", "hideLoading();", true);
         }
     }
 }

@@ -57,15 +57,15 @@ namespace Data
             {
                 return objUser;
             }
-            else
+            while (reader.Read())
             {
-                while (reader.Read())
+                if (objUser == null)
                 {
                     objUser = new User(reader["usu_correo"].ToString(),
                     reader["usu_contrasena"].ToString(), reader["usu_salt"].ToString(),
                     reader["usu_estado"].ToString(), reader["rol_nombre"].ToString(), Convert.ToInt32(reader["per_id"]));
                 }
-            }
+            }           
             objPer.closeConnection();
             return objUser;
         }

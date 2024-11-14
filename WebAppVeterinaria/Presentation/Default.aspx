@@ -16,7 +16,7 @@
                 <asp:TextBox ID="TBCorreo" runat="server"></asp:TextBox><br />
                 <asp:Label ID="Label3" runat="server" Text="">Contraseña</asp:Label>
                 <asp:TextBox ID="TBContrasena" runat="server" TextMode="Password"></asp:TextBox><br />
-                <asp:Button ID="BtnIniciar" runat="server" Text="Iniciar" OnClick="BtnIniciar_Click" /><br />
+                <asp:Button ID="BtnIniciar" runat="server" Text="Iniciar" OnClick="BtnIniciar_Click" OnClientClick="showLoading();" /><br />
                 <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
             </div>
         </div>

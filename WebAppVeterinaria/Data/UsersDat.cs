@@ -47,6 +47,8 @@ namespace Data
         public User showUsersMail(string mail)
         {
             User objUser = null;
+            List<Permission> permisos = new List<Permission>();
+
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "spSelectUserMail";
@@ -61,9 +63,18 @@ namespace Data
             {
                 if (objUser == null)
                 {
+                    Rol userRol = new Rol(
+                        id: Convert.ToInt32(reader["rol_id"]), // Si tienes el ID del rol
+                        nombre: reader["rol_nombre"].ToString(),
+                        descripcion: reader["rol_descripcion"].ToString() // Ajusta según tu estructura
+                    );
+
                     objUser = new User(reader["usu_correo"].ToString(),
-                    reader["usu_contrasena"].ToString(), reader["usu_salt"].ToString(),
-                    reader["usu_estado"].ToString(), reader["rol_nombre"].ToString(), Convert.ToInt32(reader["per_id"]));
+                    reader["usu_contrasena"].ToString(),
+                    reader["usu_salt"].ToString(),
+                    reader["usu_estado"].ToString(),
+                    rol: userRol,
+                    permisos: permisos);
                 }
             }           
             objPer.closeConnection();

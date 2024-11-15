@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Logic;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Logic;
-using Model;
 
 namespace Presentation
 {
@@ -18,13 +20,21 @@ namespace Presentation
         private string _description;
         private bool executed = false;
 
+
+        /*
+         *  Variables de tipo pública que indiquen si el usuario tiene
+         *  permiso para ver los botones editar y eliminar.
+         */
         public bool _showEditButton { get; set; } = false;
         public bool _showDeleteButton { get; set; } = false;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                BtnSave.Visible = false;
+                BtnUpdate.Visible = false;
+                FrmAnamnesis.Visible = false;
+                PanelAdmin.Visible = false;
                 showAppointmentsDDL();
             }
             validatePermissionRol();

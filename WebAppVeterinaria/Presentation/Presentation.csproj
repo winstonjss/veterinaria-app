@@ -1,5 +1,4 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,7 +42,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimpleCrypto, Version=26.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleCrypto.0.3.30.26\lib\SimpleCrypto.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -62,17 +67,178 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Logout.aspx" />
+    <Content Include="resources\css\datatables.css" />
+    <Content Include="resources\css\datatables.min.css" />
+    <Content Include="resources\images\loading-7528_128.gif" />
+    <Content Include="resources\images\loading-7528_256.gif" />
+    <Content Include="resources\js\datatables.js" />
+    <Content Include="resources\js\datatables.min.js" />
     <Content Include="Web.config" />
+    <Content Include="WFAnamnensis.aspx" />
+    <Content Include="WFAnimals.aspx" />
+    <Content Include="WFAppointments.aspx" />
+    <Content Include="WFDiagnoses.aspx" />
+    <Content Include="WFDocumentType.aspx" />
+    <Content Include="WFinicio.aspx" />
+    <Content Include="WFMedicalHistory.aspx" />
+    <Content Include="WFOffice.aspx" />
+    <Content Include="WFOwner.aspx" />
+    <Content Include="WFPermission.aspx" />
+    <Content Include="WFRol.aspx" />
+    <Content Include="WFRoles_Permission.aspx" />
+    <Content Include="WFTreatment.aspx" />
+    <Content Include="WFUsers.aspx" />
+    <Content Include="WFVaccines.aspx" />
+    <Content Include="WFVeterinarian.aspx" />
+    <Content Include="WFVeterinaryHours.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WFAnamnensis.aspx.cs">
+      <DependentUpon>WFAnamnensis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFAnamnensis.aspx.designer.cs">
+      <DependentUpon>WFAnamnensis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFAnimals.aspx.cs">
+      <DependentUpon>WFAnimals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFAnimals.aspx.designer.cs">
+      <DependentUpon>WFAnimals.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFAppointments.aspx.cs">
+      <DependentUpon>WFAppointments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFAppointments.aspx.designer.cs">
+      <DependentUpon>WFAppointments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFDiagnoses.aspx.cs">
+      <DependentUpon>WFDiagnoses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFDiagnoses.aspx.designer.cs">
+      <DependentUpon>WFDiagnoses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFDocumentType.aspx.cs">
+      <DependentUpon>WFDocumentType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFDocumentType.aspx.designer.cs">
+      <DependentUpon>WFDocumentType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFinicio.aspx.cs">
+      <DependentUpon>WFinicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFinicio.aspx.designer.cs">
+      <DependentUpon>WFinicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFMedicalHistory.aspx.cs">
+      <DependentUpon>WFMedicalHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFMedicalHistory.aspx.designer.cs">
+      <DependentUpon>WFMedicalHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFOffice.aspx.cs">
+      <DependentUpon>WFOffice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFOffice.aspx.designer.cs">
+      <DependentUpon>WFOffice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFOwner.aspx.cs">
+      <DependentUpon>WFOwner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFOwner.aspx.designer.cs">
+      <DependentUpon>WFOwner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFPermission.aspx.cs">
+      <DependentUpon>WFPermission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFPermission.aspx.designer.cs">
+      <DependentUpon>WFPermission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFRol.aspx.cs">
+      <DependentUpon>WFRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFRol.aspx.designer.cs">
+      <DependentUpon>WFRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFRoles_Permission.aspx.cs">
+      <DependentUpon>WFRoles_Permission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFRoles_Permission.aspx.designer.cs">
+      <DependentUpon>WFRoles_Permission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFTreatment.aspx.cs">
+      <DependentUpon>WFTreatment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFTreatment.aspx.designer.cs">
+      <DependentUpon>WFTreatment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFUsers.aspx.cs">
+      <DependentUpon>WFUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFUsers.aspx.designer.cs">
+      <DependentUpon>WFUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFVaccines.aspx.cs">
+      <DependentUpon>WFVaccines.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFVaccines.aspx.designer.cs">
+      <DependentUpon>WFVaccines.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFVeterinarian.aspx.cs">
+      <DependentUpon>WFVeterinarian.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFVeterinarian.aspx.designer.cs">
+      <DependentUpon>WFVeterinarian.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFVeterinaryHours.aspx.cs">
+      <DependentUpon>WFVeterinaryHours.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFVeterinaryHours.aspx.designer.cs">
+      <DependentUpon>WFVeterinaryHours.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Main.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -80,6 +246,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{9cd6d112-98fb-42c0-89e6-e89e245c0271}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{ce8ee344-07e0-4a5f-90a0-6d1dc16ea8d3}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -106,11 +282,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

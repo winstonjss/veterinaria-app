@@ -3,7 +3,7 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
+    <form id="FrmAnamnesis" runat="server">
     <h2>Gestión de Anamnesis</h2>
     <asp:HiddenField ID="HFAnamnesisID" runat="server" />
     <div class="form-group">
@@ -14,31 +14,35 @@
         <asp:Label ID="Label5" runat="server" Text="Seleccione la cita:"></asp:Label>
         <asp:DropDownList ID="DDLAppointments" runat="server" CssClass="form-control"></asp:DropDownList>
     </div>
-    <div class="form-group">        
+    <div>        
         <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" CssClass="btn btn-primary" />
         <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" CssClass="btn btn-warning" />
         <asp:Label ID="lblMsg" runat="server" Text="" CssClass="text-info"></asp:Label>
     </div>
     <br />
     </form>
-    <h2>Lista de Anamnesis</h2>
-    <table id="AnamnesisTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>ID Cita</th>            
-                
-                
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <h2>Lista de Anamnesis</h2>
+        <table id="AnamnesisTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>ID Cita</th>                                            
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True'; === 'True';
             var table = $('#AnamnesisTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -59,9 +63,15 @@
                     { "data": "FkAppointment" },
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return '<button class="btn btn-sm btn-info edit-btn" data-id="' + row.AnamnesisID + '">Editar</button> ' +
-                                '<button class="btn btn-sm btn-danger delete-btn" data-id="' + row.AnamnesisID + '">Eliminar</button>';
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.AnamnesisID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.AnamnesisID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],

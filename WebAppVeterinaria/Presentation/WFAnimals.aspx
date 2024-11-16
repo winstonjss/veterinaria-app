@@ -6,7 +6,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       <form runat="server">
+       <form id="FrmAnimals" runat="server">
 
         <%--Id animal--%>
         <asp:HiddenField ID="HFAnimalID" runat="server" />
@@ -59,6 +59,7 @@
 
     <%--Lista de animales--%>
     <h2>Lista de Animales</h2>
+    <asp:Panel ID="PanelAdmin" runat="server">
     <table id="animalsTable" class="display" style="width: 100%">
         <thead>
             <tr>
@@ -77,6 +78,8 @@
         <tbody>
         </tbody>
     </table>
+    </asp:Panel>
+
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 
@@ -84,6 +87,8 @@
     <%--Animales--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#animalsTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -111,9 +116,15 @@
                     { "data": "NameOwner" },
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.AnimalID}">Editar</button>
-                              <button class="delete-btn" data-id="${row.AnimalID}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.ProductID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.ProductID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],
@@ -184,5 +195,5 @@
                 }
             });
         }
- </script>
+    </script>
 </asp:Content>

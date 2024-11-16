@@ -1,36 +1,59 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFPermission.aspx.cs" Inherits="Presentation.WFPermission" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--estilos--%>
+    <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form runat="server">
+    <form id="FrmPermission" runat="server">
         <%--ID--%>
         <asp:HiddenField ID="HFPermiso" runat="server" />
         <br />
         <%-- Nombre Permiso--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese Nombre de Permiso"></asp:Label>
-        <asp:TextBox ID="TBPer_nombre" runat="server"></asp:TextBox>
+        <asp:Label ID="Label1" runat="server" Text="">Permiso</asp:Label>
+        <asp:DropDownList ID="DDLNombrePer" runat="server">
+            <asp:ListItem Value="0">Seleccione</asp:ListItem>
+            <asp:ListItem Value="CREAR">Crear</asp:ListItem>
+            <asp:ListItem Value="ACTUALIZAR">Actualizar</asp:ListItem>
+            <asp:ListItem Value="MOSTRAR">Mostrar</asp:ListItem>
+            <asp:ListItem Value="ELIMINAR">Eliminar</asp:ListItem>
+        </asp:DropDownList>
+
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFVNombrePer" runat="server"
+            ControlToValidate="DDLNombrePer"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Permiso."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
 
         <%-- Descripción Permiso--%>
-        <asp:Label ID="Label2" runat="server" Text="Ingrese la descripcion"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Descripcion"></asp:Label>
         <asp:TextBox ID="TBPer_descripcion" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVDescripcion"
+            runat="server"
+            ControlToValidate="TBPer_descripcion"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
 
         <%-- Botones Guardar y actualizar --%>
-        <div>
+        
             <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
             <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
             <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
-        </div>
+       
     </form>
     <br />
-    <%--Lista de Permisos --%>
 
+     <asp:Panel ID="PanelAdmin" runat="server">
+    <%--Lista de Permisos --%>
     <h2>Lista de Permisos </h2>
     <table id="permisoTable" class="display" style="width: 100%">
         <thead>
@@ -44,16 +67,20 @@
         <tbody>
         </tbody>
     </table>
-
+    </asp:Panel>
+    <%--Datatables--%>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
-    <%--Roles--%>
+
+    <%--Permisos--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#permisoTable').DataTable({
                 "processing": true,
                 "serverSide": false,
                 "ajax": {
-                    "url": "WFPermission.aspx/ListPermisos",// Se invoca el WebMethod Listar Permisos
+                    "url": "WFPermission.aspx/ListPermission",// Se invoca el WebMethod Listar Permisos
                     "type": "POST",
                     "contentType": "application/json",
                     "data": function (d) {
@@ -70,9 +97,15 @@
 
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.ID}">Editar</button>
-                             <button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.AnamnesisID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.AnamnesisID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],
@@ -113,7 +146,7 @@
         // Cargar los datos en los TextBox 
         function loadPermisoData(rowData) {
             $('#<%= HFPermiso.ClientID %>').val(rowData.ID);
-            $('#<%= TBPer_nombre.ClientID %>').val(rowData.Nombre);
+            $('#<%= DDLNombrePer.ClientID %>').val(rowData.Nombre);
             $('#<%= TBPer_descripcion.ClientID %>').val(rowData.Descripcion);
 
         }

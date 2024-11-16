@@ -7,28 +7,49 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form runat="server">
+    <form id="FrmRol"  runat="server">
 
         <%--ID--%>
         <asp:HiddenField ID="HFRol" runat="server" />
         <br />
         <%-- Nombre Rol--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese Nombre de Rol"></asp:Label>
-        <asp:TextBox ID="TBRol_nombre" runat="server"></asp:TextBox>
-        <br />
+        <asp:Label ID="Label3" runat="server" Text="">Rol</asp:Label>
+        <asp:DropDownList ID="DDLNombreRol" runat="server">
+            <asp:ListItem Value="0">Seleccione</asp:ListItem>
+            <asp:ListItem Value="Administrador">Administrador</asp:ListItem>
+            <asp:ListItem Value="Veterinario">Veterinario</asp:ListItem>
+            <asp:ListItem Value="Secretaria">Secretaria</asp:ListItem>
+            <asp:ListItem Value="Propietario">Propietario</asp:ListItem>
+        </asp:DropDownList>
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFVNombreRol" runat="server"
+            ControlToValidate="DDLNombreRol"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Rol."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
 
         <%-- Descripción Rol--%>
-        <asp:Label ID="Label2" runat="server" Text="Ingrese la descripcion"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Descripcion"></asp:Label>
         <asp:TextBox ID="TBRol_descripcion" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVDescripcion"
+            runat="server"
+            ControlToValidate="TBRol_descripcion"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
 
         <%-- Botones Guardar y actualizar --%>
-        <div>
+       
             <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
             <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
             <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
-        </div>
+        
     </form>
+     <asp:Panel ID="PanelAdmin" runat="server">
     <br />
     <%--Lista de Roles --%>
 
@@ -45,11 +66,14 @@
         <tbody>
         </tbody>
     </table>
-
+         </asp:Panel>
+     <%--Datatables--%>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Roles--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#rolTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -71,10 +95,18 @@
 
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.ID}">Editar</button>
-                             <button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                        "render": function (row)
+                        {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
+                        
                     }
                 ],
                 "language": {
@@ -114,7 +146,7 @@
         // Cargar los datos en los TextBox 
         function loadRolData(rowData) {
             $('#<%= HFRol.ClientID %>').val(rowData.ID);
-            $('#<%= TBRol_nombre.ClientID %>').val(rowData.Nombre);
+            $('#<%= DDLNombreRol.ClientID %>').val(rowData.Nombre);
             $('#<%= TBRol_descripcion.ClientID %>').val(rowData.Descripcion);
 
         }

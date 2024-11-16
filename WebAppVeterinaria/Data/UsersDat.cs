@@ -74,8 +74,19 @@ namespace Data
                     reader["usu_salt"].ToString(),
                     reader["usu_estado"].ToString(),
                     rol: userRol,
-                    permisos: permisos);
+                    permisos: permisos
+                    );
+
                 }
+                // Crear permiso y agregarlo a la lista de permisos
+                Permission permiso = new Permission(
+                    id: Convert.ToInt32(reader["per_id"]), // Si tienes el ID del permiso
+                    nombre: reader["per_nombre"].ToString(),
+                    descripcion: reader["per_descripcion"].ToString() // Ajusta según tu estructura
+                );
+
+                permisos.Add(permiso);
+            
             }           
             objPer.closeConnection();
             return objUser;

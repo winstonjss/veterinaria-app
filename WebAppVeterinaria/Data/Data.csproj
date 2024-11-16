@@ -147,7 +147,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\C#\veterinaria-app\WebAppVeterinaria\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Model.csproj">
       <Project>{ce8ee344-07e0-4a5f-90a0-6d1dc16ea8d3}</Project>
       <Name>Model</Name>
     </ProjectReference>

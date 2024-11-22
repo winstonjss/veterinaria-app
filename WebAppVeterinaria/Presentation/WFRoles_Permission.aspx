@@ -5,28 +5,51 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <form runat="server">
+    <form id="FrmRoles_Permission" runat="server">
         <%--ID--%>
         <asp:HiddenField ID="HFRol_Permiso" runat="server" />
         <br />
-    
+
+        <%--Roles--%>
+        <asp:Label ID="Label3" runat="server" Text="Seleccione el Rol"></asp:Label>
+        <asp:DropDownList ID="DDLRol" runat="server"></asp:DropDownList>
         
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFVNombreRol" runat="server"
+            ControlToValidate="DDLRol"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Rol."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
-<asp:Label ID="Label3" runat="server" Text="Seleccione el Rol"></asp:Label>
-<asp:DropDownList ID="DDLRol" runat="server"></asp:DropDownList>
-<br />
+        <%--Permisos--%>
         <asp:Label ID="Label1" runat="server" Text="Seleccione el permiso"></asp:Label>
         <asp:DropDownList ID="DDLPermiso" runat="server"></asp:DropDownList>
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFVNombrePermiso" runat="server"
+            ControlToValidate="DDLPermiso"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Permiso."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
 
          <%-- Fecha de asignación --%>
         <asp:Label ID="Label2" runat="server" Text="Fecha de asignación "></asp:Label>
         <asp:TextBox ID="TBper_rol_fecha" runat="server"  TextMode="Date"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFTBper_rol_fecha"
+            runat="server"
+            ControlToValidate="TBper_rol_fecha"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
 
-         <!-- Campos ocultos para almacenar valores antiguos -->
+        <%--<!-- Campos ocultos para almacenar valores antiguos -->
         <asp:HiddenField ID="oldRolId" runat="server" />
-        <asp:HiddenField ID="oldPermisoId" runat="server" />
+        <asp:HiddenField ID="oldPermisoId" runat="server" />--%>
         
         <div>
             <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
@@ -36,6 +59,7 @@
     </form>
     <br />
     
+    <asp:Panel ID="PanelAdmin" runat="server">
     <h2>Lista de Roles y Permisos</h2>
     <table id="RolPermisoTable" class="display" style="width: 100%">
         <thead>
@@ -50,56 +74,63 @@
         </thead>
         <tbody></tbody>
     </table>
+</asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#RolPermisoTable').DataTable({
-                "processing": true,
-                "serverSide": false,
-                "ajax": {
-                    "url": "WFRoles_Permission.aspx/ListRolesPermisos",
-                    "type": "POST",
-                    "contentType": "application/json",
-                    "data": function (d) {
-                        return JSON.stringify(d);
+        <script type="text/javascript">
+            $(document).ready(function () {
+                const showEditButton = '<%= _showEditButton %>' === 'True';
+                const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
+                $('#RolPermisoTable').DataTable({
+                    "processing": true,
+                    "serverSide": false,
+                    "ajax": {
+                        "url": "WFRoles_Permission.aspx/ListRolesPermisos",
+                        "type": "POST",
+                        "contentType": "application/json",
+                        "data": function (d) {
+                            return JSON.stringify(d);
+                        },
+                        "dataSrc": function (json) {
+                            return json.d.data;
+                        }
                     },
-                    "dataSrc": function (json) {
-                        return json.d.data;
-                    }
-                },
-                "columns": [
-                    { "data": "ID" },
-                    { "data": "Rol_ID" },
-                    { "data": "NombreRol" },
-                    { "data": "Per_ID" },
-                    { "data": "NombrePermiso" },
-                    { "data": "Date" },
-                    {
-                        "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.ID}">Editar</button>
-                              <button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                    "columns": [
+                        { "data": "ID" },
+                        { "data": "Rol_ID" },
+                        { "data": "NombreRol" },
+                        { "data": "Per_ID" },
+                        { "data": "NombrePermiso" },
+                        { "data": "Date" },
+                        {
+                            "data": null,
+                            "render": function (row) {
+                                let buttons = '';
+                                if (showEditButton) {
+                                    buttons += `<button class="btn btn-info edit-btn" data-id="${row.ID}">Editar</button>`;
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="btn btn-danger delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                                }
+                                return buttons;
+                            }
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
                         }
                     }
-                ],
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "zeroRecords": "No se encontraron resultados",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay registros disponibles",
-                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-            });
-
+                });
             // Editar un Rol y Permiso
             $('#RolPermisoTable').on('click', '.edit-btn', function () {
                 //const id = $(this).data('id');
@@ -143,5 +174,5 @@
             });
         }
 
-    </script>
+        </script>
 </asp:Content>

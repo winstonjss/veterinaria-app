@@ -1,8 +1,10 @@
 ﻿using Logic;
+using Model;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -25,6 +27,13 @@ namespace Presentation
         private string _documento, _correo, _contrasena, _salt, _estado, _encryptedPassword;
         private DateTime _fecha_creacion;
         private bool executed = false;
+
+        /*
+         *  Variables de tipo pública que indiquen si el usuario tiene
+         *  permiso para ver los botones editar y eliminar.
+         */
+        public bool _showEditButton { get; set; } = false;
+        public bool _showDeleteButton { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,8 +42,14 @@ namespace Presentation
                 TBUsu_fecha_creación.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 showDocumentTypeDDL();
                 showRolesDDL();
-            }
 
+                // Los botones y otros elementos se inicializan en false, no visibles.
+                BtnSave.Visible = false;
+                BtnUpdate.Visible = false;
+                FrmUsers.Visible = false;
+                PanelAdmin.Visible = false;
+            }
+            validatePermissionRol();
         }
 
         //Metodo para mostrar todos los usuarios
@@ -93,6 +108,8 @@ namespace Presentation
             DDLRol.DataTextField = "rol_nombre";
             DDLRol.DataBind();
             DDLRol.Items.Insert(0, "Seleccione");
+            // Añade manualmente la opción inicial al DropDownList
+            DDLRol.Items.Insert(0, new ListItem("Seleccione", "0")); 
         }
 
         //Metodo para mostrar los tipo de documento en el DDL
@@ -104,6 +121,8 @@ namespace Presentation
             DDLTipo_documento.DataTextField = "tip_doc_descripcion";
             DDLTipo_documento.DataBind();
             DDLTipo_documento.Items.Insert(0, "Seleccione");
+            // Añade manualmente la opción inicial al DropDownList
+            DDLTipo_documento.Items.Insert(0, new ListItem("Seleccione", "0")); 
 
         }
 
@@ -119,7 +138,197 @@ namespace Presentation
             DDLTipo_documento.SelectedIndex = 0;
 
         }
+        // Metodo para validar permisos roles
+        // Metodo para validar permisos roles
+        private void validatePermissionRol()
+        {
+            // Se Obtiene el usuario actual desde la sesión
+            var objUser = (User)Session["User"];
 
+            // Variable para acceder a la MasterPage y modificar la visibilidad de los enlaces.
+            var masterPage = (Main)Master;
+
+            if (objUser == null)
+            {
+                // Redirige a la página de inicio de sesión si el usuario no está autenticado
+                Response.Redirect("Default.aspx");
+                return;
+            }
+            // Obtener el rol del usuario
+            var userRole = objUser.Rol.Nombre;
+            if (objUser.Permisos == null || !objUser.Permisos.Any())
+            {
+                LblMsg.Text = "El usuario no tiene permisos asignados.";
+                return;
+            }
+            if (userRole == "Administrador")
+            {
+                LblMsg.Text = "Bienvenido, Administrador!";
+
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmUsers.Visible = true;// Se pone visible el formulario
+                            BtnSave.Visible = true;// Se pone visible el boton guardar
+                            break;
+                        case "ACTUALIZAR":
+                            FrmUsers.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            //LblMsg.Text += " Tienes permiso de Mostrar!";
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //LblMsg.Text += " Tienes permiso de Eliminar!";
+                            PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+            else if (userRole == "Veterinario")
+            {
+                LblMsg.Text = "Bienvenido, Veterinario!";
+
+                masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmUsers.Visible = true;
+                            BtnSave.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmUsers.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            //LblMsg.Text += " Tienes permiso de Mostrar!";
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //LblMsg.Text += " Tienes permiso de Eliminar!";
+                            PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+
+            }
+            else if (userRole == "Secretaria")
+            {
+                LblMsg.Text = "Bienvenido, Secretaria!";
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmUsers.Visible = true;
+                            BtnSave.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmUsers.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+
+            else if (userRole == "Propietario")
+            {
+                LblMsg.Text = "Bienvenido, Propietario!";
+
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkUsers.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
+                masterPage.linkDiagnoses.Visible = false;
+                masterPage.linkTreatment.Visible = false;
+                masterPage.linkVaccines.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+
+
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmUsers.Visible = false;
+                            BtnSave.Visible = false;
+                            //PanelAdmin.Visible = false;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmUsers.Visible = false;
+                            BtnUpdate.Visible = false;
+                            //PanelAdmin.Visible = false;
+                            _showEditButton = false;
+                            break;
+                        case "MOSTRAR":
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //PanelAdmin.Visible = false;
+                            _showDeleteButton = false;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                // Si el rol no es reconocido, se deniega el acceso
+                LblMsg.Text = "Rol no reconocido. No tienes permisos suficientes para acceder a esta página.";
+                Response.Redirect("WFInicio.aspx");
+            }
+
+        }
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             /*

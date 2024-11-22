@@ -22,6 +22,7 @@ namespace Presentation
         public HtmlAnchor linkVaccines;
         public HtmlAnchor linkVeterinarian;
         public HtmlAnchor linkVeterinaryHours;
+        public HtmlAnchor linkSecurity;
 
         protected void Page_Load(object sender, EventArgs e)
         {

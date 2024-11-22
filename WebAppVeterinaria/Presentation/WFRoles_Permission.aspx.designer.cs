@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control FrmRoles_Permission.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm FrmRoles_Permission;
+
+        /// <summary>
         /// Control HFRol_Permiso.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.DropDownList DDLRol;
 
         /// <summary>
+        /// Control RFVNombreRol.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVNombreRol;
+
+        /// <summary>
         /// Control Label1.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLPermiso;
+
+        /// <summary>
+        /// Control RFVNombrePermiso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVNombrePermiso;
 
         /// <summary>
         /// Control Label2.
@@ -78,22 +105,13 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox TBper_rol_fecha;
 
         /// <summary>
-        /// Control oldRolId.
+        /// Control RFTBper_rol_fecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField oldRolId;
-
-        /// <summary>
-        /// Control oldPermisoId.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField oldPermisoId;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFTBper_rol_fecha;
 
         /// <summary>
         /// Control BtnSave.
@@ -121,5 +139,14 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
+        /// Control PanelAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAdmin;
     }
 }

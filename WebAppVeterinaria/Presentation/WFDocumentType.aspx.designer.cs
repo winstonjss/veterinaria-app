@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control FrmDocumentType.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm FrmDocumentType;
+
+        /// <summary>
         /// Control HFDocumenTypeId.
         /// </summary>
         /// <remarks>
@@ -24,22 +33,31 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.HiddenField HFDocumenTypeId;
 
         /// <summary>
-        /// Control Label1.
+        /// Control Label2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// Control TBTip_doc_descripcion.
+        /// Control DDLTip_doc_descripcion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TBTip_doc_descripcion;
+        protected global::System.Web.UI.WebControls.DropDownList DDLTip_doc_descripcion;
+
+        /// <summary>
+        /// Control RFVTip_doc_descripcion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVTip_doc_descripcion;
 
         /// <summary>
         /// Control BtnSave.
@@ -67,5 +85,14 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
+        /// Control PanelAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAdmin;
     }
 }

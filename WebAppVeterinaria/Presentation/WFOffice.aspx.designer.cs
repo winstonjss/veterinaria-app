@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control FrmOffice.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm FrmOffice;
+
+        /// <summary>
         /// Control HFOffice.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox TBCon_num_consultorio;
 
         /// <summary>
+        /// Control RFVCon_num_consultorio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVCon_num_consultorio;
+
+        /// <summary>
         /// Control BtnSave.
         /// </summary>
         /// <remarks>
@@ -67,5 +85,14 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
+        /// Control PanelAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAdmin;
     }
 }

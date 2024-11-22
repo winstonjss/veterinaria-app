@@ -3,6 +3,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Web;
@@ -78,6 +79,8 @@ namespace Presentation
             return objPer.deletePermision(id);
         }
 
+
+        // Metodo para validar permisos roles
         // Metodo para validar permisos roles
         private void validatePermissionRol()
         {
@@ -95,20 +98,14 @@ namespace Presentation
             }
             // Obtener el rol del usuario
             var userRole = objUser.Rol.Nombre;
-
+            if (objUser.Permisos == null || !objUser.Permisos.Any())
+            {
+                LblMsg.Text = "El usuario no tiene permisos asignados.";
+                return;
+            }
             if (userRole == "Administrador")
             {
                 LblMsg.Text = "Bienvenido, Administrador!";
-                //masterPage.linkUsers.Visible = false;
-                //masterPage.linkRolesPermission.Visible = false;
-                //masterPage.linkAnamnesis.Visible = false;
-                //masterPage.linkAppointments.Visible = false;
-                //masterPage.linkDiagnoses.Visible = false;
-                //masterPage.linkVeterinarian.Visible = false;
-                //masterPage.linkDocumentType.Visible = false;
-                //masterPage.linkMedicalHistory.Visible = false;
-                //masterPage.linkOffice.Visible = false;
-                //masterPage.linkRol.Visible = false;
 
                 foreach (var permiso in objUser.Permisos)
                 {
@@ -121,7 +118,7 @@ namespace Presentation
                         case "ACTUALIZAR":
                             FrmPermission.Visible = true;
                             BtnUpdate.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             _showEditButton = true;
                             break;
                         case "MOSTRAR":
@@ -145,8 +142,11 @@ namespace Presentation
                 LblMsg.Text = "Bienvenido, Veterinario!";
 
                 masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
+                masterPage.linkRol.Visible = false;
                 masterPage.linkPermission.Visible = false;
                 masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
 
                 foreach (var permiso in objUser.Permisos)
                 {
@@ -155,12 +155,12 @@ namespace Presentation
                         case "CREAR":
                             FrmPermission.Visible = true;
                             BtnSave.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             break;
                         case "ACTUALIZAR":
                             FrmPermission.Visible = true;
                             BtnUpdate.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             _showEditButton = true;
                             break;
                         case "MOSTRAR":
@@ -182,11 +182,12 @@ namespace Presentation
             }
             else if (userRole == "Secretaria")
             {
-                //LblMsg.Text = "Bienvenido, Secretaria!";
-                masterPage.linkUsers.Visible = false;
+                LblMsg.Text = "Bienvenido, Secretaria!";
+                masterPage.linkRol.Visible = false;
                 masterPage.linkPermission.Visible = false;
-                masterPage.linkRolesPermission.Visible = false;
-
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)
@@ -194,19 +195,19 @@ namespace Presentation
                         case "CREAR":
                             FrmPermission.Visible = true;
                             BtnSave.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             break;
                         case "ACTUALIZAR":
                             FrmPermission.Visible = true;
                             BtnUpdate.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             _showEditButton = true;
                             break;
                         case "MOSTRAR":
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             _showDeleteButton = true;
                             break;
                         default:
@@ -216,20 +217,21 @@ namespace Presentation
                     }
                 }
             }
+
             else if (userRole == "Propietario")
             {
                 LblMsg.Text = "Bienvenido, Propietario!";
-                //masterPage.linkUsers.Visible = false;
-                masterPage.linkPermission.Visible = false;
-                //masterPage.linkRolesPermission.Visible = false;
-                //masterPage.linkAnamnesis.Visible = false;
-                //masterPage.linkAppointments.Visible = false;
-                //masterPage.linkDiagnoses.Visible = false;
-                //masterPage.linkVeterinarian.Visible = false;
-                //masterPage.linkDocumentType.Visible = false;
-                //masterPage.linkMedicalHistory.Visible = false;
-                //masterPage.linkOffice.Visible = false;
+
                 masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkUsers.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
+                masterPage.linkDiagnoses.Visible = false;
+                masterPage.linkTreatment.Visible = false;
+                masterPage.linkVaccines.Visible = false;
+                masterPage.linkSecurity.Visible = false;
 
 
                 foreach (var permiso in objUser.Permisos)
@@ -239,19 +241,19 @@ namespace Presentation
                         case "CREAR":
                             FrmPermission.Visible = false;
                             BtnSave.Visible = false;
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             break;
                         case "ACTUALIZAR":
                             FrmPermission.Visible = false;
                             BtnUpdate.Visible = false;
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             _showEditButton = false;
                             break;
                         case "MOSTRAR":
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             _showDeleteButton = false;
                             break;
                         default:
@@ -267,8 +269,8 @@ namespace Presentation
                 LblMsg.Text = "Rol no reconocido. No tienes permisos suficientes para acceder a esta página.";
                 Response.Redirect("WFInicio.aspx");
             }
-        }
 
+        }
         private void clear()
         {
             HFPermiso.Value = "";

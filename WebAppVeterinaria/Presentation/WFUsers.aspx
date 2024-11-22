@@ -6,26 +6,51 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <form runat="server">
+    <form id="FrmUsers" runat="server">
         <%--ID--%>
         <asp:HiddenField ID="HDUserID" runat="server" />
         <%-- Documento--%>
         <asp:Label ID="Label1" runat="server" Text="Ingrese el Documento"></asp:Label>
         <asp:TextBox ID="TBUsu_documento" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFUsu_documento"
+            runat="server"
+            ControlToValidate="TBUsu_documento"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
+
         <%-- Correo--%>
         <asp:Label ID="Label2" runat="server" Text="Ingrese el correo"></asp:Label>
         <asp:TextBox ID="TBUsu_correo" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFUsu_correo"
+            runat="server"
+            ControlToValidate="TBUsu_correo"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
         <%-- Contraseña --%>
         <asp:Label ID="Label3" runat="server" Text="Ingrese la Contraseña"></asp:Label>
         <asp:TextBox ID="TBUsu_contrasena" runat="server" TextMode="Password"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFUsu_contrasena"
+            runat="server"
+            ControlToValidate="TBUsu_contrasena"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
 
       <%-- Salt --%>
         <asp:Label ID="Label9" runat="server" Text="Ingrese el salt"></asp:Label>
         <asp:TextBox ID="TBUsu_salt" runat="server"></asp:TextBox>
-       
+        <br />
 
 
      <%--Estados--%>
@@ -34,21 +59,52 @@
             <asp:ListItem Value="0">Seleccione</asp:ListItem>
             <asp:ListItem Value="Activo">Activo</asp:ListItem>
             <asp:ListItem Value="Inactivo">Inactivo</asp:ListItem>
-        </asp:DropDownList><br />
+        </asp:DropDownList>
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFVState" runat="server"
+            ControlToValidate="DDLState"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Estado."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
+        <br />
 
         <%-- Fecha de creación --%>
         <asp:Label ID="Label8" runat="server" Text="Fecha de creación "></asp:Label>
         <asp:TextBox ID="TBUsu_fecha_creación" runat="server" TextMode="Date"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFUsu_fecha_creación"
+            runat="server"
+            ControlToValidate="TBUsu_fecha_creación"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
 
         <%-- Rol --%>
         <asp:Label ID="Label5" runat="server" Text="Seleccione el Rol"></asp:Label>
         <asp:DropDownList ID="DDLRol" runat="server"></asp:DropDownList>
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFRol" runat="server"
+            ControlToValidate="DDLRol"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Rol"
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
+
         <br />
 
         <%-- Tipo documento --%>
         <asp:Label ID="Label6" runat="server" Text="Seleccione tipo documento"></asp:Label>
         <asp:DropDownList ID="DDLTipo_documento" runat="server"></asp:DropDownList>
+        <%--Valida que el DropDownList este seleccionado con algun valor--%>
+        <asp:RequiredFieldValidator ID="RFTipo_documento" runat="server"
+            ControlToValidate="DDLTipo_documento"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar el Tipo de documento"
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
         <%-- Botones Guardar y actualizar --%>
         <div>
@@ -59,8 +115,9 @@
         <br />
 
     </form>
-    <%--Lista de Usuarios --%>
 
+    <%--Lista de Usuarios --%>
+    <asp:Panel ID="PanelAdmin" runat="server">
    <h2>Lista de Usuarios</h2>
    <table id="usersTable" class="display" style="width: 100%">
        <thead>
@@ -80,12 +137,15 @@
 
        </tbody>
    </table>
+        </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 
   <%--  Usuarios--%>
      <script type="text/javascript">
          $(document).ready(function () {
+             const showEditButton = '<%= _showEditButton %>' === 'True';
+             const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
              $('#usersTable').DataTable({
                  "processing": true,
                  "serverSide": false,
@@ -112,9 +172,15 @@
                      { "data": "FKDocumentType" },
                      {
                          "data": null,
-                         "render": function (data, type, row) {
-                             return `<button class="edit-btn" data-id="${row.UserID}">Editar</button>
-                              <button class="delete-btn" data-id="${row.UserID}">Eliminar</button>`;
+                         "render": function (row) {
+                             let buttons = '';
+                             if (showEditButton) {
+                                 buttons += `<button class="edit-btn" data-id="${row.UserID}">Editar</button>`;
+                             }
+                             if (showDeleteButton) {
+                                 buttons += `<button class="delete-btn" data-id="${row.UserID}">Eliminar</button>`;
+                             }
+                             return buttons;
                          }
                      }
                  ],
@@ -183,5 +249,5 @@
                  }
              });
          }
- </script>
+     </script>
 </asp:Content>

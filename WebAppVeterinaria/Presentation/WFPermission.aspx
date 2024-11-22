@@ -100,10 +100,10 @@
                         "render": function (row) {
                             let buttons = '';
                             if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.AnamnesisID}">Editar</button>`;
+                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
                             }
                             if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.AnamnesisID}">Eliminar</button>`;
+                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
                             }
                             return buttons;
                         }

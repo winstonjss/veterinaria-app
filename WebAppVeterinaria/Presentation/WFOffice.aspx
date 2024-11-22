@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form runat="server">
+    <form id="FrmOffice" runat="server">
 
         <%--ID--%>
         <asp:HiddenField ID="HFOffice" runat="server" />
@@ -15,7 +15,17 @@
         <%-- Número de consultorio--%>
         <asp:Label ID="Label1" runat="server" Text="Ingrese Número de consultorio "></asp:Label>
         <asp:TextBox ID="TBCon_num_consultorio" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVCon_num_consultorio"
+            runat="server"
+            ControlToValidate="TBCon_num_consultorio"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
+
+
 
         <%-- Botones Guardar y actualizar --%>
         <div>
@@ -27,7 +37,7 @@
     </form>
     <br />
 
-
+     <asp:Panel ID="PanelAdmin" runat="server">
     <%--Lista de consultorios --%>
 
     <h2>Lista de Consultorios </h2>
@@ -42,11 +52,14 @@
         <tbody>
         </tbody>
     </table>
+         </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Consultorios--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#officeTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -67,9 +80,15 @@
 
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.ID}">Editar</button>
-                             <button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],
@@ -130,6 +149,6 @@
                 }
             });
         }
-</script>
+    </script>
 
 </asp:Content>

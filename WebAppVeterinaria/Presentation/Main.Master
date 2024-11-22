@@ -4,33 +4,230 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Veterinaria APP</title>
+
+    <%--CSS Boostrap--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <%--Iconos--%>
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+
+    <%--CSS Sidebar--%>
+    <link href="resources/css/stylesidebar.css" rel="stylesheet" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-     
-        <div>
-            <a id="linkInicio" runat="server" href ="WFinicio.aspx">Inicio</a>
-            <a id="linkAnamnesis" runat="server" href="WFAnamnensis.aspx">Anamnesis</a>
-            <a id="linkAnimals" runat="server" href="WFAnimals.aspx">Animales</a>
-            <a id="linkAppointments" runat="server" href="WFAppointments.aspx">Citas</a>
-            <a id="linkDiagnoses" runat="server" href="WFDiagnoses.aspx">Diagnostico</a>
-            <a id="linkDocumentType" runat="server" href="WFDocumentType.aspx">Tipo Documento</a>
-            <a id="linkMedicalHistory" runat="server" href="WFMedicalHistory.aspx">Historia clinica</a>
-            <a id="linkOffice" runat="server" href="WFOffice.aspx">Consultorio</a>
-            <a id="linkOwner" runat="server" href="WFOwner.aspx">Propietario</a>
-            <a id="linkRolesPermission" runat="server" href="WFRoles_Permission.aspx">Roles y Permisos</a>
-            <a id="linkPermission" runat="server" href="WFPermission.aspx">Permisos</a>
-            <a id="linkRol" runat="server" href="WFRol.aspx">Roles</a>
-            <a id="linkTreatment" runat="server" href="WFTreatment.aspx">Tratamientos</a>
-            <a id="linkUsers" runat="server" href="WFUsers.aspx">Usuarios</a>
-            <a id="linkVaccines" runat="server" href="WFVaccines.aspx">Vacunas</a>
-            <a id="linkVeterinarian" runat="server" href="WFVeterinarian.aspx">Veterinario</a>
-            <a id="linkVeterinaryHours" runat="server" href="WFVeterinaryHours.aspx">Horario Veterinario</a>
+
+    <%-- Menu Sidebar--%>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-white navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand text-dark" href="WFInicio.aspx">Veterinaria APP</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ayuda</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-dashboard-square-1"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a id="linkInicio" runat="server" href="WFInicio.aspx">Inicio</a>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a id="linkAnamnesis" runat="server" href="WFAnamnensis.aspx" class="sidebar-link">
+                        <i class="lni lni-cart-1"></i>
+                        <span>Anamnesis</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkAnimals" runat="server" href="WFAnimals.aspx" class="sidebar-link">
+                        <i class="lni lni-cart-1"></i>
+                        <span>Animales</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkAppointments" runat="server" href="WFAppointments.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Citas</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkDiagnoses" runat="server" href="WFDiagnoses.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Diagnosticos</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkMedicalHistory" runat="server" href="WFMedicalHistory.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Historia Clinica</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkOffice" runat="server" href="WFOffice.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Consultorio</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkOwner" runat="server" href="WFOwner.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Propietario</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkDocumentType" runat="server" href="WFDocumentType.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Tipo Documento</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkTreatment" runat="server" href="WFTreatment.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Tratamientos</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkVaccines" runat="server" href="WFVaccines.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Vacunas</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkVeterinarian" runat="server" href="WFVeterinarian.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Veterinario</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a id="linkVeterinaryHours" runat="server" href="WFVeterinaryHours.aspx" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Horario Veterinario</span>
+                    </a>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a id="linkSecurity" runat="server" href ="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="lni lni-shield-2-check"></i>
+                        <span>Seguridad</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a id="linkUsers" runat="server" href="WFUsers.aspx" class="sidebar-link">Usuarios</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a id="linkRol" runat="server" href="WFRol.aspx" class="sidebar-link">Roles</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a id="linkPermission" runat="server" href="WFPermission.aspx" class="sidebar-link">Permisos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a id="linkRolesPermission" runat="server" href="WFRoles_Permission.aspx" class="sidebar-link">Permisos Roles</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                        <i class="lni lni-layout-9"></i>
+                        <span>Multi Level</span>
+                    </a>
+
+                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">Two Links
+                            </a>
+
+                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Link 1</a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Link 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-message-3-text"></i>
+                        <span>Notification</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-gear-1"></i>
+                        <span>Setting</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="Logout.aspx" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </div>
+        </aside>
+
+
+        <!-- Main Content -->
+        <div class="main p-3">
+            <div class="text-center">
+                <h1>Bienvenido a la Veterinaria
+                </h1>
+            </div>
+            <%-- Aqui va los elementos de los demas formularios --%>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
+    </div>
+
+    <%--JS Boostrap--%>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <%--JS Sidebar--%>
+    <script src="resources/js/sidebar.js"></script>
+
 </body>
 </html>
+

@@ -71,10 +71,12 @@
     <Content Include="Logout.aspx" />
     <Content Include="resources\css\datatables.css" />
     <Content Include="resources\css\datatables.min.css" />
+    <Content Include="resources\css\Stylesidebar.css" />
     <Content Include="resources\images\loading-7528_128.gif" />
     <Content Include="resources\images\loading-7528_256.gif" />
     <Content Include="resources\js\datatables.js" />
     <Content Include="resources\js\datatables.min.js" />
+    <Content Include="resources\js\sidebar.js" />
     <Content Include="Web.config" />
     <Content Include="WFAnamnensis.aspx" />
     <Content Include="WFAnimals.aspx" />

@@ -1,9 +1,15 @@
-﻿using System;
-using Logic;
-using System.Data;
+﻿﻿using Logic;
+using Model;
+using System;
 using System.CodeDom.Compiler;
-using System.Web.Services;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 
 namespace Presentation
@@ -19,15 +25,25 @@ namespace Presentation
         private int _id, _fkVeterinarian, _fkAnimal;
         private bool executed = false;
 
+        public bool _showEditButton { get; set; } = false;
+        public bool _showDeleteButton { get; set; } = false;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //Aqui se invocan todos los metodos
                 TBDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                TBHoraInicio.Text = DateTime.Now.ToString("HH:mm");
+                TBHoraFin.Text = DateTime.Now.ToString("HH:mm");
+                BtnSave.Visible = false;
+                BtnUpdate.Visible = false;
+                FrmAppointments.Visible = false;
+                PanelAdmin.Visible = false;
                 showAnimalsDDL();
                 showVeterinariansDDL();
             }
+            validatePermissionRol();            
         }
 
         [WebMethod]
@@ -76,6 +92,196 @@ namespace Presentation
             DDLVeterinario.DataTextField = "vet_nombre";
             DDLVeterinario.DataBind();
             DDLVeterinario.Items.Insert(0, "seleccione");
+        }
+
+        private void validatePermissionRol()
+        {
+            // Se Obtiene el usuario actual desde la sesión
+            var objUser = (User)Session["User"];
+
+            // Variable para acceder a la MasterPage y modificar la visibilidad de los enlaces.
+            var masterPage = (Main)Master;
+
+            if (objUser == null)
+            {
+                // Redirige a la página de inicio de sesión si el usuario no está autenticado
+                Response.Redirect("Default.aspx");
+                return;
+            }
+            // Obtener el rol del usuario
+            var userRole = objUser.Rol.Nombre;
+            if (objUser.Permisos == null || !objUser.Permisos.Any())
+            {
+                lblMsg.Text = "El usuario no tiene permisos asignados.";
+                return;
+            }
+            if (userRole == "Administrador")
+            {
+                lblMsg.Text = "Bienvenido, Administrador!";
+
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmAppointments.Visible = true;// Se pone visible el formulario
+                            BtnSave.Visible = true;// Se pone visible el boton guardar
+                            break;
+                        case "ACTUALIZAR":
+                            FrmAppointments.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            //lblMsg.Text += " Tienes permiso de Mostrar!";
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //lblMsg.Text += " Tienes permiso de Eliminar!";
+                            PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            lblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+            else if (userRole == "Veterinario")
+            {
+                lblMsg.Text = "Bienvenido, Veterinario!";
+
+                masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmAppointments.Visible = true;
+                            BtnSave.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmAppointments.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            //lblMsg.Text += " Tienes permiso de Mostrar!";
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //lblMsg.Text += " Tienes permiso de Eliminar!";
+                            PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            lblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+
+            }
+            else if (userRole == "Secretaria")
+            {
+                lblMsg.Text = "Bienvenido, Secretaria!";
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmAppointments.Visible = true;
+                            BtnSave.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmAppointments.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            lblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+
+            else if (userRole == "Propietario")
+            {
+                lblMsg.Text = "Bienvenido, Propietario!";
+
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkUsers.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
+                masterPage.linkDiagnoses.Visible = false;
+                masterPage.linkTreatment.Visible = false;
+                masterPage.linkVaccines.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+
+               
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmAppointments.Visible = false;
+                            BtnSave.Visible = false;
+                            //PanelAdmin.Visible = false;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmAppointments.Visible = false;
+                            BtnUpdate.Visible = false;
+                            //PanelAdmin.Visible = false;
+                            _showEditButton = false;
+                            break;
+                        case "MOSTRAR":
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //PanelAdmin.Visible = false;
+                            _showDeleteButton = false;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            lblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                // Si el rol no es reconocido, se deniega el acceso
+                lblMsg.Text = "Rol no reconocido. No tienes permisos suficientes para acceder a esta página.";
+                Response.Redirect("WFInicio.aspx");
+            }
+
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)

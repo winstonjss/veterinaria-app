@@ -7,18 +7,42 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <%--Id --%>
-    <form runat="server">
+    <form id="FrmDiagnoses" runat="server">
     <asp:HiddenField ID="HFDiagnosesID" runat="server" />
+
     <br />
     <asp:Label ID="Label2" runat="server" Text="Ingrese la clasificacion"></asp:Label>
     <asp:TextBox ID="TBClassification" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RFClassification"
+    runat="server"
+    ControlToValidate="TBClassification"
+    ForeColor="Red"
+    Display="Dynamic"
+    ErrorMessage="Este campo es obligatorio">
+</asp:RequiredFieldValidator>
     <br />
+
     <asp:Label ID="Label1" runat="server" Text="Ingrese el codigo"></asp:Label>
     <asp:TextBox ID="TBCode" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RFCode"
+    runat="server"
+    ControlToValidate="TBCode"
+    ForeColor="Red"
+    Display="Dynamic"
+    ErrorMessage="Este campo es obligatorio">
+</asp:RequiredFieldValidator>
     <br />
+
     <asp:Label ID="Label5" runat="server" Text="Seleccione Anamnesis"></asp:Label>
     <asp:DropDownList ID="DDLAnamnesis" runat="server"></asp:DropDownList>
+        <asp:RequiredFieldValidator ID="RFAnamnesis" runat="server"
+            ControlToValidate="DDLAnamnesis"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar un Diagnostico."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
     <br />
+
     <div>
         <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" Style="height: 26px" />
         <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
@@ -27,6 +51,7 @@
     <br />
         </form>
     <%--Lista de Diagnosticos--%>
+    <asp:Panel ID="PanelAdmin" runat="server">
     <h2>Lista de Diagnosticos</h2>
     <table id="DiagnosesTable" class="display" style="width: 100%">
         <thead>
@@ -40,10 +65,13 @@
         <tbody>
         </tbody>
     </table>
+        </asp:Panel>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Diagnosticos--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#DiagnosesTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -65,9 +93,15 @@
                     { "data": "FkAnamnesis", "visible": false },
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.DiagnosesID}">Editar</button>
-                                 <button class="delete-btn" data-id="${row.DiagnosesID}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.DiagnosesID}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.DiagnosesID}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],

@@ -1,55 +1,91 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFVaccines.aspx.cs" Inherits="Presentation.WFVaccines" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <br />
-    <form runat="server">
-    <asp:HiddenField ID="HFVaccinesID" runat="server" />
-     <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre de la vacuna"></asp:Label>
- <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
- <br />
-    <asp:Label ID="Label2" runat="server" Text="Ingrese el tipo de vacuna"></asp:Label>
-    <asp:TextBox ID="TBGuy" runat="server"></asp:TextBox>
-    <br />
-      <asp:Label ID="Label1" runat="server" Text="Ingrese la cantidad de la vacuna"></asp:Label>
-  <asp:TextBox ID="TBAmount" runat="server"></asp:TextBox>
-  <br />
-    
-     <asp:Label ID="Label5" runat="server" Text="Seleccione Diagonosticos"></asp:Label>
-     <asp:DropDownList ID="DDLDiagonoses" runat="server"></asp:DropDownList>
-     <br />
-    <div>        
-    <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" style="height: 26px" />
-    <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-    <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
-    </div>
-    <br />
-        </form>
-       <%-- Lista De Vaccines--%>
+    <%--formulario Vaccines--%>
+    <form id="FrmVaccines" runat="server">
+        <br />
 
-    <h2>Lista de Vacunas</h2>
-    <table id="VaccinesTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Cantidad</th>         
-                <th>Fkdiagnosticos</th>
-                <th>Diagnosticos</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+        <asp:HiddenField ID="HFVaccinesID" runat="server" />
+        <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre de la vacuna"></asp:Label>
+        <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RFName"
+            runat="server"
+            ControlToValidate="TBName"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
+        <br />
+
+        <asp:Label ID="Label2" runat="server" Text="Ingrese el tipo de vacuna"></asp:Label>
+        <asp:TextBox ID="TBGuy" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RFGuy"
+            runat="server"
+            ControlToValidate="TBGuy"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
+
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Ingrese la cantidad de la vacuna"></asp:Label>
+        <asp:TextBox ID="TBAmount" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RFAmount"
+            runat="server"
+            ControlToValidate="TBAmount"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
+        <br />
+
+        <asp:Label ID="Label5" runat="server" Text="Seleccione Diagonosticos"></asp:Label>
+        <asp:DropDownList ID="DDLDiagonoses" runat="server"></asp:DropDownList>
+        <asp:RequiredFieldValidator ID="RFDiagnoses" runat="server"
+            ControlToValidate="DDLDiagonoses"
+            InitialValue="0"
+            ErrorMessage="Debes seleccionar una Vacuna."
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
+        <br />
+
+        <div>
+            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" Style="height: 26px" />
+            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
+            <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+        </div>
+        <br />
+    </form>
+    <%-- Lista De Vaccines--%>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <h2>Lista de Vacunas</h2>
+        <table id="VaccinesTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Fkdiagnosticos</th>
+                    <th>Diagnosticos</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </asp:Panel>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
-    
+
     <%--Vacunas--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#VaccinesTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -68,15 +104,21 @@
                     { "data": "VaccinesId" },
                     { "data": "VaccinesName" },
                     { "data": "VaccinesGuy" },
-                    { "data": "VaccinesAmount" },                    
+                    { "data": "VaccinesAmount" },
                     { "data": "FkDiagonoses", "visible": false },
                     { "data": "DiagonosesCode" },
 
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.VaccinesId}">Editar</button>
-                                 <button class="delete-btn" data-id="${row.VaccinesId}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton) {
+                                buttons += `<button class="edit-btn" data-id="${row.VaccinesId}">Editar</button>`;
+                            }
+                            if (showDeleteButton) {
+                                buttons += `<button class="delete-btn" data-id="${row.VaccinesId}">Eliminar</button>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],

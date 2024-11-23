@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFMedicalHistory.aspx.cs" Inherits="Presentation.WFMedicalHistory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="resources/css/datatables.min.css" rel="stylesheet" />
+ <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <form id="FrmMedicalHistory" runat="server">

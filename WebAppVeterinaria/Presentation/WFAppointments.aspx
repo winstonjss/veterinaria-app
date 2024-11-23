@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFAppointments.aspx.cs" Inherits="Presentation.WFAppointments" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--Estilos --%>
+ <%--Estilos --%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

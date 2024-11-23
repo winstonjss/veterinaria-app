@@ -232,6 +232,7 @@ namespace Presentation
                 masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
                 masterPage.linkDocumentType.Visible = false;
                 masterPage.linkSecurity.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
 
                 foreach (var permiso in objUser.Permisos)
                 {

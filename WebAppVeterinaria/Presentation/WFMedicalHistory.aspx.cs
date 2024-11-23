@@ -1,22 +1,22 @@
-﻿﻿using Logic;
+﻿using Logic;
 using Model;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 
 namespace Presentation
 {
     public partial class WFMedicalHistory : System.Web.UI.Page
     {
-        MedicalHistoryLog objMed = new MedicalHistoryLog();
-        AppointmentsLog objApp = new AppointmentsLog();
+       
+            MedicalHistoryLog objMed = new MedicalHistoryLog();
+            AppointmentsLog objApp = new AppointmentsLog();
         private int _id, _fkAppoitment;
         private bool executed = false;
         private DateTime _medicalHistoryDate;
@@ -179,6 +179,7 @@ namespace Presentation
                 masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
                 masterPage.linkDocumentType.Visible = false;
                 masterPage.linkSecurity.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)
@@ -224,7 +225,7 @@ namespace Presentation
                 masterPage.linkVaccines.Visible = false;
                 masterPage.linkSecurity.Visible = false;
 
-               
+
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)

@@ -1,7 +1,6 @@
-﻿﻿using Logic;
+﻿using Logic;
 using Model;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,8 +8,6 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
-
 
 namespace Presentation
 {
@@ -27,7 +24,7 @@ namespace Presentation
 
         public bool _showEditButton { get; set; } = false;
         public bool _showDeleteButton { get; set; } = false;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -43,11 +40,12 @@ namespace Presentation
                 showAnimalsDDL();
                 showVeterinariansDDL();
             }
-            validatePermissionRol();            
+            validatePermissionRol();
         }
 
         [WebMethod]
-        public static object ListAppoitments() {
+        public static object ListAppoitments()
+        {
             AppointmentsLog objApp = new AppointmentsLog();
             // Se obtiene un DataSet que contiene la lista de productos desde la base de datos.
             var dataSet = objApp.showCitasAll();
@@ -200,6 +198,7 @@ namespace Presentation
                 masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
                 masterPage.linkDocumentType.Visible = false;
                 masterPage.linkSecurity.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)
@@ -245,7 +244,7 @@ namespace Presentation
                 masterPage.linkVaccines.Visible = false;
                 masterPage.linkSecurity.Visible = false;
 
-               
+
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)
@@ -285,13 +284,13 @@ namespace Presentation
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)
-        {            
+        {
             _appoDate = DateTime.Parse(TBDate.Text);
             _appoStartHour = TimeSpan.Parse(TBHoraInicio.Text);
             _appoFinalHour = TimeSpan.Parse(TBHoraFin.Text);
             _fkAnimal = Convert.ToInt32(DDLAnimals.SelectedValue);
             _fkVeterinarian = Convert.ToInt32(DDLVeterinario.SelectedValue);
-            executed = objApp.saveDate(_fkAnimal,_fkVeterinarian,_appoDate,
+            executed = objApp.saveDate(_fkAnimal, _fkVeterinarian, _appoDate,
                 _appoStartHour, _appoFinalHour);
             if (executed)
             {

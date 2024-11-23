@@ -3,16 +3,29 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
+    <form id="FrmMedicalHistory" runat="server">
     <%--Id --%>
     <asp:HiddenField ID="HFMedicalHistoryID" runat="server" />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Ingrese la Fecha de la cita"></asp:Label>
         <asp:TextBox ID="TBDate" runat="server" TextMode="Date"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RFDate"
+            runat="server"
+            ControlToValidate="TBDate"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+    </asp:RequiredFieldValidator>
     <br />
     <%--Citas--%>
     <asp:Label ID="Label1" runat="server" Text="Selecciones la cita"></asp:Label>
     <asp:DropDownList ID="DDLAppoitment" runat="server"></asp:DropDownList>
+    <asp:RequiredFieldValidator ID="RFAppoitment" runat="server"
+        ControlToValidate="DDLAppoitment"
+        InitialValue="0"
+        ErrorMessage="Debes seleccionar una cita."
+        ForeColor="Red">
+    </asp:RequiredFieldValidator>
     <br />
     <%--Botones--%>
     <div>        
@@ -24,6 +37,7 @@
     </form>
      <%--Lista de Historias clinicas--%>
 <h2>Lista de Historias clinicas</h2>
+<asp:Panel ID="PanelAdmin" runat="server">
 <table id="medicalHistoryTable" class="display" style="width: 100%">
     <thead>
         <tr>
@@ -36,10 +50,13 @@
     <tbody>
     </tbody>
 </table>
+</asp:Panel>
 <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 <%--Productos--%>
 <script type="text/javascript">
     $(document).ready(function () {
+        const showEditButton = '<%= _showEditButton %>' === 'True';
+        const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
         $('#medicalHistoryTable').DataTable({
             "processing": true,
             "serverSide": false,
@@ -61,10 +78,16 @@
                 { "data": "FKAppoitment" },
                 {
                     "data": null,
-                    "render": function (data, type, row) {
-                        return `<button class="edit-btn" data-id="${row.MedicalHistoryID}">Editar</button>
-                             <button class="delete-btn" data-id="${row.MedicalHistoryID}">Eliminar</button>`;
-                    }
+                         "render": function (row) {
+                             let buttons = '';
+                             if (showEditButton) {
+                                 buttons += `<button class="edit-btn" data-id="${row.MedicalHistoryID}">Editar</button>`;
+                             }
+                             if (showDeleteButton) {
+                                 buttons += `<button class="delete-btn" data-id="${row.MedicalHistoryID}">Eliminar</button>`;
+                             }
+                             return buttons;
+                         }
                 }
             ],
             "language": {

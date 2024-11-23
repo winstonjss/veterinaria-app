@@ -69,7 +69,7 @@ namespace Presentation
             DDLAppoitment.DataValueField = "cit_id";
             DDLAppoitment.DataTextField = "detalle_cita";
             DDLAppoitment.DataBind();
-            DDLAppoitment.Items.Insert(0, "seleccione");
+            DDLAppoitment.Items.Insert(0, new ListItem("seleccione", "0"));
 
         }
 

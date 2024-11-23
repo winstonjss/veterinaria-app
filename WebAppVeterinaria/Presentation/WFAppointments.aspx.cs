@@ -82,7 +82,7 @@ namespace Presentation
             DDLAnimals.DataValueField = "anim_id";
             DDLAnimals.DataTextField = "anim_nombre";
             DDLAnimals.DataBind();
-            DDLAnimals.Items.Insert(0, "seleccione");
+            DDLAnimals.Items.Insert(0, new ListItem("seleccione", "0"));
         }
 
         private void showVeterinariansDDL()
@@ -91,7 +91,7 @@ namespace Presentation
             DDLVeterinario.DataValueField = "vet_id";
             DDLVeterinario.DataTextField = "vet_nombre";
             DDLVeterinario.DataBind();
-            DDLVeterinario.Items.Insert(0, "seleccione");
+            DDLVeterinario.Items.Insert(0, new ListItem("seleccione", "0"));
         }
 
         private void validatePermissionRol()

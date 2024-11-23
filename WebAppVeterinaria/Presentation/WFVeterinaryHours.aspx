@@ -6,34 +6,76 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
-
-        <%--Aqui va todo lo del formulario de horario de veterinario--%>
+   <form id="FrmVeterinaryHours" runat="server">
 
         <%--Id Horario Veterinario--%>
         <asp:HiddenField ID="HFVeterinaryHoursID" runat="server" />
         <br />
-        <%--Fecha de incio del horario de veterinario--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese la fecha de incio"></asp:Label>
-        <asp:TextBox ID="TBStart_date" runat="server" TextMode="Date"></asp:TextBox>
-        <br />
-        <%--Fecha final del horario de veterinario--%>
-        <asp:Label ID="Label2" runat="server" Text="Ingrese la fecha final"></asp:Label>
-        <asp:TextBox ID="TBEnd_date" runat="server" TextMode="Date"></asp:TextBox>
-        <br />
-        <%--Hora de incio del horario de veterinario--%>
-        <asp:Label ID="Label3" runat="server" Text="Ingrese la hora de incio"></asp:Label>
-        <asp:TextBox ID="TBStart_time" runat="server"  TextMode="Time"></asp:TextBox>
-        <br />
-        <%--Hora final del horario de veterinario--%>
-        <asp:Label ID="Label4" runat="server" Text="Ingrese la hora final"></asp:Label>
-        <asp:TextBox ID="TBFinal_time" runat="server"  TextMode="Time"></asp:TextBox>
-        <br />
 
-        <%--DDL del veterinario--%>
-        <asp:Label ID="Label5" runat="server" Text="Seleccione el veterinario"></asp:Label>
-        <asp:DropDownList ID="DDLVeterinarian" runat="server"></asp:DropDownList>
-        <br />
+       <%--Fecha de incio del horario de veterinario--%>
+       <asp:Label ID="Label1" runat="server" Text="Ingrese la fecha de incio"></asp:Label>
+       <asp:TextBox ID="TBStart_date" runat="server" TextMode="Date"></asp:TextBox>
+       <%--Valida que el TextBox este lleno--%>
+       <asp:RequiredFieldValidator ID="RFVStart_date"
+           runat="server"
+           ControlToValidate="TBStart_date"
+           ForeColor="Red"
+           Display="Dynamic"
+           ErrorMessage="Este campo es obligatorio">
+       </asp:RequiredFieldValidator>
+       <br />
+
+       <%--Fecha final del horario de veterinario--%>
+       <asp:Label ID="Label2" runat="server" Text="Ingrese la fecha final"></asp:Label>
+       <asp:TextBox ID="TBEnd_date" runat="server" TextMode="Date"></asp:TextBox>
+       <%--Valida que el TextBox este lleno--%>
+       <asp:RequiredFieldValidator ID="RFVEnd_date"
+           runat="server"
+           ControlToValidate="TBEnd_date"
+           ForeColor="Red"
+           Display="Dynamic"
+           ErrorMessage="Este campo es obligatorio">
+       </asp:RequiredFieldValidator>
+       <br />
+
+       <%--Hora de incio del horario de veterinario--%>
+       <asp:Label ID="Label3" runat="server" Text="Ingrese la hora de incio"></asp:Label>
+       <asp:TextBox ID="TBStart_time" runat="server" TextMode="Time"></asp:TextBox>
+       <%--Valida que el TextBox este lleno--%>
+       <asp:RequiredFieldValidator ID="RFVStart_time"
+           runat="server"
+           ControlToValidate="TBStart_time"
+           ForeColor="Red"
+           Display="Dynamic"
+           ErrorMessage="Este campo es obligatorio">
+       </asp:RequiredFieldValidator>
+       <br />
+
+       <%--Hora final del horario de veterinario--%>
+       <asp:Label ID="Label4" runat="server" Text="Ingrese la hora final"></asp:Label>
+       <asp:TextBox ID="TBFinal_time" runat="server" TextMode="Time"></asp:TextBox>
+       <%--Valida que el TextBox este lleno--%>
+       <asp:RequiredFieldValidator ID="RFVFinal_time"
+           runat="server"
+           ControlToValidate="TBFinal_time"
+           ForeColor="Red"
+           Display="Dynamic"
+           ErrorMessage="Este campo es obligatorio">
+       </asp:RequiredFieldValidator>
+       <br />
+
+       <%--DDL del veterinario--%>
+       <asp:Label ID="Label5" runat="server" Text="Seleccione el veterinario"></asp:Label>
+       <asp:DropDownList ID="DDLVeterinarian" runat="server"></asp:DropDownList>
+       <%--Valida que el TextBox este lleno--%>
+       <asp:RequiredFieldValidator ID="RFVVeterinarian"
+           runat="server"
+           ControlToValidate="DDLVeterinarian"
+           InitialValue=""
+           ErrorMessage="Debes seleccionar una Veterinario"
+           ForeColor="Red">
+       </asp:RequiredFieldValidator>
+       <br />
 
 
         <%--Botones de Guardar y Actualizar--%>
@@ -47,24 +89,27 @@
         <br />
     </form>
 
+    <%--Panel para la gestion del Administrador--%>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <%--Lista de horarios de veterinario--%>
+        <h2>Lista de Horarios de Veterinarios</h2>
+        <table id="veterinaryhoursTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha final</th>
+                    <th>Hora inicio</th>
+                    <th>Hora final</th>
+                    <th>FkVeterinario</th>
+                    <th>Veterinario</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </asp:Panel>
 
-    <%--Lista de horarios de veterinario--%>
-    <h2>Lista de Horarios de Veterinarios</h2>
-    <table id="veterinaryhoursTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha inicio</th>
-                <th>Fecha final</th>
-                <th>Hora inicio</th>
-                <th>Hora final</th>
-                <th>FkVeterinario</th>
-                <th>Veterinario</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 
 

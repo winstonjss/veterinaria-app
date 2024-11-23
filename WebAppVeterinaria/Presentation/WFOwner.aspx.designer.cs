@@ -15,6 +15,15 @@ namespace Presentation
     {
 
         /// <summary>
+        /// Control FrmOwner.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm FrmOwner;
+
+        /// <summary>
         /// Control HFOwnerID.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox TBName;
 
         /// <summary>
+        /// Control RFVName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVName;
+
+        /// <summary>
         /// Control Label2.
         /// </summary>
         /// <remarks>
@@ -60,6 +78,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox TBPhone;
 
         /// <summary>
+        /// Control RFVPhone.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVPhone;
+
+        /// <summary>
         /// Control Label3.
         /// </summary>
         /// <remarks>
@@ -76,6 +103,15 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLUsers;
+
+        /// <summary>
+        /// Control RFVUsers.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVUsers;
 
         /// <summary>
         /// Control BtnSave.
@@ -103,5 +139,14 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
+        /// Control PanelAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAdmin;
     }
 }

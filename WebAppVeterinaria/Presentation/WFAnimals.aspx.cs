@@ -25,6 +25,10 @@ namespace Presentation
         private float _weight;
         private bool executed = false; //Bandera (variable para establecer un estado de algo)
 
+        /*
+         *  Variables de tipo pública que indiquen si el usuario tiene
+         *  permiso para ver los botones editar y eliminar.
+        */
         public bool _showEditButton { get; set; } = false;
         public bool _showDeleteButton { get; set; } = false;
 
@@ -107,7 +111,8 @@ namespace Presentation
             DDLOwner.DataValueField = "pro_id"; //Nombre de la llave primaria
             DDLOwner.DataTextField = "pro_nombre"; //Nombre del propietario
             DDLOwner.DataBind();
-            DDLOwner.Items.Insert(0, "Seleccione");
+            // Añade manualmente la opción inicial al DropDownList
+            DDLOwner.Items.Insert(0, new ListItem("Seleccione", "0"));
         }
 
 
@@ -187,6 +192,8 @@ namespace Presentation
             }
         }
 
+
+        //  ***  Metodo para validar permisos roles
         private void validatePermissionRol()
         {
             // Se Obtiene el usuario actual desde la sesión
@@ -198,15 +205,19 @@ namespace Presentation
             if (objUser == null)
             {
                 // Redirige a la página de inicio de sesión si el usuario no está autenticado
-                Response.Redirect("WFDefault.aspx");
+                Response.Redirect("Default.aspx");
                 return;
             }
             // Obtener el rol del usuario
             var userRole = objUser.Rol.Nombre;
-
-            if (userRole == "Admin")
+            if (objUser.Permisos == null || !objUser.Permisos.Any())
             {
-                //LblMsg.Text = "Bienvenido, Administrador!";
+                LblMsg.Text = "El usuario no tiene permisos asignados.";
+                return;
+            }
+            if (userRole == "Administrador")
+            {
+                LblMsg.Text = "Bienvenido, Administrador!";
 
                 foreach (var permiso in objUser.Permisos)
                 {
@@ -218,9 +229,9 @@ namespace Presentation
                             break;
                         case "ACTUALIZAR":
                             FrmAnimals.Visible = true;
-                            BtnUpdate.Visible = true;// Se pone visible el boton actualizar
-                            PanelAdmin.Visible = true;// Se pone visible el panel
-                            _showEditButton = true;// Se pone visible el boton editar dentro de la datatable
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
                             break;
                         case "MOSTRAR":
                             //LblMsg.Text += " Tienes permiso de Mostrar!";
@@ -229,7 +240,7 @@ namespace Presentation
                         case "ELIMINAR":
                             //LblMsg.Text += " Tienes permiso de Eliminar!";
                             PanelAdmin.Visible = true;
-                            _showDeleteButton = true;// Se pone visible el boton eliminar dentro de la datatable
+                            _showDeleteButton = true;
                             break;
                         default:
                             // Si el permiso no coincide con ninguno de los casos anteriores
@@ -240,11 +251,14 @@ namespace Presentation
             }
             else if (userRole == "Veterinario")
             {
-                //LblMsg.Text = "Bienvenido, Gerente!";
+                LblMsg.Text = "Bienvenido, Veterinario!";
 
                 masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
-                masterPage.linkPermission.Visible = false; // Se oculta el enlace Permiso 
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
                 masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
 
                 foreach (var permiso in objUser.Permisos)
                 {
@@ -253,12 +267,12 @@ namespace Presentation
                         case "CREAR":
                             FrmAnimals.Visible = true;
                             BtnSave.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             break;
                         case "ACTUALIZAR":
                             FrmAnimals.Visible = true;
                             BtnUpdate.Visible = true;
-                            PanelAdmin.Visible = true;
+                            //PanelAdmin.Visible = true;
                             _showEditButton = true;
                             break;
                         case "MOSTRAR":
@@ -276,15 +290,60 @@ namespace Presentation
                             break;
                     }
                 }
-
             }
+            else if (userRole == "Secretaria")
+            {
+                LblMsg.Text = "Bienvenido, Secretaria!";
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+                foreach (var permiso in objUser.Permisos)
+                {
+                    switch (permiso.Nombre)
+                    {
+                        case "CREAR":
+                            FrmAnimals.Visible = true;
+                            BtnSave.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            break;
+                        case "ACTUALIZAR":
+                            FrmAnimals.Visible = true;
+                            BtnUpdate.Visible = true;
+                            //PanelAdmin.Visible = true;
+                            _showEditButton = true;
+                            break;
+                        case "MOSTRAR":
+                            PanelAdmin.Visible = true;
+                            break;
+                        case "ELIMINAR":
+                            //PanelAdmin.Visible = true;
+                            _showDeleteButton = true;
+                            break;
+                        default:
+                            // Si el permiso no coincide con ninguno de los casos anteriores
+                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
+                            break;
+                    }
+                }
+            }
+
             else if (userRole == "Propietario")
             {
-                //LblMsg.Text = "Bienvenido, Gerente!";
+                LblMsg.Text = "Bienvenido, Propietario!";
 
-                masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
-                masterPage.linkPermission.Visible = false; // Se oculta el enlace Permiso 
-                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
+                masterPage.linkRol.Visible = false;
+                masterPage.linkPermission.Visible = false;
+                masterPage.linkRolesPermission.Visible = false;
+                masterPage.linkDocumentType.Visible = false;
+                masterPage.linkUsers.Visible = false;
+                masterPage.linkAnamnesis.Visible = false;
+                masterPage.linkDiagnoses.Visible = false;
+                masterPage.linkTreatment.Visible = false;
+                masterPage.linkVaccines.Visible = false;
+                masterPage.linkSecurity.Visible = false;
+
 
                 foreach (var permiso in objUser.Permisos)
                 {
@@ -293,21 +352,19 @@ namespace Presentation
                         case "CREAR":
                             FrmAnimals.Visible = false;
                             BtnSave.Visible = false;
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             break;
                         case "ACTUALIZAR":
                             FrmAnimals.Visible = false;
                             BtnUpdate.Visible = false;
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             _showEditButton = false;
                             break;
                         case "MOSTRAR":
-                            //LblMsg.Text += " Tienes permiso de Mostrar!";
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
-                            //LblMsg.Text += " Tienes permiso de Eliminar!";
-                            PanelAdmin.Visible = false;
+                            //PanelAdmin.Visible = false;
                             _showDeleteButton = false;
                             break;
                         default:
@@ -316,47 +373,6 @@ namespace Presentation
                             break;
                     }
                 }
-
-            }           
-            else if (userRole == "Secretaria")
-            {
-                //LblMsg.Text = "Bienvenido, Gerente!";
-
-                masterPage.linkUsers.Visible = false;// Se oculta el enlace de Usuario
-                masterPage.linkPermission.Visible = false; // Se oculta el enlace Permiso 
-                masterPage.linkRolesPermission.Visible = false;// Se oculta el enlace de Permiso Rol
-
-                foreach (var permiso in objUser.Permisos)
-                {
-                    switch (permiso.Nombre)
-                    {
-                        case "CREAR":
-                            FrmAnimals.Visible = true;
-                            BtnSave.Visible = true;
-                            PanelAdmin.Visible = true;
-                            break;
-                        case "ACTUALIZAR":
-                            FrmAnimals.Visible = true;
-                            BtnUpdate.Visible = true;
-                            PanelAdmin.Visible = true;
-                            _showEditButton = true;
-                            break;
-                        case "MOSTRAR":
-                            //LblMsg.Text += " Tienes permiso de Mostrar!";
-                            PanelAdmin.Visible = true;
-                            break;
-                        case "ELIMINAR":
-                            //LblMsg.Text += " Tienes permiso de Eliminar!";
-                            PanelAdmin.Visible = true;
-                            _showDeleteButton = true;
-                            break;
-                        default:
-                            // Si el permiso no coincide con ninguno de los casos anteriores
-                            LblMsg.Text += $" Permiso desconocido: {permiso.Nombre}";
-                            break;
-                    }
-                }
-
             }
             else
             {

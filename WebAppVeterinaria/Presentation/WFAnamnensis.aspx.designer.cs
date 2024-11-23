@@ -51,6 +51,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox TBDescription;
 
         /// <summary>
+        /// Control RFDescription.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFDescription;
+
+        /// <summary>
         /// Control Label5.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLAppointments;
+
+        /// <summary>
+        /// Control RFDDLAppointments.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFDDLAppointments;
 
         /// <summary>
         /// Control BtnSave.

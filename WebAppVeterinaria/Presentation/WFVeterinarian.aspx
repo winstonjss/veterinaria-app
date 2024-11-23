@@ -6,28 +6,62 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
-
-        <%--Aqui va todo lo del formulario de veterinario--%>
+    <form id="FrmVeterinarian" runat="server">
 
         <%--Id veterinario--%>
         <asp:HiddenField ID="HFVeterinarianID" runat="server" />
         <br />
+
         <%--Nombre del veterinario--%>
         <asp:Label ID="Label1" runat="server" Text="Ingrese el nombre del veterinario"></asp:Label>
         <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVName"
+            runat="server"
+            ControlToValidate="TBName"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
+
         <%--Telefono del veterinario--%>
         <asp:Label ID="Label2" runat="server" Text="Ingrese el telefono"></asp:Label>
         <asp:TextBox ID="TBPhone" runat="server"></asp:TextBox>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVPhone"
+            runat="server"
+            ControlToValidate="TBPhone"
+            ForeColor="Red"
+            Display="Dynamic"
+            ErrorMessage="Este campo es obligatorio">
+        </asp:RequiredFieldValidator>
         <br />
+
         <%--DDL del Usuarios--%>
         <asp:Label ID="Label3" runat="server" Text="Seleccione el documento del usuario"></asp:Label>
         <asp:DropDownList ID="DDLUsers" runat="server"></asp:DropDownList>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVUsers"
+            runat="server"
+            ControlToValidate="DDLUsers"
+            InitialValue=""
+            ErrorMessage="Debes seleccionar un Usuario"
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
+
         <%--DDL del Consultorio--%>
         <asp:Label ID="Label4" runat="server" Text="Seleccione el consultorio"></asp:Label>
         <asp:DropDownList ID="DDLOffice" runat="server"></asp:DropDownList>
+        <%--Valida que el TextBox este lleno--%>
+        <asp:RequiredFieldValidator ID="RFVOffice"
+            runat="server"
+            ControlToValidate="DDLOffice"
+            InitialValue=""
+            ErrorMessage="Debes seleccionar un Consultorio"
+            ForeColor="Red">
+        </asp:RequiredFieldValidator>
         <br />
 
         <%--Botones de Guardar y Actualizar--%>
@@ -41,24 +75,27 @@
         <br />
     </form>
 
+    <%--Panel para la gestion del Administrador--%>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <%--Lista de veterinarios--%>
+        <h2>Lista de Veterinarios</h2>
+        <table id="veterinariansTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>FkUsuario</th>
+                    <th>Usuario</th>
+                    <th>FkConsultorio</th>
+                    <th>Consultorio</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </asp:Panel>
 
-    <%--Lista de veterinarios--%>
-    <h2>Lista de Veterinarios</h2>
-    <table id="veterinariansTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Telefono</th>
-                <th>FkUsuario</th>
-                <th>Usuario</th>
-                <th>FkConsultorio</th>
-                <th>Consultorio</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 
     <%--Veterinarios--%>
@@ -85,7 +122,7 @@
                     { "data": "FkUser", "visible": false },
                     { "data": "NameUser" }, //Verificar si es nombre de usuario o documento de usuario
                     { "data": "FkOffice", "visible": false },
-                    { "data": "NameOffice" }, 
+                    { "data": "NameOffice" },
                     {
                         "data": null,
                         "render": function (data, type, row) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Data;
 using System.Data;
+using System.Runtime.Remoting;
 
 
 namespace Logic
@@ -54,6 +55,11 @@ namespace Logic
         public DataSet showCitasDDl()
         {
             return objAppointments.showCitasDDl();
+        }
+
+        public DataSet spCitasResumenMesActual2(DateTime fechaInicio, DateTime fechaFinal, DateTime fechaActual)
+        {
+            return objAppointments.spCitasResumenMesActual2(fechaInicio, fechaFinal, fechaActual);
         }
     }
 }

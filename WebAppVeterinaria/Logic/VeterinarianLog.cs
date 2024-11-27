@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Data;
 using System.Data;
+using System.Runtime.Remoting;
 
 namespace Logic
 {
@@ -43,6 +44,12 @@ namespace Logic
         public bool deleteVeterinarian(int _vet_id)
         {
             return objVet.deleteVeterinarian(_vet_id);
+        }
+
+        //Metodo para mostrar la cantidad de Veterinarios
+        public int showCountVeterinarian()
+        {
+            return objVet.showCountVeterinarian();
         }
     }
 }

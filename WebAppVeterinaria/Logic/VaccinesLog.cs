@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Runtime.Remoting;
 
 namespace Logic
 {
@@ -40,5 +41,11 @@ namespace Logic
         {
             return objVaccines.showVaccinessALL();
         }
+
+        public DataSet SelectVaccinesbyDiagnoses()
+        {
+           return objVaccines.SelectVaccinesbyDiagnoses();
+        }
     }
+
 }

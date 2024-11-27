@@ -168,5 +168,28 @@ namespace Data
             objPer.closeConnection();
             return executed;
         }
+
+        //Metodo para mostrar la cantidad de Veterinarios
+        public int showCountVeterinarian()
+        {
+            int totalVeterinarian;
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCountVeterinarian";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+
+            // Agregar el parámetro de salida
+            objSelectCmd.Parameters.Add(new MySqlParameter("@total_veterinarios", MySqlDbType.Int32));
+            objSelectCmd.Parameters["@total_veterinarios"].Direction = ParameterDirection.Output;
+
+            // Ejecutar el comando
+            objSelectCmd.ExecuteNonQuery();
+
+            // Obtener el valor del parámetro de salida
+            totalVeterinarian = Convert.ToInt32(objSelectCmd.Parameters["@total_veterinarios"].Value);
+
+            return totalVeterinarian;
+        }
     }
 }

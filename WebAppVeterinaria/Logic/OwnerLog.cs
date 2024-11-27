@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Data;
 using System.Data;
+using System.Runtime.Remoting;
 
 namespace Logic
 {
@@ -43,6 +44,11 @@ namespace Logic
         public bool deleteOwner(int _pro_id)
         {
             return objOwn.deleteOwner(_pro_id);
+        }
+
+        public int showCountOwners()
+        {
+            return objOwn.showCountOwners();
         }
     }
 }

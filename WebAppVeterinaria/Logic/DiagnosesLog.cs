@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Remoting;
 
 namespace Logic
 {
@@ -39,6 +41,11 @@ namespace Logic
         public DataSet showDiagnosesDLL()
         {
             return objDiagnoses.showDiagnosesDLL();
+        }
+
+        public DataSet spGraficoLineasRecursosPorDiagnostico()
+        {
+            return objDiagnoses.spGraficoLineasRecursosPorDiagnostico();
         }
     }
 }

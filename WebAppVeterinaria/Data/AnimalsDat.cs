@@ -176,5 +176,28 @@ namespace Data
             objPer.closeConnection();
             return executed;
         }
+
+        //Metodo para mostrar la cantidad de Animales
+        public int showCountAnimals()
+        {
+            int totalAnimals;
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectCountAnimals";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+
+            // Agregar el parámetro de salida
+            objSelectCmd.Parameters.Add(new MySqlParameter("@total_animales", MySqlDbType.Int32));
+            objSelectCmd.Parameters["@total_animales"].Direction = ParameterDirection.Output;
+
+            // Ejecutar el comando
+            objSelectCmd.ExecuteNonQuery();
+
+            // Obtener el valor del parámetro de salida
+            totalAnimals = Convert.ToInt32(objSelectCmd.Parameters["@total_animales"].Value);
+
+            return totalAnimals;
+        }
     }
 }

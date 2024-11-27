@@ -180,5 +180,21 @@ namespace Data
 
         }
 
+        public DataSet spCitasResumenMesActual2(DateTime fechaInicio, DateTime fechaFinal, DateTime fechaActual)
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spCitasResumenMesActual4";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objSelectCmd.Parameters.Add("fecha_inicio", MySqlDbType.Date).Value = fechaInicio;
+            objSelectCmd.Parameters.Add("fecha_fin", MySqlDbType.Date).Value = fechaFinal;
+            objSelectCmd.Parameters.Add("fecha_actual", MySqlDbType.Date).Value = fechaActual;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
     }
 }

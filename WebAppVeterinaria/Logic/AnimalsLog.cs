@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Data;
 using System.Data;
+using System.Runtime.Remoting;
 
 namespace Logic
 {
@@ -43,6 +44,11 @@ namespace Logic
         public bool deleteAnimals(int _anim_id)
         {
             return objAni.deleteAnimals(_anim_id);
+        }
+
+        public int showCountAnimals()
+        {
+            return objAni.showCountAnimals();
         }
     }
 }

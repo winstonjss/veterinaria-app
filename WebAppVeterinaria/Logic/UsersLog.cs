@@ -52,5 +52,12 @@ namespace Logic
         {
             return objUse.deleteUser(_id);
         }
+
+        //Metodo para mostrar la cantidad de Usuarios
+        public int showCountUsers()
+        {
+            return objUse.showCountUsers();
+        }
     }
+
 }

@@ -16,6 +16,9 @@
     <%--CSS Sidebar--%>
     <link href="resources/css/stylesidebar.css" rel="stylesheet" />
 
+    <%--CSS styles--%>
+    <link href="resources/css/styles.css" rel="stylesheet" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -32,12 +35,12 @@
             <a class="navbar-brand text-dark" href="WFInicio.aspx">Veterinaria APP</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                  <%--   <li class="nav-item">
                         <a class="nav-link" href="#">Acerca de</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ayuda</a>
-                    </li>
+                    </li> --%>
+                 <%--   <li class="nav-item">
+                         <a class="nav-link" href="#">Ayuda</a> 
+                    </li>  --%>
                 </ul>
             </div>
         </div>
@@ -59,93 +62,93 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
                     <a id="linkAnamnesis" runat="server" href="WFAnamnensis.aspx" class="sidebar-link">
-                        <i class="lni lni-cart-1"></i>
+                        <img src="resources/images/ICONOS/Anamnesis.png" alt="Anamnesis" class="sidebar-icon" />
                         <span>Anamnesis</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkAnimals" runat="server" href="WFAnimals.aspx" class="sidebar-link">
-                        <i class="lni lni-cart-1"></i>
+                        <img src="resources/images/ICONOS/animales.png" alt="Animals" class="sidebar-icon" />
                         <span>Animales</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkAppointments" runat="server" href="WFAppointments.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/citas.png" alt="Appointments" class="sidebar-icon" />
                         <span>Citas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkDiagnoses" runat="server" href="WFDiagnoses.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/diagnostico.png" alt="Diagnoses" class="sidebar-icon" />
                         <span>Diagnosticos</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkMedicalHistory" runat="server" href="WFMedicalHistory.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/HistoriaClinica.png" alt="MedicalHistory" class="sidebar-icon" />
                         <span>Historia Clinica</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkOffice" runat="server" href="WFOffice.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/consultorio.png" alt="Office" class="sidebar-icon" />
                         <span>Consultorio</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkOwner" runat="server" href="WFOwner.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/propietario.png" alt="Owner" class="sidebar-icon" />
                         <span>Propietario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkDocumentType" runat="server" href="WFDocumentType.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/TipoDocumento.png" alt="DocumentType" class="sidebar-icon" />
                         <span>Tipo Documento</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkTreatment" runat="server" href="WFTreatment.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/tratamiento.png" alt="Treatment" class="sidebar-icon" />
                         <span>Tratamientos</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkVaccines" runat="server" href="WFVaccines.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/vacuna.png" alt="Vaccines" class="sidebar-icon" />
                         <span>Vacunas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkVeterinarian" runat="server" href="WFVeterinarian.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/vaterinario.png" alt="Veterinarian" class="sidebar-icon" />
                         <span>Veterinario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a id="linkVeterinaryHours" runat="server" href="WFVeterinaryHours.aspx" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                        <img src="resources/images/ICONOS/horarioVeterinario.png" alt="VeterinaryHours" class="sidebar-icon" />
                         <span>Horario Veterinario</span>
                     </a>
                 </li>
 
 
                 <li class="sidebar-item">
-                    <a id="linkSecurity" runat="server" href ="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    <a id="linkSecurity" runat="server" href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-shield-2-check"></i>
+                        <img src="resources/images/ICONOS/seguridad.png" alt="Security" class="sidebar-icon" />
                         <span>Seguridad</span>
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -164,47 +167,17 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout-9"></i>
-                        <span>Multi Level</span>
-                    </a>
-
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">Two Links
-                            </a>
-
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
+            </ul>
+            </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-message-3-text"></i>
-                        <span>Notification</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-gear-1"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
+                
+                
+            </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="Logout.aspx" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
+                    <img src="resources/images/ICONOS/cerrarSesion.png" alt="Cerrar" class="sidebar-icon" />
                     <span>Cerrar sesión</span>
                 </a>
             </div>

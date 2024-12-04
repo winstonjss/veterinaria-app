@@ -4,157 +4,238 @@
 
     <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link href="resources\css\styles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form id="FrmAnimals" runat="server">
 
-        <%--Id animal--%>
+    <form id="FrmAnimals" runat="server" class="container mt-4">
+        <!-- Título del formulario -->
+        <h2 class="text-center mb-4">Gestión de Animales</h2>
+
+        <!-- ID Oculto -->
         <asp:HiddenField ID="HFAnimalID" runat="server" />
-        <br />
 
-        <%--Nombre del animal--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese el nombre del animal"></asp:Label>
-        <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVName"
-            runat="server"
-            ControlToValidate="TBName"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+        <!-- Fila para las dos columnas -->
+        <div class="row">
+            <!-- Primera columna -->
+            <div class="col-md-6 mb-3">
+                <asp:Label
+                    ID="Label9"
+                    runat="server"
+                    Text="Ingrese el nombre del animal:"
+                    CssClass="form-label fw-bold"></asp:Label>
+                <asp:TextBox
+                    ID="TBName"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Ingrese el nombre del animal aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVName"
+                    runat="server"
+                    ControlToValidate="TBName"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--Especie del animal--%>
-        <asp:Label ID="Label2" runat="server" Text="Ingrese la especie"></asp:Label>
-        <asp:TextBox ID="TBSpecies" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVSpecies"
-            runat="server"
-            ControlToValidate="TBSpecies"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+                <asp:Label
+                    ID="Label2"
+                    runat="server"
+                    Text="Ingrese la especie:"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:TextBox
+                    ID="TBSpecies"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Ingrese la especie aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVSpecies"
+                    runat="server"
+                    ControlToValidate="TBSpecies"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--Raza del animal--%>
-        <asp:Label ID="Label3" runat="server" Text="Ingrese la raza"></asp:Label>
-        <asp:TextBox ID="TBRace" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVRace"
-            runat="server"
-            ControlToValidate="TBRace"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+                <asp:Label
+                    ID="Label3"
+                    runat="server"
+                    Text="Ingrese la raza:"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:TextBox
+                    ID="TBRace"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Ingrese la raza aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVRace"
+                    runat="server"
+                    ControlToValidate="TBRace"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--Fecha de nacimiento del animal--%>
-        <asp:Label ID="Label4" runat="server" Text="Ingrese la fecha de nacimiento"></asp:Label>
-        <asp:TextBox ID="TBDate_birth" runat="server" TextMode="Date"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVDate_birth"
-            runat="server"
-            ControlToValidate="TBDate_birth"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+                <asp:Label
+                    ID="Label4"
+                    runat="server"
+                    Text="Ingrese la fecha de nacimiento:"
+                    AssociatedControlID="TBDate_birth"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:TextBox
+                    ID="TBDate_birth"
+                    runat="server"
+                    TextMode="Date"
+                    CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVDate_birth"
+                    runat="server"
+                    ControlToValidate="TBDate_birth"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+            </div>
 
-        <%--Sexo del animal--%>
-        <asp:Label ID="Label5" runat="server" Text="Ingrese el sexo"></asp:Label>
-        <asp:TextBox ID="TBSex" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVSex"
-            runat="server"
-            ControlToValidate="TBSex"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+            <!-- Segunda columna -->
+            <div class="col-md-6 mb-3">
+                <asp:Label
+                    ID="Label5"
+                    runat="server"
+                    Text="Sexo del animal:"
+                    CssClass="form-label fw-bold"></asp:Label>
+                <asp:TextBox
+                    ID="TBSex"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Sexo del animal aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVSex"
+                    runat="server"
+                    ControlToValidate="TBSex"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--Peso del animal--%>
-        <asp:Label ID="Label6" runat="server" Text="Ingrese el peso"></asp:Label>
-        <asp:TextBox ID="TBWeight" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVWeight"
-            runat="server"
-            ControlToValidate="TBWeight"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+                <asp:Label
+                    ID="Label6"
+                    runat="server"
+                    Text="Peso del animal:"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:TextBox
+                    ID="TBWeight"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Ingrese el peso del animal aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVWeight"
+                    runat="server"
+                    ControlToValidate="TBWeight"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--Color del animal--%>
-        <asp:Label ID="Label7" runat="server" Text="Ingrese el color"></asp:Label>
-        <asp:TextBox ID="TBColor" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVColor"
-            runat="server"
-            ControlToValidate="TBColor"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+                <asp:Label
+                    ID="Label7"
+                    runat="server"
+                    Text="Color del animal:"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:TextBox
+                    ID="TBColor"
+                    runat="server"
+                    CssClass="form-control"
+                    Placeholder="Color del animal aquí"></asp:TextBox>
+                <asp:RequiredFieldValidator
+                    ID="RFVColor"
+                    runat="server"
+                    ControlToValidate="TBColor"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    ErrorMessage="Este campo es obligatorio"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
 
-        <%--DDL del Propietario--%>
-        <asp:Label ID="Label8" runat="server" Text="Seleccione el propietario"></asp:Label>
-        <asp:DropDownList ID="DDLOwner" runat="server"></asp:DropDownList>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVOwner"
-            runat="server"
-            ControlToValidate="DDLOwner"
-            InitialValue=""
-            ErrorMessage="Debes seleccionar una Propietario"
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
-
-  
-        <%--Botones de Guardar y Actualizar--%>
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-
-            <%--Este Label si se modifica porque lo vamos a utilizar como salida--%>
-            <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
+                <asp:Label
+                    ID="Label8"
+                    runat="server"
+                    Text="Seleccione el propietario:"
+                    CssClass="form-label fw-bold mt-3"></asp:Label>
+                <asp:DropDownList
+                    ID="DDLOwner"
+                    runat="server"
+                    CssClass="form-select">
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator
+                    ID="RFVOwner"
+                    runat="server"
+                    ControlToValidate="DDLOwner"
+                    InitialValue=""
+                    ErrorMessage="Debes seleccionar un propietario"
+                    ForeColor="Red"
+                    CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+            </div>
         </div>
-        <br />
+
+        <!-- Botones de Guardar y Actualizar -->
+        <div class="text-center mt-4">
+            <asp:Button
+                ID="BtnSave"
+                runat="server"
+                Text="Guardar"
+                OnClick="BtnSave_Click"
+                CssClass="btn btn-success me-2" />
+            <asp:Button
+                ID="BtnUpdate"
+                runat="server"
+                Text="Actualizar"
+                OnClick="BtnUpdate_Click"
+                CssClass="btn btn-primary me-2" />
+            <asp:Label
+                ID="LblMsg"
+                runat="server"
+                Text=""
+                CssClass="form-text text-info"></asp:Label>
+        </div>
     </form>
 
-
+    <br />
+    <br />
     <%--Panel para la gestion del Administrador--%>
     <asp:Panel ID="PanelAdmin" runat="server">
-        <%--Lista de animales--%>
-        <h2>Lista de Animales</h2>
-        <table id="animalsTable" class="display" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Especie</th>
-                    <th>Raza</th>
-                    <th>Fecha_nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Peso</th>
-                    <th>Color</th>
-                    <th>FkPropietario</th>
-                    <th>Propietario</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </asp:Panel>
+        <%-- Lista de veterinarios --%>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Animales</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="animalsTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
 
+
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Especie</th>
+                            <th>Raza</th>
+                            <th>Fecha_nacimiento</th>
+                            <th>Sexo</th>
+                            <th>Peso</th>
+                            <th>Color</th>
+                            <th>FkPropietario</th>
+                            <th>Propietario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los veterinarios -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </asp:Panel>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
+
 
 
     <%--Animales--%>
@@ -191,14 +272,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.AnimalID}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.AnimalID}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.AnimalID}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.AnimalID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 //Establece el legunaje

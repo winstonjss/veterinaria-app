@@ -7,67 +7,108 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form id="FrmPermission" runat="server">
-        <%--ID--%>
+    <form id="FrmPermission" runat="server" class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Permisos</h2>
+
+        <!-- ID (Hidden) -->
         <asp:HiddenField ID="HFPermiso" runat="server" />
-        <br />
-        <%-- Nombre Permiso--%>
-        <asp:Label ID="Label1" runat="server" Text="">Permiso</asp:Label>
-        <asp:DropDownList ID="DDLNombrePer" runat="server">
-            <asp:ListItem Value="0">Seleccione</asp:ListItem>
-            <asp:ListItem Value="CREAR">Crear</asp:ListItem>
-            <asp:ListItem Value="ACTUALIZAR">Actualizar</asp:ListItem>
-            <asp:ListItem Value="MOSTRAR">Mostrar</asp:ListItem>
-            <asp:ListItem Value="ELIMINAR">Eliminar</asp:ListItem>
-        </asp:DropDownList>
 
-        <%--Valida que el DropDownList este seleccionado con algun valor--%>
-        <asp:RequiredFieldValidator ID="RFVNombrePer" runat="server"
-            ControlToValidate="DDLNombrePer"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar un Permiso."
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
+        <!-- Nombre del Permiso -->
+        <div class="mb-3">
+            <asp:Label
+                ID="Label1"
+                runat="server"
+                Text="Seleccione el Permiso:"
+                CssClass="form-label fw-bold"></asp:Label>
+            <asp:DropDownList
+                ID="DDLNombrePer"
+                runat="server"
+                CssClass="form-select">
+                <asp:ListItem Value="0">Seleccione</asp:ListItem>
+                <asp:ListItem Value="CREAR">Crear</asp:ListItem>
+                <asp:ListItem Value="ACTUALIZAR">Actualizar</asp:ListItem>
+                <asp:ListItem Value="MOSTRAR">Mostrar</asp:ListItem>
+                <asp:ListItem Value="ELIMINAR">Eliminar</asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator
+                ID="RFVNombrePer"
+                runat="server"
+                ControlToValidate="DDLNombrePer"
+                InitialValue="0"
+                ErrorMessage="Debes seleccionar un Permiso."
+                ForeColor="Red"
+                CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+        </div>
 
-        <%-- Descripción Permiso--%>
-        <asp:Label ID="Label2" runat="server" Text="Descripcion"></asp:Label>
-        <asp:TextBox ID="TBPer_descripcion" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVDescripcion"
-            runat="server"
-            ControlToValidate="TBPer_descripcion"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+        <!-- Descripción del Permiso -->
+        <div class="mb-3">
+            <asp:Label
+                ID="Label2"
+                runat="server"
+                Text="Descripción del Permiso:"
+                CssClass="form-label fw-bold"></asp:Label>
+            <asp:TextBox
+                ID="TBPer_descripcion"
+                runat="server"
+                CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator
+                ID="RFVDescripcion"
+                runat="server"
+                ControlToValidate="TBPer_descripcion"
+                ForeColor="Red"
+                Display="Dynamic"
+                ErrorMessage="Este campo es obligatorio"
+                CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+        </div>
 
-        <%-- Botones Guardar y actualizar --%>
-        
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-            <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
-       
+        <!-- Botones Guardar y Actualizar -->
+        <div class="text-center mt-4">
+            <asp:Button
+                ID="BtnSave"
+                runat="server"
+                Text="Guardar"
+                OnClick="BtnSave_Click"
+                CssClass="btn btn-success me-2" />
+            <asp:Button
+                ID="BtnUpdate"
+                runat="server"
+                Text="Actualizar"
+                OnClick="BtnUpdate_Click"
+                CssClass="btn btn-primary me-2" />
+            <asp:Label
+                ID="LblMsg"
+                runat="server"
+                Text=""
+                CssClass="form-text text-success"></asp:Label>
+        </div>
     </form>
+
+    <br />
     <br />
 
-     <asp:Panel ID="PanelAdmin" runat="server">
-    <%--Lista de Permisos --%>
-    <h2>Lista de Permisos </h2>
-    <table id="permisoTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre Permiso</th>
-                <th>Descripcion</th>
 
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Permisos</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="permisoTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Permiso</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los permisos -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </asp:Panel>
+
     <%--Datatables--%>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
 
@@ -99,14 +140,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning" data-id="${row.ID}">Editar</button>`;  // Amarillo
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.ID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 "language": {

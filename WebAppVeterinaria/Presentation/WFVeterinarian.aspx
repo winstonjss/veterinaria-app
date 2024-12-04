@@ -1,106 +1,160 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFVeterinarian.aspx.cs" Inherits="Presentation.WFVeterinarian" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-   <%--Estilos--%>
-   <link href="resources/css/datatables.min.css" rel="stylesheet" />
+    <%--Estilos--%>
+    <link href="resources/css/datatables.min.css" rel="stylesheet" />
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form id="FrmVeterinarian" runat="server">
+    <form id="FrmVeterinarian" runat="server" class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Veterinarios</h2>
 
-        <%--Id veterinario--%>
         <asp:HiddenField ID="HFVeterinarianID" runat="server" />
-        <br />
 
-        <%--Nombre del veterinario--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese el nombre del veterinario"></asp:Label>
-        <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVName"
-            runat="server"
-            ControlToValidate="TBName"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
+        <div class="row mb-3">
+            <!-- Nombre del veterinario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label1" runat="server" Text="Ingrese el nombre del veterinario:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBName"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Nombre del veterinario"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFVName"
+                        runat="server"
+                        ControlToValidate="TBName"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
 
-        <%--Telefono del veterinario--%>
-        <asp:Label ID="Label2" runat="server" Text="Ingrese el telefono"></asp:Label>
-        <asp:TextBox ID="TBPhone" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVPhone"
-            runat="server"
-            ControlToValidate="TBPhone"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
-
-        <%--DDL del Usuarios--%>
-        <asp:Label ID="Label3" runat="server" Text="Seleccione el documento del usuario"></asp:Label>
-        <asp:DropDownList ID="DDLUsers" runat="server"></asp:DropDownList>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVUsers"
-            runat="server"
-            ControlToValidate="DDLUsers"
-            InitialValue=""
-            ErrorMessage="Debes seleccionar un Usuario"
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
-
-        <%--DDL del Consultorio--%>
-        <asp:Label ID="Label4" runat="server" Text="Seleccione el consultorio"></asp:Label>
-        <asp:DropDownList ID="DDLOffice" runat="server"></asp:DropDownList>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVOffice"
-            runat="server"
-            ControlToValidate="DDLOffice"
-            InitialValue=""
-            ErrorMessage="Debes seleccionar un Consultorio"
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
-
-        <%--Botones de Guardar y Actualizar--%>
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-
-            <%--Este Label si se modifica porque lo vamos a utilizar como salida--%>
-            <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
+            <!-- Teléfono del veterinario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label2" runat="server" Text="Ingrese el teléfono:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBPhone"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Teléfono del veterinario"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFVPhone"
+                        runat="server"
+                        ControlToValidate="TBPhone"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
         </div>
-        <br />
+
+        <div class="row mb-3">
+            <!-- Documento del usuario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label3" runat="server" Text="Seleccione el documento del usuario:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLUsers"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RFVUsers"
+                        runat="server"
+                        ControlToValidate="DDLUsers"
+                        InitialValue=""
+                        ErrorMessage="Debes seleccionar un Usuario."
+                        ForeColor="Red"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <!-- Consultorio -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label4" runat="server" Text="Seleccione el consultorio:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLOffice"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RFVOffice"
+                        runat="server"
+                        ControlToValidate="DDLOffice"
+                        InitialValue=""
+                        ErrorMessage="Debes seleccionar un Consultorio."
+                        ForeColor="Red"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Botones -->
+            <div class="col-md-12 text-center">
+                <asp:Button
+                    ID="BtnSave"
+                    runat="server"
+                    Text="Guardar"
+                    OnClick="BtnSave_Click"
+                    CssClass="btn btn-success me-2" />
+                <asp:Button
+                    ID="BtnUpdate"
+                    runat="server"
+                    Text="Actualizar"
+                    OnClick="BtnUpdate_Click"
+                    CssClass="btn btn-primary me-2" />
+                <asp:Label
+                    ID="LblMsg"
+                    runat="server"
+                    Text=""
+                    CssClass="form-text text-success"></asp:Label>
+            </div>
+
+        </div>
     </form>
 
+
+    <br />
+<br />
+
+    <%--Steven desde aqui--%>
     <%--Panel para la gestion del Administrador--%>
     <asp:Panel ID="PanelAdmin" runat="server">
-        <%--Lista de veterinarios--%>
-        <h2>Lista de Veterinarios</h2>
-        <table id="veterinariansTable" class="display" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Telefono</th>
-                    <th>FkUsuario</th>
-                    <th>Usuario</th>
-                    <th>FkConsultorio</th>
-                    <th>Consultorio</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <%-- Lista de veterinarios --%>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Veterinarios Registrados</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="veterinariansTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th style="text-align: center;">ID</th>
+                            <th style="text-align: center;">Nombre</th>
+                            <th style="text-align: center;">Teléfono</th>
+                            <th style="text-align: center;">FkUsuario</th>
+                            <th style="text-align: center;">Usuario</th>
+                            <th style="text-align: center;">FkConsultorio</th>
+                            <th style="text-align: center;">Consultorio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los veterinarios -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
+    <%--Steven Hasta aqui--%>
+
 
     <%--Veterinarios--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            const showEditButton = '<%= _showEditButton %>' === 'True';
+            const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             $('#veterinariansTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -125,9 +179,19 @@
                     { "data": "NameOffice" },
                     {
                         "data": null,
-                        "render": function (data, type, row) {
-                            return `<button class="edit-btn" data-id="${row.VeterinarianID}">Editar</button>
-                             <button class="delete-btn" data-id="${row.VeterinarianID}">Eliminar</button>`;
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.VeterinarianID}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.VeterinarianID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
+                            }
+                            return buttons;
                         }
                     }
                 ],

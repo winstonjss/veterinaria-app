@@ -4,83 +4,151 @@
 
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <%--formulario Vaccines--%>
-    <form id="FrmVaccines" runat="server">
-        <br />
+  <form id="FrmVaccines" runat="server" class="container mt-4">
+      <h2 class="text-center mb-4">Gestión de Vacunas</h2>
 
         <asp:HiddenField ID="HFVaccinesID" runat="server" />
-        <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre de la vacuna"></asp:Label>
-        <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RFName"
-            runat="server"
-            ControlToValidate="TBName"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
 
-        <asp:Label ID="Label2" runat="server" Text="Ingrese el tipo de vacuna"></asp:Label>
-        <asp:TextBox ID="TBGuy" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RFGuy"
-            runat="server"
-            ControlToValidate="TBGuy"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
+        <div class="row mb-3">
+            <!-- Nombre de la vacuna -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre de la vacuna:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBName"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Nombre de la vacuna"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFName"
+                        runat="server"
+                        ControlToValidate="TBName"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
 
-        <br />
-        <asp:Label ID="Label1" runat="server" Text="Ingrese la cantidad de la vacuna"></asp:Label>
-        <asp:TextBox ID="TBAmount" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RFAmount"
-            runat="server"
-            ControlToValidate="TBAmount"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
-
-        <asp:Label ID="Label5" runat="server" Text="Seleccione Diagonosticos"></asp:Label>
-        <asp:DropDownList ID="DDLDiagonoses" runat="server"></asp:DropDownList>
-        <asp:RequiredFieldValidator ID="RFDiagnoses" runat="server"
-            ControlToValidate="DDLDiagonoses"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar una Vacuna."
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
-
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" Style="height: 26px" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-            <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+            <!-- Tipo de vacuna -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label2" runat="server" Text="Ingrese el tipo de vacuna:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBGuy"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Tipo de vacuna"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFGuy"
+                        runat="server"
+                        ControlToValidate="TBGuy"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
         </div>
-        <br />
+
+        <div class="row mb-3">
+            <!-- Cantidad de vacuna -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label1" runat="server" Text="Ingrese la cantidad de la vacuna:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBAmount"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Cantidad de vacunas"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFAmount"
+                        runat="server"
+                        ControlToValidate="TBAmount"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <!-- Diagnósticos -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label5" runat="server" Text="Seleccione Diagnósticos:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLDiagonoses"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RFDiagnoses"
+                        runat="server"
+                        ControlToValidate="DDLDiagonoses"
+                        InitialValue="0"
+                        ErrorMessage="Debes seleccionar un diagnóstico."
+                        ForeColor="Red"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+      
+
+            <!-- Botones de Guardar y Actualizar -->
+<div class="text-center mt-4">
+    <asp:Button
+        ID="BtnSave"
+        runat="server"
+        Text="Guardar"
+        OnClick="BtnSave_Click"
+        CssClass="btn btn-success me-2" />
+    <asp:Button
+        ID="BtnUpdate"
+        runat="server"
+        Text="Actualizar"
+        OnClick="BtnUpdate_Click"
+        CssClass="btn btn-primary me-2" />
+    <asp:Label
+        ID="lblMsg"
+        runat="server"
+        Text=""
+        CssClass="form-text text-info"></asp:Label>
+</div>
+
+
+
+        </div>
     </form>
+
+
+    <br />
+<br />
+
     <%-- Lista De Vaccines--%>
-    <asp:Panel ID="PanelAdmin" runat="server">
-        <h2>Lista de Vacunas</h2>
-        <table id="VaccinesTable" class="display" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Fkdiagnosticos</th>
-                    <th>Diagnosticos</th>
+   <asp:Panel ID="PanelAdmin" runat="server">
+    <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+            <h3 class="card-title m-0">Lista de Vacunas</h3>
+        </div>
+        <div class="card-body table-responsive">
+            <table id="VaccinesTable" class="table table-striped table-bordered table-hover">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Cantidad</th>
+                        <th>Fkdiagnosticos</th>
+                        <th>Diagnosticos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí irán los datos dinámicos de las vacunas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</asp:Panel>
 
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </asp:Panel>
-    <script src="resources/js/datatables.min.js" type="text/javascript"></script>
-
+<script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Vacunas--%>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -112,14 +180,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.VaccinesId}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.VaccinesId}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.VaccinesId}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.VaccinesId}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 "language": {

@@ -4,59 +4,140 @@
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <%--formulario anamnesis--%>
-    <form id="FrmAnamnesis" runat="server">
-        <h2>Gestión de Anamnesis</h2>
+
+
+
+
+    <form id="FrmAnamnesis" runat="server" class="container mt-4">
+
+
+           
+
+        <!-- Título del formulario -->
+        <h2 class="text-center mb-4">Gestión de Anamnesis</h2>
+
+        <!-- ID Oculto -->
         <asp:HiddenField ID="HFAnamnesisID" runat="server" />
-        <div class="form-group">
-            <asp:Label ID="Label2" runat="server" Text="Descripción de anamnesis:"></asp:Label>
-            <asp:TextBox ID="TBDescription" runat="server" CssClass="form-control"></asp:TextBox>
-                    
-            <%--CONFIGURAR--%>
-            
-            <asp:RequiredFieldValidator ID="RFDescription"
+
+        <div class="row">
+            <!-- Primera columna: Descripción de anamnesis -->
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label2"
+                        runat="server"
+                        Text="Descripción de anamnesis:"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBDescription"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Ingrese una descripción"
+                        Style="width: 100%;"></asp:TextBox>
+
+                    <asp:RequiredFieldValidator
+                        ID="RFDescription"
+                        runat="server"
+                        ControlToValidate="TBDescription"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"
+                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <!-- Segunda columna: Selección de anamnesis -->
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label5"
+                        runat="server"
+                        Text="Seleccione la anamnesis:"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLAppointments"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator
+                        ID="RFDDLAppointments"
+                        runat="server"
+                        ControlToValidate="DDLAppointments"
+                        InitialValue="0"
+                        ErrorMessage="Debes seleccionar una anamnesis."
+                        ForeColor="Red"
+                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+       <!-- Botones Guardar y Actualizar -->
+<div class="text-center mt-4">
+    <asp:Button
+        ID="BtnSave"
+        runat="server"
+        Text="Guardar"
+        OnClick="BtnSave_Click"
+        CssClass="btn btn-success me-2" />
+    <asp:Button
+        ID="BtnUpdate"
+        runat="server"
+        Text="Actualizar"
+        OnClick="BtnUpdate_Click"
+        CssClass="btn btn-primary me-2" />
+    <asp:Label
+    ID="Label1"
     runat="server"
-    ControlToValidate="TBDescription"
-    ForeColor="Red"
-    Display="Dynamic"
-    ErrorMessage="Este campo es obligatorio">
-</asp:RequiredFieldValidator>
+    Text=""
+    CssClass="form-text text-success"></asp:Label>
+</div>
+
+
+        <!-- Mensaje de confirmación o error -->
+        <div class="text-center mt-3">
+            <asp:Label
+                ID="lblMsg"
+                runat="server"
+                Text=""
+                CssClass="form-text text-success"></asp:Label>
         </div>
-        <div class="form-group">
-            <asp:Label ID="Label5" runat="server" Text="Seleccione la anamnesis:"></asp:Label>
-            <asp:DropDownList ID="DDLAppointments" runat="server" CssClass="form-control"></asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RFDDLAppointments" runat="server"
-            ControlToValidate="DDLAppointments"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar un anamnesis."
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        </div>
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" CssClass="btn btn-primary" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" CssClass="btn btn-warning" />
-            <asp:Label ID="lblMsg" runat="server" Text="" CssClass="text-info"></asp:Label>
-        </div>
-        <br />
     </form>
+
+
+
 
 
     <%--Lista de anamnesis--%>
 
+
     <asp:Panel ID="PanelAdmin" runat="server">
-        <h2>Lista de Anamnesis</h2>
-        <table id="AnamnesisTable" class="display" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>ID Cita</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <%-- Lista de veterinarios --%>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Anamnesis</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="AnamnesisTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+
+
+
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>ID Cita</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los veterinarios -->
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </asp:Panel>
+
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Anamnesis--%>
@@ -86,14 +167,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.AnamnesisID}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.AnamnesisID}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.AnamnesisID}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.AnamnesisID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 "language": {
@@ -146,8 +232,7 @@
                     }
                 },
                 error: function () {
-                    alert("Error al eliminar el Anamnesis.");
-                }
+                    alert("Error al eliminar el Anamnesis.");   }
             });
         }
     </script>

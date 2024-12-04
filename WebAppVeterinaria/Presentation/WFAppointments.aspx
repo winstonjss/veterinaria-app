@@ -1,90 +1,187 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFAppointments.aspx.cs" Inherits="Presentation.WFAppointments" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
- <%--Estilos --%>
+    <%--Estilos --%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <form id="FrmAppointments" runat="server">
-    <%--Id --%>
-    <asp:HiddenField ID="HFAppoitmentID" runat="server" />
+    <form id="FrmAppointments" runat="server" class="container mt-4">
+        <!-- Título del formulario -->
+        <h2 class="text-center mb-4">Gestión de Citas</h2>
 
-    <asp:Label ID="Label1" runat="server" Text="Ingrese la Fecha de la cita"></asp:Label>
-    <asp:TextBox ID="TBDate" runat="server" TextMode="Date"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="RFDate"
-            runat="server"
-            ControlToValidate="TBDate"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-    </asp:RequiredFieldValidator>
-    <br />
-    <asp:Label ID="Label2" runat="server" Text="Ingrese la hora de inicio de la cita"></asp:Label>
-    <asp:TextBox ID="TBHoraInicio" TextMode="Time" runat="server"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="RFHoraInicio"
-            runat="server"
-            ControlToValidate="TBHoraInicio"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-    </asp:RequiredFieldValidator>
-    <br />
-    <asp:Label ID="Label3" runat="server" Text="Ingrese la hora final de la cita"></asp:Label>
-    <asp:TextBox ID="TBHoraFin" TextMode="Time" runat="server"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="RFHoraFin"
-            runat="server"
-            ControlToValidate="TBHoraFin"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-    </asp:RequiredFieldValidator>
-     <br />
-     <asp:Label ID="Label5" runat="server" Text="Seleccione el animal"></asp:Label>
-     <asp:DropDownList ID="DDLAnimals" runat="server"></asp:DropDownList>
-     <asp:RequiredFieldValidator ID="RFAnimals" runat="server"
-            ControlToValidate="DDLAnimals"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar un animal."
-            ForeColor="Red">
-    </asp:RequiredFieldValidator>
-     <br />
-    <asp:Label ID="Label4" runat="server" Text="Seleccione el veterinario"></asp:Label>
-    <asp:DropDownList ID="DDLVeterinario" runat="server"></asp:DropDownList>
-    <asp:RequiredFieldValidator ID="RFVeterinario" runat="server"
-            ControlToValidate="DDLVeterinario"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar un veterinario."
-            ForeColor="Red">
-    </asp:RequiredFieldValidator>
-    <br />
 
-    <div>        
-    <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" style="height: 26px" />
-    <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-    <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
-    </div>
-    <br />
+        <!-- Contenedor de formulario -->
+        <div class="row">
+            <!-- Primera columna -->
+            <div class="col-md-6 mb-3">
+                <!-- ID de la cita (oculto) -->
+                <asp:HiddenField ID="HFAppoitmentID" runat="server" />
+
+                <!-- Fecha de la cita -->
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label1"
+                        runat="server"
+                        Text="Seleccione la Fecha de la cita"
+                        AssociatedControlID="TBDate"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBDate"
+                        runat="server"
+                        TextMode="Date"
+                        CssClass="form-control custom-calendar"
+                        Style="width: 200px;"></asp:TextBox>
+                    <asp:RequiredFieldValidator
+                        ID="RFDate"
+                        runat="server"
+                        ControlToValidate="TBDate"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"
+                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+                </div>
+
+                <!-- Hora de inicio -->
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label2"
+                        runat="server"
+                        Text="Ingrese la hora de inicio de la cita"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBHoraInicio"
+                        TextMode="Time"
+                        runat="server"
+                        CssClass="form-control custom-time"
+                        Style="width: 200px;"></asp:TextBox>
+                </div>
+
+                <!-- Seleccionar el animal -->
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label5"
+                        runat="server"
+                        Text="Seleccione el animal"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLAnimals"
+                        runat="server"
+                        CssClass="form-control custom-dropdown"
+                        Style="width: 250px;">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator
+                        ID="RFAnimals"
+                        runat="server"
+                        ControlToValidate="DDLAnimals"
+                        InitialValue="0"
+                        ErrorMessage="Debes seleccionar un animal."
+                        ForeColor="Red"
+                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <!-- Segunda columna -->
+            <div class="col-md-6 mb-3">
+                <!-- Hora de fin -->
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label3"
+                        runat="server"
+                        Text="Ingrese la hora final de la cita"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBHoraFin"
+                        TextMode="Time"
+                        runat="server"
+                        CssClass="form-control custom-time"
+                        Style="width: 200px;"></asp:TextBox>
+                </div>
+
+                <!-- Seleccionar veterinario -->
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label4"
+                        runat="server"
+                        Text="Seleccione el veterinario:"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLVeterinario"
+                        runat="server"
+                        CssClass="form-control custom-dropdown"
+                        Style="width: 250px;">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator
+                        ID="RFVeterinario"
+                        runat="server"
+                        ControlToValidate="DDLVeterinario"
+                        InitialValue="0"
+                        ErrorMessage="Debes seleccionar un veterinario."
+                        ForeColor="Red"
+                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Guardar y Actualizar -->
+        <div class="text-center mt-3">
+            <asp:Button
+                ID="BtnSave"
+                runat="server"
+                Text="Guardar"
+                OnClick="BtnSave_Click"
+                CssClass="btn btn-success mx-2" />
+            <asp:Button
+                ID="BtnUpdate"
+                runat="server"
+                Text="Actualizar"
+                OnClick="BtnUpdate_Click"
+                CssClass="btn btn-primary mx-2" />
+            <asp:Label
+                ID="lblMsg"
+                runat="server"
+                Text=""
+                CssClass="form-text text-info"></asp:Label>
+        </div>
+
     </form>
 
+    <br />
+    <br />
+
+    <%--CSS DE LISTA DE CITAS--%>
     <%-- Lista De Citas--%>
+
+
+
     <asp:Panel ID="PanelAdmin" runat="server">
-    <h2>Lista de Citas</h2>
-    <table id="appoitmentsTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>CitaFecha</th>
-                <th>CitaHoraInicio</th>
-                <th>CitaHoraFinal</th>            
-                <th>FKAnimales</th>
-                <th>Animal</th>
-                <th>FKVeterinarios</th>
-                <th>Veterinario</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+        <%-- Lista de veterinarios --%>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Citas</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="appoitmentsTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+
+
+                            <th>ID</th>
+                            <th>CitaFecha</th>
+                            <th>CitaHoraInicio</th>
+                            <th>CitaHoraFinal</th>
+                            <th>FKAnimales</th>
+                            <th>Animal</th>
+                            <th>FKVeterinarios</th>
+                            <th>Veterinario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </asp:Panel>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Citas--%>
@@ -110,23 +207,28 @@
                     { "data": "AppoitmentId" },
                     { "data": "AppoitmentDate" },
                     { "data": "AppoitmentHourStart" },
-                    { "data": "AppoitmentHourEnd" },                    
+                    { "data": "AppoitmentHourEnd" },
                     { "data": "FkAnimal", "visible": false },
                     { "data": "AnimalName" },
                     { "data": "FkVeterinary", "visible": false },
                     { "data": "VeterinaryName" },
                     {
                         "data": null,
-                         "render": function (row) {
-                             let buttons = '';
-                             if (showEditButton) {
-                                 buttons += `<button class="edit-btn" data-id="${row.AppoitmentId}">Editar</button>`;
-                             }
-                             if (showDeleteButton) {
-                                 buttons += `<button class="delete-btn" data-id="${row.AppoitmentId}">Eliminar</button>`;
-                             }
-                             return buttons;
-                         }
+                        "render": function (row) {
+                            let buttons = '';
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.AppoitmentId}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.AppoitmentId}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
+                            }
+                            return buttons;
+                        }
+
                     }
                 ],
                 "language": {

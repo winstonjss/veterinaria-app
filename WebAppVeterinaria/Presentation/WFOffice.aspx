@@ -7,52 +7,95 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form id="FrmOffice" runat="server">
+    <form id="FrmOffice" runat="server" class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Consultorios</h2>
 
-        <%--ID--%>
+        <!-- Campo oculto para el ID del consultorio -->
         <asp:HiddenField ID="HFOffice" runat="server" />
-        <br />
-        <%-- Número de consultorio--%>
-        <asp:Label ID="Label1" runat="server" Text="Ingrese Número de consultorio "></asp:Label>
-        <asp:TextBox ID="TBCon_num_consultorio" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVCon_num_consultorio"
-            runat="server"
-            ControlToValidate="TBCon_num_consultorio"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
 
-
-
-        <%-- Botones Guardar y actualizar --%>
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-            <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
+        <div class="row">
+            <!-- Número de consultorio -->
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <asp:Label
+                        ID="Label1"
+                        runat="server"
+                        Text="Ingrese Número de consultorio:"
+                        CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBCon_num_consultorio"
+                        runat="server"
+                        CssClass="form-control custom-textbox"
+                        Style="width: 100%;"
+                        Placeholder="Ingrese el número de consultorio aquí">
+                    </asp:TextBox>
+                    <asp:RequiredFieldValidator
+                        ID="RFVCon_num_consultorio"
+                        runat="server"
+                        ControlToValidate="TBCon_num_consultorio"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"
+                        CssClass="form-text text-danger">
+                    </asp:RequiredFieldValidator>
+                </div>
+            </div>
         </div>
 
+        <div class="row">
+            <!-- Botones Guardar y Actualizar -->
+            <div class="col-md-12 text-center mt-3">
+                <asp:Button
+                    ID="BtnSave"
+                    runat="server"
+                    Text="Guardar"
+                    OnClick="BtnSave_Click"
+                    CssClass="btn btn-success mx-2 custom-button" />
+                <asp:Button
+                    ID="BtnUpdate"
+                    runat="server"
+                    Text="Actualizar"
+                    OnClick="BtnUpdate_Click"
+                    CssClass="btn btn-primary mx-2 custom-button" />
+                <asp:Label
+                    ID="LblMsg"
+                    runat="server"
+                    Text=""
+                    CssClass="text-info custom-message">
+                </asp:Label>
+            </div>
+        </div>
     </form>
+
+
+    <br />
     <br />
 
-     <asp:Panel ID="PanelAdmin" runat="server">
-    <%--Lista de consultorios --%>
+    <%--CSS consultorio--%>
+    <%-- Lista De consultorio--%>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Consultorios</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="officeTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
 
-    <h2>Lista de Consultorios </h2>
-    <table id="officeTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Consultorio</th>
 
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-         </asp:Panel>
+
+
+                            <th>ID</th>
+                            <th>Consultorio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </asp:Panel>
 
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Consultorios--%>
@@ -82,14 +125,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-2" data-id="${row.ID}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.ID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 "language": {
@@ -129,7 +177,7 @@
         // Cargar los datos en los TextBox 
         function loadOfficeData(rowData) {
             $('#<%= HFOffice.ClientID %>').val(rowData.ID);
-           $('#<%= TBCon_num_consultorio.ClientID %>').val(rowData.Consultorio);
+            $('#<%= TBCon_num_consultorio.ClientID %>').val(rowData.Consultorio);
 
         }
 

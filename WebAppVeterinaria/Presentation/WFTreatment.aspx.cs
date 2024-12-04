@@ -16,7 +16,7 @@ namespace Presentation
         TreatmentLog objTrea = new TreatmentLog();
         DiagnosesLog objDiag = new DiagnosesLog();
 
-        private int _fkDiagnoses, _id ;
+        private int _fkDiagnoses, _id;
         private string _description, _name;
         private DateTime _startDate, _endDate;
         private bool executed = false;
@@ -29,7 +29,7 @@ namespace Presentation
         {
             if (!IsPostBack)
             {
-               
+
                 showDiagnosesDDL();
                 TBStartDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 TBEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -40,7 +40,8 @@ namespace Presentation
         }
 
         [WebMethod]
-        public static object ListTreatment() {
+        public static object ListTreatment()
+        {
             TreatmentLog objTrea = new TreatmentLog();
             // Se obtiene un DataSet que contiene la lista de anamnesis desde la base de datos.
             var dataSet = objTrea.showTreatmentALL();
@@ -90,7 +91,7 @@ namespace Presentation
             if (executed)
             {
                 lblMsg.Text = "se guardo el tratamiento";
-                
+
             }
             else
             {
@@ -115,7 +116,7 @@ namespace Presentation
             executed = objTrea.updateTratamiento(_id, _name, _description, _startDate, _endDate, _fkDiagnoses);
             if (executed)
             {
-                lblMsg.Text = "se guardo el tratamiento";
+                lblMsg.Text = "se actualizo el tratamiento";
 
             }
             else
@@ -134,6 +135,7 @@ namespace Presentation
         }
 
 
+        // Metodo validar permisos roles
         private void validatePermissionRol()
         {
             // Se Obtiene el usuario actual desde la sesión
@@ -145,10 +147,10 @@ namespace Presentation
             if (objUser == null)
             {
                 // Redirige a la página de inicio de sesión si el usuario no está autenticado
-                //Response.Redirect("Default.aspx");
+                Response.Redirect("Default.aspx");
                 return;
             }
-            // Obtener el tratamiento del usuario
+            // Obtener el rol del usuario
             var userRole = objUser.Rol.Nombre;
             if (objUser.Permisos == null || !objUser.Permisos.Any())
             {
@@ -325,8 +327,8 @@ namespace Presentation
             TBStartDate.Text = "";
             TBEndDate.Text = "";
             DDLDiagonoses.SelectedIndex = 0;
-        
-        
+
+
         }
     }
 }

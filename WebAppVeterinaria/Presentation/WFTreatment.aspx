@@ -6,94 +6,154 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <%--formulario tratamientos--%>
 
-    <form id="FrmTreatment" runat="server">
+    <!-- Campo de descripción de un Tratamiento -->
+
+    <form id="FrmTreatment" runat="server" class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Tratamientos</h2>
+
         <asp:HiddenField ID="HFTreatmentID" runat="server" />
 
-        <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre"></asp:Label>
-        <asp:TextBox ID="TBName" runat="server"></asp:TextBox>
+        <div class="row mb-3">
+            <!-- Nombre del tratamiento -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label4" runat="server" Text="Ingrese el nombre del tratamiento:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBName"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Ingrese un nombre de un tratamiento"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFName"
+                        runat="server"
+                        ControlToValidate="TBName"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
 
-        <asp:RequiredFieldValidator ID="RFName"
-    runat="server"
-    ControlToValidate="TBName"
-    ForeColor="Red"
-    Display="Dynamic"
-    ErrorMessage="Este campo es obligatorio">
-</asp:RequiredFieldValidator>
-        <br />
-
-        <asp:Label ID="Label2" runat="server" Text="Ingrese la descripcion"></asp:Label>
-        <asp:TextBox ID="TBDescription" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RFDescription"
-            runat="server"
-            ControlToValidate="TBDescription"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-         <br />
-
-        <asp:Label ID="Label1" runat="server" Text="Ingrese la fecha inicio"></asp:Label>
-        <asp:TextBox ID="TBStartDate" TextMode="Date" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RFStartDate"
-    runat="server"
-    ControlToValidate="TBStartDate"
-    ForeColor="Red"
-    Display="Dynamic"
-    ErrorMessage="Este campo es obligatorio">
-</asp:RequiredFieldValidator>
-        <br />
-
-        <asp:Label ID="Label3" runat="server" Text="Ingrese fecha fin"></asp:Label>
-        <asp:TextBox ID="TBEndDate" TextMode="Date" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RFEndDate"
-    runat="server"
-    ControlToValidate="TBEndDate"
-    ForeColor="Red"
-    Display="Dynamic"
-    ErrorMessage="Este campo es obligatorio">
-</asp:RequiredFieldValidator>
-        <br />
-
-        <asp:Label ID="Label5" runat="server" Text="Seleccione Diadiagnostico"></asp:Label>
-        <asp:DropDownList ID="DDLDiagonoses" runat="server"></asp:DropDownList>
-        <asp:RequiredFieldValidator ID="RFDiagonoses" runat="server"
-    ControlToValidate="DDLDiagonoses"
-    InitialValue="0"
-    ErrorMessage="Debes seleccionar un Diagnostico."
-    ForeColor="Red">
-</asp:RequiredFieldValidator>
-        <br />
-
-        <div>
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" Style="height: 26px" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-            <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+            <!-- Descripción -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label2" runat="server" Text="Ingrese la descripción:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBDescription"
+                        runat="server"
+                        CssClass="form-control"
+                        Placeholder="Ingrese la descripción del tratamiento"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFDescription"
+                        runat="server"
+                        ControlToValidate="TBDescription"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
         </div>
-        <br />
+
+        <div class="row mb-3">
+            <!-- Fecha inicio -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label1" runat="server" Text="Ingrese la fecha inicio:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBStartDate"
+                        TextMode="Date"
+                        runat="server"
+                        CssClass="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFStartDate"
+                        runat="server"
+                        ControlToValidate="TBStartDate"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <!-- Fecha fin -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label3" runat="server" Text="Ingrese fecha fin:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:TextBox
+                        ID="TBEndDate"
+                        TextMode="Date"
+                        runat="server"
+                        CssClass="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RFEndDate"
+                        runat="server"
+                        ControlToValidate="TBEndDate"
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ErrorMessage="Este campo es obligatorio"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <!-- Selección de Diagnóstico -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label ID="Label5" runat="server" Text="Seleccione Diagnóstico:" CssClass="form-label fw-bold"></asp:Label>
+                    <asp:DropDownList
+                        ID="DDLDiagonoses"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RFDiagonoses"
+                        runat="server"
+                        ControlToValidate="DDLDiagonoses"
+                        InitialValue="0"
+                        ErrorMessage="Debes seleccionar un diagnóstico."
+                        ForeColor="Red"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Botones -->
+            <div class="col-md-12 text-center">
+                <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" CssClass="btn btn-success me-2" />
+                <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click"  CssClass="btn btn-primary me-2" />
+
+
+                <asp:Label ID="lblMsg" runat="server" Text="" CssClass="form-text text-success"></asp:Label>
+            </div>
+        </div>
     </form>
+
+    <br />
+<br />
+
     <%-- Lista De tratamientos--%>
 
     <asp:Panel ID="PanelAdmin" runat="server">
-        <h2>Lista de Tratamientos</h2>
-        <table id="TreatmentsTable" class="display" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>FechaInicio</th>
-                    <th>FechaFin</th>
-                    <th>FkDiagnosticos</th>
-                    <th>Diagnosticos</th>
-
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <h2 class="mb-3">Lista de Tratamientos</h2>
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Tratamientos Registrados</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="TreatmentsTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>FkDiagnosticos</th>
+                            <th>Diagnósticos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los tratamientos -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </asp:Panel>
+
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Tratamientos--%>
     <script type="text/javascript">
@@ -127,14 +187,19 @@
                         "data": null,
                         "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.TreatmentId}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.TreatmentId}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning me-3" data-id="${row.TreatmentId}">Editar</button>`;  // Amarillo, con margen derecho
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.TreatmentId}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
+
                     }
                 ],
                 "language": {

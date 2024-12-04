@@ -7,67 +7,109 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
 
-    <form id="FrmRol"  runat="server">
+    <form id="FrmRol" runat="server" class="container mt-4">
+        <h2 class="text-center mb-4">Gestión de Roles</h2>
 
-        <%--ID--%>
+        <!-- ID (Hidden) -->
         <asp:HiddenField ID="HFRol" runat="server" />
-        <br />
-        <%-- Nombre Rol--%>
-        <asp:Label ID="Label3" runat="server" Text="">Rol</asp:Label>
-        <asp:DropDownList ID="DDLNombreRol" runat="server">
-            <asp:ListItem Value="0">Seleccione</asp:ListItem>
-            <asp:ListItem Value="Administrador">Administrador</asp:ListItem>
-            <asp:ListItem Value="Veterinario">Veterinario</asp:ListItem>
-            <asp:ListItem Value="Secretaria">Secretaria</asp:ListItem>
-            <asp:ListItem Value="Propietario">Propietario</asp:ListItem>
-        </asp:DropDownList>
-        <%--Valida que el DropDownList este seleccionado con algun valor--%>
-        <asp:RequiredFieldValidator ID="RFVNombreRol" runat="server"
-            ControlToValidate="DDLNombreRol"
-            InitialValue="0"
-            ErrorMessage="Debes seleccionar un Rol."
-            ForeColor="Red">
-        </asp:RequiredFieldValidator>
-        <br />
-        <%-- Descripción Rol--%>
-        <asp:Label ID="Label2" runat="server" Text="Descripcion"></asp:Label>
-        <asp:TextBox ID="TBRol_descripcion" runat="server"></asp:TextBox>
-        <%--Valida que el TextBox este lleno--%>
-        <asp:RequiredFieldValidator ID="RFVDescripcion"
-            runat="server"
-            ControlToValidate="TBRol_descripcion"
-            ForeColor="Red"
-            Display="Dynamic"
-            ErrorMessage="Este campo es obligatorio">
-        </asp:RequiredFieldValidator>
-        <br />
 
-        <%-- Botones Guardar y actualizar --%>
-       
-            <asp:Button ID="BtnSave" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
-            <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-            <asp:Label ID="LblMsg" runat="server" Text=""></asp:Label>
-        
+        <!-- Nombre del Rol -->
+        <div class="mb-3">
+            <asp:Label
+                ID="Label3"
+                runat="server"
+                Text="Seleccione el Rol:"
+                CssClass="form-label fw-bold"></asp:Label>
+            <asp:DropDownList
+                ID="DDLNombreRol"
+                runat="server"
+                CssClass="form-select">
+                <asp:ListItem Value="0">Seleccione</asp:ListItem>
+                <asp:ListItem Value="Administrador">Administrador</asp:ListItem>
+                <asp:ListItem Value="Veterinario">Veterinario</asp:ListItem>
+                <asp:ListItem Value="Secretaria">Secretaria</asp:ListItem>
+                <asp:ListItem Value="Propietario">Propietario</asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator
+                ID="RFVNombreRol"
+                runat="server"
+                ControlToValidate="DDLNombreRol"
+                InitialValue="0"
+                ErrorMessage="Debes seleccionar un Rol."
+                ForeColor="Red"
+                CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+        </div>
+
+        <!-- Descripción del Rol -->
+        <div class="mb-3">
+            <asp:Label
+                ID="Label2"
+                runat="server"
+                Text="Descripción del Rol:"
+                CssClass="form-label fw-bold"></asp:Label>
+            <asp:TextBox
+                ID="TBRol_descripcion"
+                runat="server"
+                CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator
+                ID="RFVDescripcion"
+                runat="server"
+                ControlToValidate="TBRol_descripcion"
+                ForeColor="Red"
+                Display="Dynamic"
+                ErrorMessage="Este campo es obligatorio"
+                CssClass="form-text text-danger"></asp:RequiredFieldValidator>
+        </div>
+
+        <!-- Botones Guardar y Actualizar -->
+        <div class="text-center mt-4">
+            <asp:Button
+                ID="BtnSave"
+                runat="server"
+                Text="Guardar"
+                OnClick="BtnSave_Click"
+                CssClass="btn btn-success me-2" />
+            <asp:Button
+                ID="BtnUpdate"
+                runat="server"
+                Text="Actualizar"
+                OnClick="BtnUpdate_Click"
+                CssClass="btn btn-primary me-2" />
+            <asp:Label
+                ID="LblMsg"
+                runat="server"
+                Text=""
+                CssClass="form-text text-success"></asp:Label>
+        </div>
+
     </form>
-     <asp:Panel ID="PanelAdmin" runat="server">
+
     <br />
-    <%--Lista de Roles --%>
+<br />
 
-    <h2>Lista de Roles </h2>
-    <table id="rolTable" class="display" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre Rol</th>
-                <th>Descripcion</th>
+    <asp:Panel ID="PanelAdmin" runat="server">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #012749; color: white; text-align: center;">
+                <h3 class="card-title m-0">Lista de Roles</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="rolTable" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Rol</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí irán los datos dinámicos de los roles -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </asp:Panel>
 
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-         </asp:Panel>
-     <%--Datatables--%>
+    <%--Datatables--%>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Roles--%>
     <script type="text/javascript">
@@ -95,18 +137,22 @@
 
                     {
                         "data": null,
-                        "render": function (row)
-                        {
+                        "render": function (row) {
                             let buttons = '';
-                            if (showEditButton) {
-                                buttons += `<button class="edit-btn" data-id="${row.ID}">Editar</button>`;
-                            }
-                            if (showDeleteButton) {
-                                buttons += `<button class="delete-btn" data-id="${row.ID}">Eliminar</button>`;
+                            if (showEditButton || showDeleteButton) {
+                                buttons += `<div class="d-flex justify-content-center gap-2">`;  // Centrar y espacio entre botones
+                                if (showEditButton) {
+                                    buttons += `<button class="edit-btn btn btn-warning" data-id="${row.ID}">Editar</button>`;  // Amarillo
+                                }
+                                if (showDeleteButton) {
+                                    buttons += `<button class="delete-btn btn btn-danger" data-id="${row.ID}">Eliminar</button>`;  // Rojo
+                                }
+                                buttons += `</div>`;
                             }
                             return buttons;
                         }
-                        
+
+
                     }
                 ],
                 "language": {

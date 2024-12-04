@@ -83,7 +83,7 @@ namespace Presentation
         private void clear()
         {
             HFDocumenTypeId.Value = "";
-            DDLTip_doc_descripcion.SelectedIndex =0;
+            DDLTip_doc_descripcion.SelectedIndex = 0;
         }
 
         // Metodo para validar permisos roles
@@ -239,7 +239,7 @@ namespace Presentation
                 masterPage.linkVaccines.Visible = false;
                 masterPage.linkSecurity.Visible = false;
 
-               
+
                 foreach (var permiso in objUser.Permisos)
                 {
                     switch (permiso.Nombre)

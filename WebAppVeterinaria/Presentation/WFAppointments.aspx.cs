@@ -40,7 +40,7 @@ namespace Presentation
                 showAnimalsDDL();
                 showVeterinariansDDL();
             }
-            validatePermissionRol();
+           validatePermissionRol();
         }
 
         [WebMethod]
@@ -302,6 +302,7 @@ namespace Presentation
                 lblMsg.Text = "erorr al guardar";
             }
         }
+
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {

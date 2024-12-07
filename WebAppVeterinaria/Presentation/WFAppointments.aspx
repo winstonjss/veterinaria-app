@@ -143,6 +143,11 @@
                 runat="server"
                 Text=""
                 CssClass="form-text text-info"></asp:Label>
+            <asp:Button ID="btnMostrarFormulario" 
+                runat="server" 
+                Text="Abrir Formulario" 
+                 OnClientClick="abrirVentanaEmergente(); 
+                return false;" />
         </div>
 
     </form>
@@ -292,4 +297,11 @@
             });
         }
     </script>
+
+    <script type="text/javascript">
+        function abrirVentanaEmergente() {
+            window.open('WFVeterinaryHours.aspx', 'Formulario',
+                'width=600,height=400,resizable=yes,scrollbars=yes');
+        }
+</script>
 </asp:Content>

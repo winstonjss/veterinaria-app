@@ -286,13 +286,15 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se guardó exitosamente ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se registró exitosamente', 'success')", true);
 
                 clear();
             }
             else
             {
-                LblMsg.Text = "Error al guardar ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al enviar el correo electronico', 'error')", true);
             }
         }
 

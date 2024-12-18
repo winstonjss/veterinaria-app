@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFOffice.aspx.cs" Inherits="Presentation.WFOffice" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <%--estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>

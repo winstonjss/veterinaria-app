@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFDocumentType.aspx.cs" Inherits="Presentation.WFDocumentType" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <%--estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -170,10 +171,28 @@
 
             // Eliminar un producto
             $('#documentTypeTable').on('click', '.delete-btn', function () {
-                const id = $(this).data('id');// Obtener el ID del tipo de documento 
-                if (confirm("¿Estás seguro de que deseas eliminar este tipo de documento ?")) {
-                    deleteDocumentType(id);// Invoca a la función para eliminar el producto
-                }
+                const id = $(this).data('id');// Obtener el ID del tipo de documento
+                //if (confirm("¿Estás seguro de que deseas eliminar este tipo de documento ?")) {
+                //    deleteDocumentType(id);// Invoca a la función para eliminar el producto
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteDocumentType(id);// Invoca a la función para eliminar el consultorio
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -194,10 +213,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#documentTypeTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Tipo de documento eliminado exitosamente.");
+                    /*alert("Tipo de documento eliminado exitosamente.");*/
+                    swal('Exitoso', 'Tipo de documento eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el tipo de documento .");
+                   /* alert("Error al eliminar el tipo de documento .");*/
+                    swal('Error', 'Error al eliminar el tipo de documento', 'error');
                 }
             });
         }

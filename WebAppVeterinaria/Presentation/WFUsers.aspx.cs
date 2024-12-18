@@ -352,14 +352,16 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se guardó exitosamente el usuario ";
-                //showUsers();
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se guardó exitosamente el usuario', 'success')", true);
+                //LblMsg.Text = "Se guardó exitosamente el usuario ";
                 clear();//Se invoca el metodo para limpiar los campos 
 
             }
             else
             {
-                LblMsg.Text = "Error al guardar ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -389,14 +391,16 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se Actualizó exitosamente el usuario ";
-                //showUsers();
+                //LblMsg.Text = "Se Actualizó exitosamente el usuario ";
+                
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                     "swal('Exitoso', 'Se Actualizó exitosamente el usuario', 'success')", true);
                 clear();
-
             }
             else
             {
-                LblMsg.Text = "Error al Actualizar ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
     }

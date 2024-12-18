@@ -35,6 +35,7 @@ namespace Presentation
                 BtnUpdate.Visible = false;
                 FrmRol.Visible = false;
                 PanelAdmin.Visible = false;
+                //showRolesDDL();
             }
             validatePermissionRol();
         }
@@ -64,6 +65,19 @@ namespace Presentation
             // Devuelve un objeto en formato JSON que contiene la lista de productos.
             return new { data = rolesList };
         }
+
+
+        //Metodo para mostrar los roles DDL
+        //private void showRolesDDL()
+        //{
+        //    DDLNombreRol.DataSource = objRol.showRolesDDL();
+        //    DDLNombreRol.DataValueField = "rol_id";
+        //    DDLNombreRol.DataTextField = "rol_nombre";
+        //    DDLNombreRol.DataBind();
+        //    DDLNombreRol.Items.Insert(0, "Seleccione");
+        //    // Añade manualmente la opción inicial al DropDownList
+        //    DDLNombreRol.Items.Insert(0, new ListItem("Seleccione", "0"));
+        //}
         [WebMethod]
 
         public static bool deleteRol(int id)
@@ -285,12 +299,15 @@ namespace Presentation
 
                 if (executed)
                 {
-                    LblMsg.Text = "El Rol se guardó exitosamente ";
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'El Rol se guardó exitosamente', 'success')", true);
+                    //LblMsg.Text = "El Rol se guardó exitosamente ";
                     clear();
                 }
                 else
                 {
-                    LblMsg.Text = "Error al guardar ";
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
                 }
             }
         }
@@ -311,13 +328,14 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se ACTUALIZÓ exitosamente ";
-
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se actualizó exitosamente', 'success')", true);
                 clear();
             }
             else
             {
-                LblMsg.Text = "Error al ACTUALIZAR ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
 

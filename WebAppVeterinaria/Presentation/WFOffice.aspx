@@ -170,9 +170,26 @@
             // Eliminar un consultorio
             $('#officeTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del tipo de documento 
-                if (confirm("¿Estás seguro de que deseas eliminar este consultorio ?")) {
-                    deleteoffice(id);// Invoca a la función para eliminar el consultorio
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este consultorio ?")) {
+                //    deleteoffice(id);// Invoca a la función para eliminar el consultorio
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteoffice(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -192,10 +209,10 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#officeTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Consultorio eliminado exitosamente.");
+                    swal('Exitoso', 'Se eliminó el registro', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el consultorio .");
+                    swal('Error', 'Error al eliminar', 'error');
                 }
             });
         }

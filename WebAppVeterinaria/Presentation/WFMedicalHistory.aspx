@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFMedicalHistory.aspx.cs" Inherits="Presentation.WFMedicalHistory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 
@@ -190,9 +192,26 @@
             // Eliminar un producto
             $('#medicalHistoryTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');
-                if (confirm("¿Estás seguro de que deseas eliminar historia clinica?")) {
-                    deleteMedicalHistory(id);
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar historia clinica?")) {
+                //    deleteMedicalHistory(id);
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteMedicalHistory(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -211,10 +230,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#medicalHistoryTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Historia Clinica eliminado exitosamente.");
+                    /* alert("Historia Clinica eliminado exitosamente.");*/
+                    swal('Exitoso', 'Historia Clinica eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar historia clinica.");
+                    /*alert("Error al eliminar historia clinica.");*/
+                    swal('Error', 'Error al eliminar', 'error');
                 }
             });
         }

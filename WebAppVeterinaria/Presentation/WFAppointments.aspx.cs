@@ -294,12 +294,15 @@ namespace Presentation
                 _appoStartHour, _appoFinalHour);
             if (executed)
             {
-                lblMsg.Text = "se agendo exitosamente la cita";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se registró exitosamente la cita', 'success')", true);
+
                 clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar la cita', 'error')", true);
             }
         }
 
@@ -307,7 +310,7 @@ namespace Presentation
         {
             if (string.IsNullOrEmpty(HFAppoitmentID.Value))
             {
-                lblMsg.Text = "No se ha seleccionado un producto para actualizar.";
+                lblMsg.Text = "No se ha seleccionado una cita para actualizar.";
                 return;
             }
             _id = Convert.ToInt32(HFAppoitmentID.Value);
@@ -320,14 +323,17 @@ namespace Presentation
                 _appoStartHour, _appoFinalHour);
             if (executed)
             {
-                lblMsg.Text = "se agendo exitosamente la cita";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se actualizó exitosamente la cita', 'success')", true);
                 clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar la cita ', 'error')", true);
             }
-        }
+        
+    }
 
         [WebMethod]
         public static bool DeleteAppoitment(int id)

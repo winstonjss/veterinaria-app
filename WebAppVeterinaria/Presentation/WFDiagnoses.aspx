@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFDiagnoses.aspx.cs" Inherits="Presentation.WFDiagnoses" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <%--Estilos --%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -221,9 +222,26 @@
             // Eliminar un Diagnostico
             $('#DiagnosesTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del Diagnostico
-                if (confirm("¿Estás seguro de que deseas eliminar este Diagnostico?")) {
-                    deleteDiagnostico(id);// Invoca a la función para eliminar el Diagnostico
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este Diagnostico?")) {
+                //    deleteDiagnostico(id);// Invoca a la función para eliminar el Diagnostico
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteDiagnostico(id);// Invoca a la función para eliminar el consultorio
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -244,10 +262,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#DiagnosesTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Diagnostico eliminado exitosamente.");
+                    /*alert("Diagnostico eliminado exitosamente.");*/
+                    swal('Exitoso', 'Diagnostico eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Diagnostico.");
+                    /*alert("Error al eliminar el Diagnostico.");*/
+                    swal('Error', 'Error al eliminar el Diagnostico', 'error');
                 }
             });
         }

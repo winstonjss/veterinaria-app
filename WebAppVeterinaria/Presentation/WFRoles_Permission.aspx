@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFRoles_Permission.aspx.cs" Inherits="Presentation.WFRoles_Permisos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
 
@@ -201,11 +203,30 @@
 
                 $('#RolPermisoTable').on('click', '.delete-btn', function () {
                     const id = $(this).data('id');// Obtener el ID del Rol Permiso
-                    if (confirm("¿Estás seguro de que deseas eliminar este Permiso?")) {
-                        deleteRolesPermision(id);// Invoca a la función para eliminar el Rol Permiso
-                    }
+                    //if (confirm("¿Estás seguro de que deseas eliminar este Permiso?")) {
+                    //    deleteRolesPermision(id);// Invoca a la función para eliminar el Rol Permiso
+                    //}
+                    swal({
+                        title: "Esta seguro?",
+                        text: "Precaución se eliminará permanentemente!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                deleteRolesPermision(id);// Invoca a la función para eliminar 
+                                swal("Poof! Eliminado exitosamente!", {
+                                    icon: "success",
+                                });
+                            } else {
+                                swal("No se eliminó el registro!");
+                            }
+                        });
                 });
-            });
+
+                });
+        
 
         // Función para cargar los datos del permiso en el formulario 
         function loadRolesPermisosData(rowData) {
@@ -226,10 +247,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#RolPermisoTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Rol y Permiso eliminado exitosamente.");
+                    /* alert("Rol y Permiso eliminado exitosamente.");*/
+                    swal('Exitoso', 'Rol - Permiso eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Permiso .");
+                    /* alert("Error al eliminar el Permiso .");*/
+                    swal('Error', 'Error al eliminar el Rol - Permiso', 'error');
                 }
             });
         }

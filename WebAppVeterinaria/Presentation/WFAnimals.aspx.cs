@@ -148,13 +148,15 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "El animal se guardo exitosamente!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se registró exitosamente', 'success')", true);
                 clear(); //Se invoca el metodo para limpiar los campos 
                 //showAnimals();
             }
             else
             {
-                LblMsg.Text = "Error al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -183,12 +185,14 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "El animal se actualizo exitosamente!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se actualizó exitosamente', 'success')", true);
                 clear(); //Se invoca el metodo para limpiar los campos 
             }
             else
             {
-                LblMsg.Text = "Error al actualizar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
 

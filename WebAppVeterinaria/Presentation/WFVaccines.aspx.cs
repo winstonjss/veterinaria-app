@@ -89,22 +89,29 @@ namespace Presentation
             executed = objVacc.saveVacuna(_name, _type, _quantity, _fkDiagnoses);
             if (executed)
             {
-                lblMsg.Text = "se guardo la vacuna";
+                //lblMsg.Text = "se guardo la vacuna";
+
                 clear();
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se guardo la vacuna', 'success')", true);
 
-
+               
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
+
         }
+           
+        
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(HFVaccinesID.Value))
             {
-                lblMsg.Text = "No se ha seleccionado un Tratamiento para actualizar.";
+                lblMsg.Text = "No se ha seleccionado una vacuna para actualizar.";
                 return;
             }
             _id = Convert.ToInt32(HFVaccinesID.Value);
@@ -117,12 +124,14 @@ namespace Presentation
             executed = objVacc.updateVacuna(_id, _name, _type, _quantity, _fkDiagnoses);
             if (executed)
             {
-                lblMsg.Text = "se guardo la vacuna";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se actualizó exitosamente la vacuna', 'success')", true);
                 clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
 
         }

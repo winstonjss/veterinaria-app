@@ -294,7 +294,7 @@ namespace Presentation
             else
             {
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
-                    "swal('Error', 'Error al enviar el correo electronico', 'error')", true);
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -312,13 +312,14 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se ACTUALIZÓ exitosamente ";
-
+                  ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se actualizó exitosamente', 'success')", true);
                 clear();
             }
             else
             {
-                LblMsg.Text = "Error al ACTUALIZAR ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
     }

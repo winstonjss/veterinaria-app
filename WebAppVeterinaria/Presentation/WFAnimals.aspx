@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFAnimals.aspx.cs" Inherits="Presentation.WFAnimals" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
@@ -317,9 +318,26 @@
             // Eliminar un animal
             $('#animalsTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del animal
-                if (confirm("¿Estás seguro de que deseas eliminar este animal?")) {
-                    deleteAnimal(id);// Invoca a la función para eliminar el animal
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este animal?")) {
+                //    deleteAnimal(id);// Invoca a la función para eliminar el animal
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteAnimal(id);// Invoca a la función para eliminar el consultorio
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -347,10 +365,11 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#animalsTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Animal eliminado exitosamente.");
+                    /* alert("Animal eliminado exitosamente.");*/
+                    swal('Exitoso', 'Se eliminó el registro', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el animal.");
+                    swal('Error', 'Error al eliminar', 'error');
                 }
             });
         }

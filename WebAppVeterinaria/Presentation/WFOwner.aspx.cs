@@ -128,13 +128,15 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "El propietario se guardo exitosamente!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se registró exitosamente', 'success')", true);
                 clear(); //Se invoca el metodo para limpiar los campos 
                 //showOwner();
             }
             else
             {
-                LblMsg.Text = "Error al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -157,12 +159,15 @@ namespace Presentation
 
             if (executed)
             {
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'El propietario se actualizo exitosamente!', 'success')", true);
                 LblMsg.Text = "El propietario se actualizo exitosamente!";
                 clear(); //Se invoca el metodo para limpiar los campos 
             }
             else
             {
-                LblMsg.Text = "Error al actualizar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
 

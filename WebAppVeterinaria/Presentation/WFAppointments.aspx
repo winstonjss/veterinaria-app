@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFAppointments.aspx.cs" Inherits="Presentation.WFAppointments" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <%--Estilos --%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -259,9 +260,26 @@
             // Eliminar una cita
             $('#appoitmentsTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del cita
-                if (confirm("¿Estás seguro de que deseas eliminar esta cita?")) {
-                    deleteAppoitment(id);// Invoca a la función para eliminar la cita
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar esta cita?")) {
+                //    deleteAppoitment(id);// Invoca a la función para eliminar la cita
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteAppoitment(id);// Invoca a la función para eliminar el consultorio
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -284,10 +302,11 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#appoitmentsTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Cita eliminada exitosamente.");
+                    /* alert("Cita eliminada exitosamente.");*/
+                    swal('Exitoso', 'Cita eliminada exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar cita.");
+                    swal('Error', 'Error al eliminar la cita', 'error');
                 }
             });
         }

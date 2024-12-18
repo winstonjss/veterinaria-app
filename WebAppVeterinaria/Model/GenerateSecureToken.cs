@@ -54,7 +54,7 @@ namespace Model
 
         public void SendPasswordResetEmail(string email, string token)
         {
-            string resetLink = $"https://localhost:44395/WebForm2.aspx?token={token}";
+            string resetLink = $"https://localhost:44395/WFCambiarContrasena.aspx?token={token}";
 
             // Configuración del cliente SMTP
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -86,20 +86,4 @@ namespace Model
         }
     }
 
-    public class Program
-    {
-        public void metodoEnviarCorreo()
-        {
-            string userEmail = "winstonjss15@gmail.com"; // Cambia al correo del destinatario
-
-            var tokenGenerator = new GenerateSecureToken();
-
-            var resetToken = tokenGenerator.GeneratePasswordResetToken();
-
-            tokenGenerator.SendPasswordResetEmail(userEmail, resetToken.Token);
-
-            Console.WriteLine($"Token generado: {resetToken.Token}");
-            Console.WriteLine($"Expira en: {resetToken.Expiration}");
-        }
-    }
 }

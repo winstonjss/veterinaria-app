@@ -78,6 +78,8 @@
     <Content Include="resources\js\datatables.min.js" />
     <Content Include="resources\js\sidebar.js" />
     <Content Include="Web.config" />
+    <Content Include="WFEnviarCorreo.aspx" />
+    <Content Include="WFCambiarContrasena.aspx" />
     <Content Include="WFAnamnensis.aspx" />
     <Content Include="WFAnimals.aspx" />
     <Content Include="WFAppointments.aspx" />
@@ -119,6 +121,20 @@
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WFEnviarCorreo.aspx.cs">
+      <DependentUpon>WFEnviarCorreo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFEnviarCorreo.aspx.designer.cs">
+      <DependentUpon>WFEnviarCorreo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFCambiarContrasena.aspx.cs">
+      <DependentUpon>WFCambiarContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFCambiarContrasena.aspx.designer.cs">
+      <DependentUpon>WFCambiarContrasena.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WFAnamnensis.aspx.cs">
       <DependentUpon>WFAnamnensis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

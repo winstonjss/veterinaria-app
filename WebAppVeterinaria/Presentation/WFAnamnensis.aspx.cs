@@ -78,9 +78,9 @@ namespace Presentation
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            
-            
-                _fkAppointment = Convert.ToInt32(DDLAppointments.SelectedValue);
+
+            string selectedCountries = hdnSelectedCountries.Value;
+            _fkAppointment = Convert.ToInt32(DDLAppointments.SelectedValue);
                 _description = TBDescription.Text;
                 executed = objAnam.saveAnamnesis(_description, _fkAppointment);
                 if (executed)

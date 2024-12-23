@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -70,6 +71,15 @@
                 </div>
             </div>
         </div>
+        <br />
+            <select name="countries" id="countries" multiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+</select>
+                    <asp:HiddenField ID="hdnSelectedCountries" runat="server" ClientIDMode="Static" />
 
        <!-- Botones Guardar y Actualizar -->
 <div class="text-center mt-4">
@@ -121,8 +131,6 @@
                     <thead class="table-dark text-center">
                         <tr>
 
-
-
                             <th>ID</th>
                             <th>Descripción</th>
                             <th>ID Cita</th>
@@ -138,11 +146,15 @@
         </div>
     </asp:Panel>
 
-
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
     <script src="resources/js/datatables.min.js" type="text/javascript"></script>
     <%--Anamnesis--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            //var multiSelectTag = new MultiSelectTag('countries');
+             // Aquí colocas tu valor dinámico
+
+
             const showEditButton = '<%= _showEditButton %>' === 'True';
             const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
             var table = $('#AnamnesisTable').DataTable({
@@ -236,4 +248,27 @@
             });
         }
     </script>
+
+    <script>
+        new MultiSelectTag('countries', {
+            rounded: true,    // default true
+            shadow: true,      // default false
+            placeholder: 'Search',  // default Search...
+            tagColor: {
+                textColor: '#327b2c',
+                borderColor: '#92e681',
+                bgColor: '#eaffe6',
+            },
+            onChange: function (values) {
+                var selectedCountries = Array.from(
+                    document.getElementById('countries').selectedOptions
+                ).map(option => option.value).join(',');
+
+                document.getElementById('<%=hdnSelectedCountries.ClientID%>').value = selectedCountries;
+            }
+        })
+
+        // Añade el evento de cambio
+        document.getElementById('countries').addEventListener('change', updateSelectedCountries);
+</script>
 </asp:Content>

@@ -25,6 +25,8 @@ namespace Presentation
         public bool _showEditButton { get; set; } = false;
         public bool _showDeleteButton { get; set; } = false;
 
+        public bool _showMostrarHorariosButton { get; set; } = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,12 +37,13 @@ namespace Presentation
                 TBHoraFin.Text = DateTime.Now.ToString("HH:mm");
                 BtnSave.Visible = false;
                 BtnUpdate.Visible = false;
+                BtnMostrarHorarios.Visible = false;
                 FrmAppointments.Visible = false;
                 PanelAdmin.Visible = false;
                 showAnimalsDDL();
                 showVeterinariansDDL();
             }
-            validatePermissionRol();
+           validatePermissionRol();
         }
 
         [WebMethod]
@@ -134,6 +137,7 @@ namespace Presentation
                         case "MOSTRAR":
                             //lblMsg.Text += " Tienes permiso de Mostrar!";
                             PanelAdmin.Visible = true;
+                            _showMostrarHorariosButton = true;
                             break;
                         case "ELIMINAR":
                             //lblMsg.Text += " Tienes permiso de Eliminar!";
@@ -175,6 +179,7 @@ namespace Presentation
                             break;
                         case "MOSTRAR":
                             //lblMsg.Text += " Tienes permiso de Mostrar!";
+                            _showMostrarHorariosButton = true;
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
@@ -215,6 +220,7 @@ namespace Presentation
                             _showEditButton = true;
                             break;
                         case "MOSTRAR":
+                            _showMostrarHorariosButton = true;
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
@@ -261,6 +267,7 @@ namespace Presentation
                             _showEditButton = false;
                             break;
                         case "MOSTRAR":
+                            _showMostrarHorariosButton = true;
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
@@ -302,6 +309,7 @@ namespace Presentation
                 lblMsg.Text = "erorr al guardar";
             }
         }
+
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {

@@ -138,11 +138,19 @@
                 Text="Actualizar"
                 OnClick="BtnUpdate_Click"
                 CssClass="btn btn-primary mx-2" />
+            <asp:Button 
+                ID="BtnMostrarHorarios" 
+                runat="server" 
+                Text="Horarios veterinarios" 
+                CssClass="btn btn-secondary mx-2"
+                OnClientClick="abrirVentanaEmergente(); 
+                return false;" />
             <asp:Label
                 ID="lblMsg"
                 runat="server"
                 Text=""
                 CssClass="form-text text-info"></asp:Label>
+            
         </div>
 
     </form>
@@ -189,6 +197,7 @@
         $(document).ready(function () {
             const showEditButton = '<%= _showEditButton %>' === 'True';
             const showDeleteButton = '<%= _showDeleteButton %>' === 'True';
+            const showMostrarHorariosButton = '<%= _showMostrarHorariosButton %>' === 'True';
             $('#appoitmentsTable').DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -292,4 +301,11 @@
             });
         }
     </script>
+
+    <script type="text/javascript">
+        function abrirVentanaEmergente() {
+            window.open('WFVeterinaryHours.aspx', 'Formulario',
+                'width=600,height=400,resizable=yes,scrollbars=yes');
+        }
+</script>
 </asp:Content>

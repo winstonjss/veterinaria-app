@@ -73,6 +73,11 @@
                 <asp:Button ID="BtnUpdate" CssClass="btn btn-primary" runat="server" Text="Cambiar contraseña" OnClick="BtnEnviarCorreo" />
             </div>
 
+            <div class="d-grid gap-2">
+               
+                <a class="btn btn-primary" href="Default.aspx" role="button">Regresar al inicio</a>
+            </div>
+
             <asp:Label ID="LblMsg" CssClass="form-label text-danger mt-3" runat="server" Text=""></asp:Label>
         </form>
     </div>

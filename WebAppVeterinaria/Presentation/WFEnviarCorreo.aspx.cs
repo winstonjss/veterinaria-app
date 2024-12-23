@@ -32,37 +32,43 @@ namespace Presentation
 
         }
 
-        protected void BtnUpdate_Click(object sender, EventArgs e)
-        {
-            _correo = TBCorreo.Text;
-            metodoEnviarCorreo(_correo);
-            
-        }
-
         public void metodoEnviarCorreo(string userEmail)
         {
             try
             {
-                GenerateSecureToken tokenGenerator = new GenerateSecureToken();
+                int validateEmail = tokenLog.validateEmail(userEmail);
+                if (validateEmail == 1) {
+                    GenerateSecureToken tokenGenerator = new GenerateSecureToken();
 
-                PasswordResetToken resetToken = tokenGenerator.GeneratePasswordResetToken();
+                    PasswordResetToken resetToken = tokenGenerator.GeneratePasswordResetToken();
 
-                tokenGenerator.SendPasswordResetEmail(userEmail, resetToken.Token);
+                    tokenGenerator.SendPasswordResetEmail(userEmail, resetToken.Token);
 
-                DateTime tokenDateGeneration = DateTime.Now;
+                    DateTime tokenDateGeneration = DateTime.Now;
 
-                DateTime tokenDateExpiration = tokenDateGeneration.AddHours(1);
+                    DateTime tokenDateExpiration = tokenDateGeneration.AddHours(1);
 
-                tokenLog.saveToken(resetToken.Token, _correo, tokenDateGeneration, tokenDateExpiration);
+                    tokenLog.saveToken(resetToken.Token, _correo, tokenDateGeneration, tokenDateExpiration);
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                        "swal('Enviado', 'Se ha enviado el correo para la recuperación de contraseña', 'success')", true);
+                }
+                else {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                        "swal('Enviado', 'Se ha enviado el correo para la recuperación de contraseña', 'success')", true);
+                }
             }
             catch (Exception e)
             {
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
-                    "swal('Error', 'Error al enviar el correo electronico', 'error')", true);
-                Console.WriteLine("Error " + e.ToString());
+                    "swal('Error', 'Error al enviar el correo electronico', 'error')", true);                
             }
 
         }
 
+        protected void BtnEnviarCorreo(object sender, EventArgs e)
+        {
+            _correo = TBCorreo.Text;
+            metodoEnviarCorreo(_correo);
+        }
     }
 }

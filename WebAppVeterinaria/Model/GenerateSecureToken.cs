@@ -23,7 +23,11 @@ namespace Model
             {
                 var tokenData = new byte[length];
                 rng.GetBytes(tokenData);
-                return Convert.ToBase64String(tokenData);
+
+                // Codificar en Base64 y convertir al formato URL-safe
+                string base64Token = Convert.ToBase64String(tokenData);
+                string urlSafeToken = base64Token.Replace("+", "-").Replace("/", "_").TrimEnd('=');
+                return urlSafeToken;
             }
         }
 
@@ -60,7 +64,7 @@ namespace Model
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("enviarcorreodemo@gmail.com", "dwgr hcnc uuqp glha"), // Cambia a tus credenciales
+                Credentials = new NetworkCredential("enviarcorreodemo@gmail.com", "mjvy bdfo udgu zzxf"), // Cambia a tus credenciales
                 EnableSsl = true
             };
 

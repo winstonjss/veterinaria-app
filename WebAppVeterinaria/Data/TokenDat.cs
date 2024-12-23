@@ -53,7 +53,7 @@ namespace Data
             objSelectCmd.CommandText = "spShowTokenByHash"; // Nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objAdapter.SelectCommand = objSelectCmd;
-            objSelectCmd.Parameters.Add("p_token_hash", MySqlDbType.Int32).Value = hash;
+            objSelectCmd.Parameters.Add("p_token_hash", MySqlDbType.Text).Value = hash;
             objAdapter.Fill(objData);
             objPer.closeConnection();
             return objData;
@@ -80,7 +80,7 @@ namespace Data
 
             // Obtener el valor del parámetro de salida
             totalUsers = Convert.ToInt32(objSelectCmd.Parameters["@p_is_expired"].Value);
-
+            objPer.closeConnection();
             return totalUsers;
         }
 
@@ -104,7 +104,7 @@ namespace Data
 
             // Obtener el valor del parámetro de salida
             totalUsers = Convert.ToInt32(objSelectCmd.Parameters["@p_existe"].Value);
-
+            objPer.closeConnection();
             return totalUsers;
         }
 
@@ -120,8 +120,8 @@ namespace Data
 
             // Se agregan parámetros al comando para pasar los valores del propietario.
             objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
-            objSelectCmd.Parameters.Add("p_nueva_contrasena", MySqlDbType.VarString).Value = salt;
-            objSelectCmd.Parameters.Add("p_nuevo_salt", MySqlDbType.Int32).Value = password;
+            objSelectCmd.Parameters.Add("p_nueva_contrasena", MySqlDbType.Text).Value = password;
+            objSelectCmd.Parameters.Add("p_nuevo_salt", MySqlDbType.Text).Value = salt;
 
             try
             {

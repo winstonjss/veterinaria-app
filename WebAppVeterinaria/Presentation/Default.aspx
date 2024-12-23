@@ -76,14 +76,11 @@
                     <asp:Label ID="Label2" CssClass="form-label" runat="server" Text="Contraseña"></asp:Label>
                     <asp:TextBox ID="TBContrasena" CssClass="form-control" TextMode="Password" runat="server" required="true"></asp:TextBox>
                 </div>
-
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Olvidó su contraseña?</label>
-                </div>
+     
 
                 <div class="d-grid gap-2">
                     <asp:Button ID="BtnIniciar" CssClass="btn btn-primary" runat="server" Text="Iniciar sesión" OnClientClick="return showLoading();" OnClick="BtnIniciar_Click" />
+                    <a class="btn btn-primary" href="WFEnviarCorreo.aspx" role="button">¿Olvido su contraseña?</a>
                 </div>
 
                 <asp:Label ID="LblMsg" CssClass="form-label text-danger mt-3" runat="server" Text=""></asp:Label>

@@ -90,12 +90,15 @@ namespace Presentation
             executed = objTrea.saveTratamiento(_name, _description, _startDate, _endDate, _fkDiagnoses);
             if (executed)
             {
-                lblMsg.Text = "se guardo el tratamiento";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se registró exitosamente el tratamiento', 'success')", true);
 
+                clear();
             }
             else
             {
-                lblMsg.Text = "error al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -116,12 +119,14 @@ namespace Presentation
             executed = objTrea.updateTratamiento(_id, _name, _description, _startDate, _endDate, _fkDiagnoses);
             if (executed)
             {
-                lblMsg.Text = "se actualizo el tratamiento";
-
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se actualizó exitosamente el tratamiento', 'success')", true);
+                clear();
             }
             else
             {
-                lblMsg.Text = "error al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
         [WebMethod]

@@ -88,12 +88,15 @@ namespace Presentation
             executed = objDiag.saveDiagnostico(_clasification, _code, _fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo diagnostico";
-                showAnamnesisDDL();
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                       "swal('Exitoso', 'Se registró exitosamente', 'success')", true);
+
+                clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -113,12 +116,14 @@ namespace Presentation
             executed = objDiag.updateDiagnostico(_id, _clasification, _code, _fkAnemnesis);
             if (executed)
             {
-                lblMsg.Text = "se guardo diagnostico";
-                showAnamnesisDDL();
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                       "swal('Exitoso', 'Se actualizó exitosamente', 'success')", true);
+                clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
         [WebMethod]

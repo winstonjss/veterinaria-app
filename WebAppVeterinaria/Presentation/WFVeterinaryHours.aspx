@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFVeterinaryHours.aspx.cs" Inherits="Presentation.WFVeterinaryHours" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
@@ -245,9 +246,27 @@
             // Eliminar un horarios de veterinario
             $('#veterinaryhoursTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del horarios de veterinario
-                if (confirm("¿Estás seguro de que deseas eliminar este horario de veterinario?")) {
-                    deleteVeterinaryHours(id);// Invoca a la función para eliminar el horarios de veterinario
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este horario de veterinario?")) {
+                //    deleteVeterinaryHours(id);// Invoca a la función para eliminar el horarios de veterinario
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteVeterinaryHours(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -270,10 +289,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#veterinaryhoursTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Horario de veterinario eliminado exitosamente.");
+                    /*alert("Horario de veterinario eliminado exitosamente.");*/
+                    swal('Exitoso', 'Horario de veterinario eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el horario de veterinario.");
+                    /*alert("Error al eliminar el horario de veterinario.");*/
+                    swal('Error', 'Error al eliminar el horario de veterinario', 'error');
                 }
             });
         }

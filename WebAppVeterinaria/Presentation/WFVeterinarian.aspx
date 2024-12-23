@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFVeterinarian.aspx.cs" Inherits="Presentation.WFVeterinarian" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
@@ -228,9 +229,27 @@
             // Eliminar un veterinario
             $('#veterinariansTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del veterinario
-                if (confirm("¿Estás seguro de que deseas eliminar este veterinario?")) {
-                    deleteVeterinarian(id);// Invoca a la función para eliminar el veterinario
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este veterinario?")) {
+                //    deleteVeterinarian(id);// Invoca a la función para eliminar el veterinario
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteVeterinarian(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -252,10 +271,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#veterinariansTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Veterinario eliminado exitosamente.");
+                    /* alert("Veterinario eliminado exitosamente.");*/
+                    swal('Exitoso', 'Veterinario eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el veterinario.");
+                    /* alert("Error al eliminar el veterinario.");*/
+                    swal('Error', 'Error al eliminar el veterinario', 'error');
                 }
             });
         }

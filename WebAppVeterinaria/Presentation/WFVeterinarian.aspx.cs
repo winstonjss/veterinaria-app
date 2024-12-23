@@ -141,13 +141,16 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "El veterinario se guardo exitosamente!";
-                clear(); //Se invoca el metodo para limpiar los campos 
-                //showVeterinarian();
+                //LblMsg.Text = "El veterinario se guardo exitosamente!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'El veterinario se guardo exitosamente', 'success')", true);
+
+                clear();
             }
             else
             {
-                LblMsg.Text = "Error al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -171,12 +174,15 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "El veterinario se actualizo exitosamente!";
-                clear(); //Se invoca el metodo para limpiar los campos 
+                //LblMsg.Text = "El veterinario se actualizo exitosamente!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                     "swal('Exitoso', 'El veterinario se actualizo exitosamente!', 'success')", true);
+                clear();
             }
             else
             {
-                LblMsg.Text = "Error al actualizar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
 

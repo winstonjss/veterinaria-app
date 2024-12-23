@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFRol.aspx.cs" Inherits="Presentation.WFRol" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <%--estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -40,7 +41,7 @@
                 CssClass="form-text text-danger"></asp:RequiredFieldValidator>
         </div>
 
-        <!-- Descripción del Rol -->
+       <!-- Descripción del Rol -->
         <div class="mb-3">
             <asp:Label
                 ID="Label2"
@@ -60,7 +61,7 @@
                 ErrorMessage="Este campo es obligatorio"
                 CssClass="form-text text-danger"></asp:RequiredFieldValidator>
         </div>
-
+        
         <!-- Botones Guardar y Actualizar -->
         <div class="text-center mt-4">
             <asp:Button
@@ -183,9 +184,27 @@
             // Eliminar un Rol
             $('#rolTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del Rol
-                if (confirm("¿Estás seguro de que deseas eliminar este Rol ?")) {
-                    deleterol(id);// Invoca a la función para eliminar el rol
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este Rol ?")) {
+                //    deleterol(id);// Invoca a la función para eliminar el rol
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleterol(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -206,10 +225,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#rolTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Rol eliminado exitosamente.");
+                    /*alert("Rol eliminado exitosamente.");*/
+                    swal('Exitoso', 'Rol eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Rol .");
+                    /*alert("Error al eliminar el Rol .");*/
+                    swal('Error', 'Error al eliminar el Rol', 'error');
                 }
             });
         }

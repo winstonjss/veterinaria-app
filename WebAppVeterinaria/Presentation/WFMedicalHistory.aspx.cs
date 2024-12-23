@@ -272,11 +272,15 @@ namespace Presentation
             executed = objMed.saveMedicalHistoryByDateId(_fkAppoitment, _medicalHistoryDate);
             if (executed)
             {
-                lblMsg.Text = "se guardo la historia clinica";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                     "swal('Exitoso', 'Se registró la historia clinica', 'success')", true);
+
+                clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar la historia clinica', 'error')", true);
             }
         }
 
@@ -284,7 +288,7 @@ namespace Presentation
         {
             if (string.IsNullOrEmpty(HFMedicalHistoryID.Value))
             {
-                lblMsg.Text = "No se ha seleccionado un producto para actualizar.";
+                lblMsg.Text = "No se ha seleccionado una historia clinica para actualizar.";
                 return;
             }
 
@@ -296,11 +300,14 @@ namespace Presentation
                 _fkAppoitment);
             if (executed)
             {
-                lblMsg.Text = "se guardo la historia clinica";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                   "swal('Exitoso', 'Se actualizó exitosamente la historia clinica', 'success')", true);
+                clear();
             }
             else
             {
-                lblMsg.Text = "erorr al guardar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar la historia clinica', 'error')", true);
             }
         }
 

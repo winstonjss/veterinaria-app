@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFPermission.aspx.cs" Inherits="Presentation.WFPermission" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <%--Estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -183,9 +184,27 @@
             // Eliminar un Permiso
             $('#permisoTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del Permiso
-                if (confirm("¿Estás seguro de que deseas eliminar este Permiso ?")) {
-                    deletepermission(id);// Invoca a la función para eliminar el permiso
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este Permiso ?")) {
+                //    deletepermission(id);// Invoca a la función para eliminar el permiso
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deletepermission(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -206,10 +225,13 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#permisoTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Permiso eliminado exitosamente.");
+                    /* alert("Permiso eliminado exitosamente.");*/
+                    swal('Exitoso', 'Permiso eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Permiso .");
+                    /* alert("Error al eliminar el Permiso .");*/
+                    swal('Error', 'Error al eliminar', 'error');
+
                 }
             });
         }

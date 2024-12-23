@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFVaccines.aspx.cs" Inherits="Presentation.WFVaccines" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -223,9 +224,26 @@
             // Eliminar un Vacuna
             $('#VaccinesTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del vacuna
-                if (confirm("¿Estás seguro de que deseas eliminar este Vacuna?")) {
-                    deleteVaccines(id);// Invoca a la función para eliminar el vacuna
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este Vacuna?")) {
+                //    deleteVaccines(id);// Invoca a la función para eliminar el vacuna
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteVaccines(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
             });
         });
 
@@ -247,10 +265,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#VaccinesTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Vacuna eliminado exitosamente.");
+                    /*alert("Vacuna eliminado exitosamente.");*/
+                    swal('Exitoso', 'Vacuna eliminada exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Vacuna.");
+                    /*alert("Error al eliminar el Vacuna.");*/
+                    swal('Error', 'Error al eliminar el Vacuna', 'error');
                 }
             });
         }

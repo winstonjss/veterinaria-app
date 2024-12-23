@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFAnamnensis.aspx.cs" Inherits="Presentation.WFAnamnensis" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ <%--estilos--%>
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
 </asp:Content>
@@ -217,9 +221,28 @@
 
             $('#AnamnesisTable').on('click', '.delete-btn', function () {
                 var id = $(this).data('id');
-                if (confirm("¿Estás seguro de que deseas eliminar este Anamnesis?")) {
-                    deleteAnamnesis(id);
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este Anamnesis?")) {
+                //    deleteAnamnesis(id);
+
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteAnamnesis(id);// Invoca a la función para eliminar el consultorio
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -238,13 +261,15 @@
                 success: function (response) {
                     if (response.d) {
                         $('#AnamnesisTable').DataTable().ajax.reload();
-                        alert("Anamnesis eliminado exitosamente.");
+                        
+                        swal('Exitoso', 'Se eliminó el registro', 'success');
                     } else {
-                        alert("Error al eliminar el Anamnesis.");
+                        swal('Error', 'Error al eliminar', 'error');
                     }
                 },
                 error: function () {
-                    alert("Error al eliminar el Anamnesis.");   }
+                    swal('Error', 'Error al eliminar', 'error');
+                }
             });
         }
     </script>

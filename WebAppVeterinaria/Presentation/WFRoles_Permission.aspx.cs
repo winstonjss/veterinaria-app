@@ -78,7 +78,6 @@ namespace Presentation
         [WebMethod]
 
 
-
         //Metodo para mostrar los roles DDL
         private void showRolesDDL()
         {
@@ -327,13 +326,15 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se guardó exitosamente ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                      "swal('Exitoso', 'Se registró exitosamente', 'success')", true);
 
                 clear();
             }
             else
             {
-                LblMsg.Text = "Error al guardar ";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al guardar', 'error')", true);
             }
         }
 
@@ -356,12 +357,14 @@ namespace Presentation
 
             if (executed)
             {
-                LblMsg.Text = "Se actualizó correctamente";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                        "swal('Exitoso', 'Se actualizó exitosamente', 'success')", true);
                 clear();
             }
             else
             {
-                LblMsg.Text = "Error al actualizar";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar', 'error')", true);
             }
         }
 

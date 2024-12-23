@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFTreatment.aspx.cs" Inherits="Presentation.WFTreatment" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
     <link href="resources/css/datatables.min.css" rel="stylesheet" />
 </asp:Content>
@@ -230,9 +232,27 @@
             // Eliminar un Tratamiento
             $('#TreatmentsTable').on('click', '.delete-btn', function () {
                 const id = $(this).data('id');// Obtener el ID del producto
-                if (confirm("¿Estás seguro de que deseas eliminar este tratamiento?")) {
-                    deleteTreatment(id);// Invoca a la función para eliminar el producto
-                }
+                //if (confirm("¿Estás seguro de que deseas eliminar este tratamiento?")) {
+                //    deleteTreatment(id);// Invoca a la función para eliminar el producto
+                //}
+                swal({
+                    title: "Esta seguro?",
+                    text: "Precaución se eliminará permanentemente!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            deleteTreatment(id);// Invoca a la función para eliminar 
+                            swal("Poof! Eliminado exitosamente!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("No se eliminó el registro!");
+                        }
+                    });
+
             });
         });
 
@@ -255,10 +275,12 @@
                 data: JSON.stringify({ id: id }),
                 success: function (response) {
                     $('#TreatmentsTable').DataTable().ajax.reload();// Recargar la tabla después de eliminar
-                    alert("Tratamiento eliminado exitosamente.");
+                    /*alert("Tratamiento eliminado exitosamente.");*/
+                    swal('Exitoso', 'Tratamiento eliminado exitosamente', 'success');
                 },
                 error: function () {
-                    alert("Error al eliminar el Tratamiento.");
+                    /*alert("Error al eliminar el Tratamiento.");*/
+                    swal('Error', 'Error al eliminar el Tratamiento', 'error');
                 }
             });
         }

@@ -85,13 +85,15 @@ namespace Presentation
                 executed = objAnam.saveAnamnesis(_description, _fkAppointment);
                 if (executed)
                 {
-                    lblMsg.Text = "Se guardó anamnesis correctamente.";
-                    ClearForm();
-                }
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                 "swal('Exitoso', 'Se registró exitosamente la anamnesis', 'success')", true);
+                ClearForm();
+            }
                 else
                 {
-                    lblMsg.Text = "Error al guardar anamnesis.";
-                }
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                "swal('Error', 'Error al guardar la anamnesis', 'error')", true);
+            }
             
             
         }
@@ -109,13 +111,15 @@ namespace Presentation
             executed = objAnam.updateAnamnesis(anamnesisId, _description, _fkAppointment);
             if (executed)
             {
-                lblMsg.Text = "Se actualizó anamnesis correctamente.";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Exitoso', 'Se actualizó exitosamente anamnesis', 'success')", true);
 
                 ClearForm();
             }
             else
             {
-                lblMsg.Text = "Error al actualizar anamnesis.";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                    "swal('Error', 'Error al actualizar anamnesis', 'error')", true);
             }
         }
 

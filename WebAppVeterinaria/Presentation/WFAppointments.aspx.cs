@@ -138,6 +138,7 @@ namespace Presentation
                             //lblMsg.Text += " Tienes permiso de Mostrar!";
                             PanelAdmin.Visible = true;
                             _showMostrarHorariosButton = true;
+                            BtnMostrarHorarios.Visible = true;
                             break;
                         case "ELIMINAR":
                             //lblMsg.Text += " Tienes permiso de Eliminar!";
@@ -180,6 +181,7 @@ namespace Presentation
                         case "MOSTRAR":
                             //lblMsg.Text += " Tienes permiso de Mostrar!";
                             _showMostrarHorariosButton = true;
+                            BtnMostrarHorarios.Visible = true;
                             PanelAdmin.Visible = true;
                             break;
                         case "ELIMINAR":
@@ -222,6 +224,7 @@ namespace Presentation
                         case "MOSTRAR":
                             _showMostrarHorariosButton = true;
                             PanelAdmin.Visible = true;
+                            BtnMostrarHorarios.Visible = true;
                             break;
                         case "ELIMINAR":
                             //PanelAdmin.Visible = true;
@@ -269,6 +272,7 @@ namespace Presentation
                         case "MOSTRAR":
                             _showMostrarHorariosButton = true;
                             PanelAdmin.Visible = true;
+                            BtnMostrarHorarios.Visible = true;
                             break;
                         case "ELIMINAR":
                             //PanelAdmin.Visible = false;

@@ -76,13 +76,8 @@
             </div>
         </div>
         <br />
-            <select name="countries" id="countries" multiple>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-</select>
+            <select name="countries" id="Countries" multiple>
+	    </select>
                     <asp:HiddenField ID="hdnSelectedCountries" runat="server" ClientIDMode="Static" />
 
        <!-- Botones Guardar y Actualizar -->
@@ -294,6 +289,10 @@
         })
 
         // Añade el evento de cambio
-        document.getElementById('countries').addEventListener('change', updateSelectedCountries);
+        document.getElementById('countries').addEventListener('change', updateSelectedCountries).style.display = 'none';
+</script>
+<script>
+    // Para ocultarlo completamente con JavaScript
+    document.getElementById('Countries').style.display = 'none';
 </script>
 </asp:Content>

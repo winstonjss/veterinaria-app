@@ -57,7 +57,7 @@
                     <asp:Label
                         ID="Label5"
                         runat="server"
-                        Text="Seleccione la anamnesis:"
+                        Text="Seleccione la cita:"
                         CssClass="form-label fw-bold"></asp:Label>
                     <asp:DropDownList
                         ID="DDLAppointments"
@@ -69,7 +69,7 @@
                         runat="server"
                         ControlToValidate="DDLAppointments"
                         InitialValue="0"
-                        ErrorMessage="Debes seleccionar una anamnesis."
+                        ErrorMessage="Debes seleccionar una cita."
                         ForeColor="Red"
                         CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                 </div>
